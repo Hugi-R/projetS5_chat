@@ -1,8 +1,6 @@
 package content;
 
-import communication.Jsonify;
-
-public class Ticket extends Content implements Jsonify {
+public class Ticket extends Content{
 
 	@Override
 	public String toJson() {

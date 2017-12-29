@@ -1,8 +1,6 @@
 package content;
 
-import communication.Jsonify;
-
-public class Group extends Content implements Jsonify{
+public class Group extends Content{
 
 	@Override
 	public String toJson() {

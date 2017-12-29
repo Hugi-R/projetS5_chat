@@ -12,7 +12,7 @@ public class UserList {
 		if(users.containsKey(id)) {
 			ret = users.get(id);
 		} else {
-			//TODO retrieve user data from server
+			//TODO retrieve data from server
 		}
 		return ret;
 		
