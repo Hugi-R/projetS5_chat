@@ -1,5 +1,7 @@
 package content;
 
+import communication.Jsonify;
+
 public class Message implements Jsonify {
 
 	@Override

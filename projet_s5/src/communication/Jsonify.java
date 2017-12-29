@@ -1,4 +1,4 @@
-package content;
+package communication;
 
 public interface Jsonify {
 	

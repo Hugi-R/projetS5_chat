@@ -1,5 +1,7 @@
 package content;
 
+import communication.Jsonify;
+
 public class Ticket implements Jsonify {
 
 	@Override
