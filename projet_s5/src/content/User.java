@@ -2,7 +2,7 @@ package content;
 
 import communication.Jsonify;
 
-public class User implements Jsonify{
+public class User extends Content implements Jsonify{
 
 	@Override
 	public String toJson() {
@@ -11,9 +11,8 @@ public class User implements Jsonify{
 	}
 
 	@Override
-	public String fromJson(String json) {
+	public void fromJson(String json) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
