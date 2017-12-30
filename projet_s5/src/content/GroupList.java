@@ -2,8 +2,6 @@ package content;
 
 import java.util.HashMap;
 
-import communication.Id;
-
 public class GroupList {
 	private static HashMap<Id, Group> groups = new HashMap<>();
 	

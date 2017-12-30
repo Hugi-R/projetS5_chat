@@ -2,8 +2,6 @@ package content;
 
 import java.util.HashMap;
 
-import communication.Id;
-
 public class TicketList {
 	private static HashMap<Id, Ticket> tickets = new HashMap<>();
 	

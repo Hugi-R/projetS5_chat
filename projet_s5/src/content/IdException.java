@@ -1,4 +1,4 @@
-package communication;
+package content;
 
 public class IdException extends Exception {
 

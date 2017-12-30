@@ -3,10 +3,6 @@ package content;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 
-import communication.ContentException;
-import communication.Id;
-import communication.IdException;
-
 public class Message extends Content {
 	private String textMessage;
 	private User user;

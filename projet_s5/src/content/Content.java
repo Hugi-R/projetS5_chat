@@ -1,9 +1,5 @@
 package content;
 
-import communication.ContentException;
-import communication.Id;
-import communication.IdException;
-
 public abstract class Content {
 	protected Id id;
 	

@@ -1,4 +1,4 @@
-package communication;
+package client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class CommunicatorClient {
 	}
 	
 	public void send(String data) throws IOException{
-		if((socket != null) && (socket.isClosed() || !socket.isConnected())) {
+		if((socket == null) || (socket.isClosed() || !socket.isConnected())) {
 			open();
 		}
 		out.println(data);

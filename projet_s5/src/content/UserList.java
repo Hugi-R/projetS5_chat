@@ -2,8 +2,6 @@ package content;
 
 import java.util.HashMap;
 
-import communication.Id;
-
 public class UserList {
 	private static HashMap<Id, User> users = new HashMap<>();
 	
