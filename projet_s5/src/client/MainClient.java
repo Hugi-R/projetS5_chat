@@ -8,9 +8,9 @@ public class MainClient {
 		System.out.println("Lancement du client");
 		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
 		try {
-				comm.send("Hello");
+			for(int i = 0; i< 10; i++)
+				comm.send("Hello "+i);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			comm.close();
