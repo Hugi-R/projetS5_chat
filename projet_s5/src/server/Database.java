@@ -1,14 +1,14 @@
 package server;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Database {
 	private static Connection conn = null;
-	private static java.sql.Statement state ;
-	private static String sql;
+	private static java.sql.Statement state = null ;
+	private static Add add = new Add();
+	private static Delete delete = new Delete();
+	
 	public static int start(String url , String user , String passwd) {
 		int i =0;
 		try {
@@ -25,38 +25,37 @@ public class Database {
 			i=1;
 		}
 		return i;
-		
 	}
-	public static int addgroup (long val , String nom) {
-		int i = 0 ;
-		String sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+val+"','"+nom+"');";	
-		try {
-			i = state.executeUpdate(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static boolean isStarted() {
+		if (state == null) {
+			System.out.println("la connection n'a pas été établie");
+			return false;
 		}
-		return i;
+		return true ;
 	}
-	public static int deletegroup (long val ) {
-		int i= 0;
-		sql = "DELETE FROM groupe where  idGroupe='"+val+"';";
-		try {
-			i = state.executeUpdate(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return i;
+	public static int addgroup(long val, String nom){
+		if (isStarted())
+			return add.addgroup(val,nom,state);
+		else
+			return -1;
 	}
+	
+	public static int deletegroup (long val) {
+		if (isStarted())
+			return delete.deletegroup(val, state);
+		else
+			return -1;
+	}
+	
 	public static void main(String[] args) {
 		String url = "jdbc:mysql://localhost:3306/projet";
 		String user = "root";
 		String passwd = "";
 		start(url,user,passwd);
 		String groupe = "sfhj";
-		long val = 0 ;
-		System.out.println(deletegroup(val));
+		long val = 05655;
+		System.out.println(addgroup(val,groupe));
+		
 	}
 
 }
