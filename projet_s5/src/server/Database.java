@@ -53,7 +53,7 @@ public class Database {
 		String passwd = "";
 		start(url,user,passwd);
 		String groupe = "sfhj";
-		long val = 05655;
+		long val = 05645;
 		System.out.println(addgroup(val,groupe));
 		
 	}
