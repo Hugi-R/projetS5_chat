@@ -3,6 +3,8 @@ package server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import client.Categorie;
+
 public class Database {
 	private static Connection conn = null;
 	private static java.sql.Statement state = null ;
@@ -26,6 +28,7 @@ public class Database {
 		}
 		return i;
 	}
+	
 	public static boolean isStarted() {
 		if (state == null) {
 			System.out.println("la connection n'a pas été établie");
@@ -33,11 +36,18 @@ public class Database {
 		}
 		return true ;
 	}
+	
 	public static int addgroup(long val, String nom){
 		if (isStarted())
-			return add.addgroup(val,nom,state);
+			return add.addGroup(val,nom,state);
 		else
 			return -1;
+	}
+	public static int addutilisateur(long id, String motDePasse, String nomUtilisateur ,String prenom ,Categorie categorie){
+			if (isStarted())
+				return add.addUtilisateur(id, motDePasse, nomUtilisateur, prenom, categorie, state);
+			else
+				return -1;
 	}
 	
 	public static int deletegroup (long val) {
@@ -53,8 +63,11 @@ public class Database {
 		String passwd = "";
 		start(url,user,passwd);
 		String groupe = "sfhj";
-		long val = 05655;
-		System.out.println(addgroup(val,groupe));
+		long val = 056452217666555L;
+		String prenom= "sdfghj";
+		String motDePasse = "ret5e";
+		Categorie cat = Categorie.ETUDIANT;
+		System.out.println(addutilisateur(val,motDePasse,groupe,prenom,cat) );
 		
 	}
 
