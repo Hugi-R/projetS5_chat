@@ -1,6 +1,13 @@
 package content;
 
+import com.eclipsesource.json.JsonObject;
+
 public class Group extends Content{
+
+	public Group(Id id) {
+		super(id);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toJson() {
@@ -9,7 +16,7 @@ public class Group extends Content{
 	}
 
 	@Override
-	public void fromJson(String json) {
+	public void fromJson(JsonObject jobj) {
 		// TODO Auto-generated method stub
 	}
 	
