@@ -2,12 +2,11 @@ package client;
 
 import java.io.IOException;
 
-import content.ContentType;
-import content.Id;
-import content.IdException;
-import content.Message;
-import content.Ticket;
-import content.User;
+import packet.ContentType;
+import packet.Id;
+import packet.Message;
+import packet.Ticket;
+import packet.User;
 
 public class MainClient {
 
@@ -16,12 +15,12 @@ public class MainClient {
 		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
 		try {
 			for(int i = 0; i< 3; i++) {
-				User u = new User(new Id(Id.generate(ContentType.USER)));
-				Ticket t = new Ticket(new Id(Id.generate(ContentType.TICKET)));
-				Message message = new Message(new Id(Id.generate(ContentType.MESSAGE)), u, t, 1000L, "message"+i);
+				User u = new User(Id.generate(ContentType.USER));
+				Ticket t = new Ticket(Id.generate(ContentType.TICKET));
+				Message message = new Message(Id.generate(ContentType.MESSAGE), u.getId(), t.getId(), 1000L, "message"+i);
 				comm.send(message);
 			}
-		} catch (IdException | IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			comm.close();

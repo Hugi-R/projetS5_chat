@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import content.Content;
+import packet.Content;
 
 public class CommunicatorClient {
 	private String server;

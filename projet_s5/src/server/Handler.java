@@ -2,9 +2,10 @@ package server;
 
 import java.io.IOException;
 
-import content.Content;
-import content.ContentType;
-import content.Message;
+import packet.Content;
+import packet.ContentType;
+import packet.Id;
+import packet.Message;
 
 public class Handler implements Runnable{
 	CommunicatorServer comm;
@@ -23,14 +24,13 @@ public class Handler implements Runnable{
 				i++;
 				System.out.println("Attente ...");
 				data = comm.receive();
-				//System.out.println("data : "+data);
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			if(data == null) {
 				comm.close();
 			} else {
-				switch (data.getId().getType()) {
+				switch (Id.type(data.getId())) {
 				case ContentType.MESSAGE :
 					Message m = (Message) data;
 					System.out.println("Message recu : "+m.toString());

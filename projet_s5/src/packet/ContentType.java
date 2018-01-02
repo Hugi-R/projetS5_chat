@@ -1,4 +1,4 @@
-package content;
+package packet;
 
 public class ContentType {
 	public static final byte MESSAGE = 1;

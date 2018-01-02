@@ -1,11 +1,14 @@
-package content;
+package client;
 
 import java.util.HashMap;
 
+import packet.Id;
+import packet.User;
+
 public class UserList {
-	private static HashMap<Id, User> users = new HashMap<>();
+	private HashMap<Id, User> users = new HashMap<>();
 	
-	public static User find(Id id) {
+	public User find(Id id) {
 		User ret = null;
 		if(users.containsKey(id)) {
 			ret = users.get(id);

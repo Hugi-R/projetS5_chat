@@ -1,4 +1,4 @@
-package content;
+package packet;
 
 import java.io.Serializable;
 import java.util.Random;

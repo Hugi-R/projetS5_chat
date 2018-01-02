@@ -1,9 +1,9 @@
-package content;
+package packet;
 
 public class Group extends Content{
 	private static final long serialVersionUID = 8180388956052672819L;
 
-	public Group(Id id) {
+	public Group(long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}

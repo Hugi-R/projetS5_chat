@@ -1,26 +1,26 @@
-package content;
+package packet;
 
 import java.io.Serializable;
 
 public abstract class Content implements Serializable{
 	private static final long serialVersionUID = -3334205753488398387L;
-	protected Id id;
+	protected long id;
 	
-	public Id getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public Content(Id id) {
+	public Content(long id) {
 		this.id = id;
 	}
 	
 	public Content() {
-		id = null;
+		id = 0;
 	}
 	
 	@Override
 	public String toString() {
-		return "{Id : "+id.get()+", ";
+		return "{Id : "+id+", ";
 	}
 
 }
