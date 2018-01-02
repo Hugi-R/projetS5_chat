@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 
+import content.ContentType;
 import content.Id;
 import content.IdException;
 import content.Message;
@@ -14,9 +15,11 @@ public class MainClient {
 		System.out.println("Lancement du client");
 		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
 		try {
-			for(int i = 1; i< 30; i+=10) {
-				Message message = new Message(new Id(i), new User(new Id(i+1)), new Ticket(new Id(i+2)), 1000L, "message"+i);
-				comm.send(message.toJson());
+			for(int i = 0; i< 3; i++) {
+				User u = new User(new Id(Id.generate(ContentType.USER)));
+				Ticket t = new Ticket(new Id(Id.generate(ContentType.TICKET)));
+				Message message = new Message(new Id(Id.generate(ContentType.MESSAGE)), u, t, 1000L, "message"+i);
+				comm.send(message);
 			}
 		} catch (IdException | IOException e) {
 			e.printStackTrace();
@@ -24,6 +27,7 @@ public class MainClient {
 			comm.close();
 		}
 		System.out.println("Fin du client");
+		
 
 	}
 

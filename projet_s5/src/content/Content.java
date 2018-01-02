@@ -1,8 +1,9 @@
 package content;
 
-import com.eclipsesource.json.JsonObject;
+import java.io.Serializable;
 
-public abstract class Content {
+public abstract class Content implements Serializable{
+	private static final long serialVersionUID = -3334205753488398387L;
 	protected Id id;
 	
 	public Id getId() {
@@ -16,20 +17,6 @@ public abstract class Content {
 	public Content() {
 		id = null;
 	}
-	
-	/*
-	 * Json structure : 
-	 * Requiered :
-	 * Type : "name"
-	 * Id   : int
-	 * 
-	 * rest is optional / type dependent
-	 * 
-	 */
-	
-	public abstract String toJson();
-	
-	public abstract void fromJson(JsonObject jobj) throws ContentException, IdException;
 	
 	@Override
 	public String toString() {

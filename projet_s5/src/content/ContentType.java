@@ -1,10 +1,10 @@
 package content;
 
 public class ContentType {
-	public static final String MESSAGE = "message";
-	public static final String USER = "user";
-	public static final String GROUP = "group";
-	public static final String TICKET = "ticket";
+	public static final byte MESSAGE = 1;
+	public static final byte USER = 2;
+	public static final byte GROUP = 3;
+	public static final byte TICKET = 4;
 	
 	private ContentType() {
 		//No constructor

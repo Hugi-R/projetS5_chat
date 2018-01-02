@@ -1,8 +1,7 @@
 package content;
 
-import com.eclipsesource.json.JsonObject;
-
 public class Group extends Content{
+	private static final long serialVersionUID = 8180388956052672819L;
 
 	public Group(Id id) {
 		super(id);
@@ -10,14 +9,8 @@ public class Group extends Content{
 	}
 
 	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void fromJson(JsonObject jobj) {
-		// TODO Auto-generated method stub
+	public String toString() {
+		return super.toString()+" TODO }";
 	}
 	
 

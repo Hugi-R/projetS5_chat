@@ -1,23 +1,16 @@
 package content;
 
-import com.eclipsesource.json.JsonObject;
-
 public class Ticket extends Content{
+	private static final long serialVersionUID = -7044448245749898134L;
 
 	public Ticket(Id id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void fromJson(JsonObject jobj) {
-		// TODO Auto-generated method stub
+	public String toString() {
+		return super.toString()+" TODO }";
 	}
 
 }

@@ -1,23 +1,15 @@
 package content;
 
-import com.eclipsesource.json.JsonObject;
-
 public class User extends Content {
+	private static final long serialVersionUID = 1777039227152623262L;
 
 	public User(Id id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return super.toString()+" TODO }";
 	}
-
-	@Override
-	public void fromJson(JsonObject jobj) {
-		// TODO Auto-generated method stub
-	}
-
 }
