@@ -9,7 +9,6 @@ public class MainServer {
 			Daemon d = new Daemon(3636);
 			d.listen();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(1);
 		}

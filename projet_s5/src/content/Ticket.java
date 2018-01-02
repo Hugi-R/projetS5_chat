@@ -1,16 +1,16 @@
 package content;
 
 public class Ticket extends Content{
+	private static final long serialVersionUID = -7044448245749898134L;
 
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
+	public Ticket(Id id) {
+		super(id);
+		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
-	public void fromJson(String json) {
-		// TODO Auto-generated method stub
+	public String toString() {
+		return super.toString()+" TODO }";
 	}
 
 }

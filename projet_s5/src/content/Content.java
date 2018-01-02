@@ -1,24 +1,26 @@
 package content;
 
-public abstract class Content {
+import java.io.Serializable;
+
+public abstract class Content implements Serializable{
+	private static final long serialVersionUID = -3334205753488398387L;
 	protected Id id;
 	
 	public Id getId() {
 		return id;
 	}
 	
-	/*
-	 * Json structure : 
-	 * Requiered :
-	 * Type : "name"
-	 * Id   : int
-	 * 
-	 * rest is optional / type dependent
-	 * 
-	 */
+	public Content(Id id) {
+		this.id = id;
+	}
 	
-	public abstract String toJson();
+	public Content() {
+		id = null;
+	}
 	
-	public abstract void fromJson(String json) throws ContentException, IdException;
+	@Override
+	public String toString() {
+		return "{Id : "+id.get()+", ";
+	}
 
 }

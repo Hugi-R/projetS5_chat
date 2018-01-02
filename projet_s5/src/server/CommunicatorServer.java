@@ -1,39 +1,44 @@
 package server;
 
-import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import content.Content;
 
 public class CommunicatorServer {
 	private Socket clientSocket;
-	private PrintWriter out;
-	private BufferedReader in;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 	
 	public CommunicatorServer(Socket socket) throws IOException {
 		clientSocket = socket;
-		out = new PrintWriter(clientSocket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		out = new ObjectOutputStream(clientSocket.getOutputStream());
+		in = new ObjectInputStream(clientSocket.getInputStream());
 	}
 	
-	public void send(String data) {
-		out.println(data);
+	public void send(Content data) throws IOException {
+		out.writeObject(data);
 	}
 	
-	public String receive() throws IOException{
-		String data;
-		data = in.readLine();
+	public Content receive() throws ClassNotFoundException, IOException{
+		Content data = null;
+		try {
+			data = (Content) in.readObject();
+		} catch (EOFException e) {
+			data = null;
+		}
 		return data;
 	}
 	
 	public void close() {
-		out.close();
 		try {
+			out.close();
 			in.close();
 			clientSocket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

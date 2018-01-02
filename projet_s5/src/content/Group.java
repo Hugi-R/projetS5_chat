@@ -1,16 +1,16 @@
 package content;
 
 public class Group extends Content{
+	private static final long serialVersionUID = 8180388956052672819L;
 
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
+	public Group(Id id) {
+		super(id);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void fromJson(String json) {
-		// TODO Auto-generated method stub
+	public String toString() {
+		return super.toString()+" TODO }";
 	}
 	
 
