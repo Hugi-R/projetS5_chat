@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import packet.Content;
+import packet.Packet;
 
 public class CommunicatorServer {
 	private Socket clientSocket;
@@ -19,14 +19,14 @@ public class CommunicatorServer {
 		in = new ObjectInputStream(clientSocket.getInputStream());
 	}
 	
-	public void send(Content data) throws IOException {
+	public void send(Packet data) throws IOException {
 		out.writeObject(data);
 	}
 	
-	public Content receive() throws ClassNotFoundException, IOException{
-		Content data = null;
+	public Packet receive() throws ClassNotFoundException, IOException{
+		Packet data = null;
 		try {
-			data = (Content) in.readObject();
+			data = (Packet) in.readObject();
 		} catch (EOFException e) {
 			data = null;
 		}

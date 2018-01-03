@@ -3,33 +3,27 @@ package client;
 import java.io.IOException;
 
 import packet.Commands;
-import packet.ContentType;
 import packet.Message;
-import utils.Id;
+import packet.Packet;
+import packet.Request;
 
 public class MainClient {
 
 	public static void main(String[] args) {
-		/*System.out.println("Lancement du client");
+		System.out.println("Lancement du client");
 		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
 		try {
-			for(int i = 0; i< 3; i++) {
-				long u = Id.generate(ContentType.USER);
-				long t = Id.generate(ContentType.TICKET);
-				Message message = new Message(Commands.SEND, Id.generate(ContentType.MESSAGE), u, t, 1000L, "message"+i);
-				comm.send(message);
-			}
-		} catch (IOException e) {
+			Packet request = new Request(Commands.RETRIEVE, 97506691153493440L);
+			System.out.println("request : "+request);
+			comm.send(request);
+			Message resp = (Message) comm.receive();
+			System.out.println("response : "+resp);
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
 			comm.close();
 		}
-		System.out.println("Fin du client");*/
-		
-		System.out.println(Id.generate(ContentType.USER));
-		System.out.println(Id.generate(ContentType.TICKET));
-		System.out.println(Id.generate(ContentType.MESSAGE));
-		System.out.println(Id.generate(ContentType.GROUP));
+		System.out.println("Fin du client");
 
 	}
 

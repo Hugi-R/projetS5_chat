@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import packet.Commands;
 import packet.Message;
 import packet.User;
 
@@ -73,7 +74,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				m = new Message(idMessage,r.getLong(3),0,r.getLong(2),r.getString(4));
+				m = new Message(Commands.SEND, idMessage, r.getLong(3), 0,r.getLong(2), r.getString(4));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

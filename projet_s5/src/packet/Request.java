@@ -16,5 +16,11 @@ public class Request extends Packet{
 	public long getId() {
 		return id;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString()+" id : "+id+" }";
+	}
 
 }

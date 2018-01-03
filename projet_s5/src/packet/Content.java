@@ -15,7 +15,7 @@ public abstract class Content extends Packet{
 	
 	@Override
 	public String toString() {
-		return "{Id : "+id+", ";
+		return super.toString()+"Id : "+id+", ";
 	}
 
 }
