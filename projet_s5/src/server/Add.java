@@ -31,7 +31,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM groupe WHERE idGroupe= '"+val+"';";
 		if( foundValues(state)) {
-			System.out.println("[KO] le groupe: "+val+" existe deja.");
+			System.err.println("[KO] le groupe: "+val+" existe deja.");
 			return -1;
 		}
 		sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+val+"','"+nom+"');";
@@ -43,7 +43,7 @@ public class Add {
 		int i = 0;
 		sql = "SELECT * FROM utilisateur WHERE idUtilisateur = '"+id+"';";
 		if( foundValues(state)) {
-			System.out.println("[KO] l'utilisateur: "+id+" existe deja.");
+			System.err.println("[KO] l'utilisateur: "+id+" existe deja.");
 			return -1;
 		}
 		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur+"', '"+prenom+"','"+categorie+"');";	
@@ -55,7 +55,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM posseder WHERE idGrp= '"+idgrp+"' AND idUtil = '"+idutil+"';";
 		if( foundValues(state) ) {
-			System.out.println("[KO] l'utilisateur: "+idgrp+" est deja dans le groupe: "+idutil);
+			System.err.println("[KO] l'utilisateur: "+idgrp+" est deja dans le groupe: "+idutil);
 			return i;
 		}
 		sql = "INSERT INTO posseder (idGrp, idUtil) VALUES ( '"+idgrp+"','"+idutil+"');";	
@@ -68,7 +68,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
 			if( foundValues(state)) {
-				System.out.println("[KO] le message "+id+" existe deja.");
+				System.err.println("[KO] le message "+id+" existe deja.");
 				return -1;
 			}
 		sql = "INSERT INTO message (idMessage,dateMessage , auteur , message) VALUES ( '"+id+"','"+date+"','"+auteur+"','"+text+"');";	
@@ -80,7 +80,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM status WHERE idLecteur= '"+idlecteur+"' AND idMess ='"+idMessage+"' ;";
 		if( foundValues(state)) {
-			System.out.println("[KO] le message:"+idMessage+" possede deja un status pour le destinataire:"+idlecteur);
+			System.err.println("[KO] le message:"+idMessage+" possede deja un status pour le destinataire:"+idlecteur);
 			return -1;
 		}
 		sql = "INSERT INTO status (idLecteur, idMess,etat) VALUES ( '"+idlecteur+"','"+idMessage+"','"+etat+"');";	
@@ -92,7 +92,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM destinataire WHERE idGrpDestinataire= '"+idgrp+"' AND idMes = '"+idmess+"';";
 		if( foundValues(state)) {
-			System.out.println("[KO] le message:"+idmess+" possede deja un destinataire:"+idgrp);
+			System.err.println("[KO] le message:"+idmess+" possede deja un destinataire:"+idgrp);
 			return -1;
 		}
 		sql = "INSERT INTO destinataire (idMes, idGrpDestinataire) VALUES ( '"+idmess+"','"+idgrp+"');";	
@@ -104,7 +104,7 @@ public class Add {
 		int i = 0 ;
 		sql = "SELECT * FROM ticket WHERE idTicket= '"+idTicket+"' AND idMessa = '"+idMessage+"';";
 		if( foundValues(state)) {
-			System.out.println("[KO] Le ticket"+idTicket+" possede deja le message:"+idMessage);
+			System.err.println("[KO] Le ticket"+idTicket+" possede deja le message:"+idMessage);
 				return -1;
 		}
 		sql = "INSERT INTO ticket (idTicket, idMessa) VALUES ( '"+idTicket+"','"+idMessage+"');";	
