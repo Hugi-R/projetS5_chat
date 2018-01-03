@@ -128,6 +128,12 @@ public class Database {
 		else
 			return null;
 	}
+	public static List<Long> RecupMessageForDest (long idDest,long date){
+		if (isStarted())
+			return select.RecupMessageDest(idDest, date, state);
+		else
+			return null;
+	}
 /*fonction de changement de valeur dans la base de donnée**********/
 	public static int changePasswd(long idUtil,String newPasswd) {
 		if (isStarted())
@@ -135,7 +141,24 @@ public class Database {
 		else
 			return -1;
 	}
-
+	public static int changeEtatStatus(long idMess , long idUtil,Etat etat) {
+		if (isStarted())
+			return update.changeStatus(idMess, idUtil, etat, state);
+		else
+			return -1;
+	}
+	public static int changeCategorieUtil(long idUtil ,Categorie cat) {
+		if (isStarted())
+			return update.changeCategorie(idUtil, cat, state);
+		else
+			return -1;
+	}
+	public static int changeContenueMessage(long idMessage,String newTexte) {
+		if (isStarted())
+			return update.changeMessage(idMessage, newTexte, state);
+		else
+			return -1;
+	}
 	
 	public static void main(String[] args) {
 		String url = "jdbc:mysql://localhost:3306/projet";
@@ -143,21 +166,22 @@ public class Database {
 		String passwd = "";
 		start(url,user,passwd);
 		String groupe = "sfhj";
-		long val = 05645221745555L;
-		long val1 = 54157045854L;
+		long val =7;
+		long val1 = 6;
 		String prenom= "sdfghj";
 		String motDePasse = "retggdhjg5e";
 		Categorie cat = Categorie.ETUDIANT;
 		long date = 6542685L;
 		 Etat etat = Etat.RECUT;
 		String texte = "bonjour a salle 205 du batiment U2 a une ampoule cassée";
-		/*System.out.println(addutilisateur(val, motDePasse, groupe, prenom, cat));
+		System.out.println(addutilisateur(val, motDePasse, groupe, prenom, cat));
+		System.out.println(addmessage(1, 789456, val, "ca"));
 		System.out.println(addgroup(val1, groupe));
 		System.out.println(addposseder(val1, val));
 		System.out.println(addstatus(val1, val, etat));
 		System.out.println(adddestinataire(val, val1));
 		System.out.println(addticket(val, val1));
-		String sql = "SELECT * FROM utilisateur;";*/
+		String sql = "SELECT * FROM utilisateur;";
 		/*try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
@@ -169,6 +193,9 @@ public class Database {
 		}*/
 		addutilisateur(val1, "patate", "nomUtilisateur", "prenom", Categorie.INVITE);
 		System.out.println(changePasswd(val1, "carrotte"));
+		List<Long> l = RecupMessageForDest(val, 5);
+		for(Long li : l)
+			System.out.println(li);
 	}
 
 }

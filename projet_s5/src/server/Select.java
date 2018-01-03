@@ -51,4 +51,19 @@ public class Select {
 		}
 		return l;
 	}
+	protected List<Long> RecupMessageDest (long idDest,long date,java.sql.Statement state){
+		List<Long> l = new ArrayList<>();
+		sql = "SELECT DISTINCT * FROM posseder,destinataire,message WHERE idUtil = '"+idDest+"' AND idGrp = idGrpDestinataire AND dateMessage >'"+date+"';";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()){ 
+				l.add(r.getLong(5));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	
+	}
 }
