@@ -1,13 +1,14 @@
-package content;
+package client;
 
 import java.util.HashMap;
 
-import communication.Id;
+import packet.Id;
+import packet.Ticket;
 
 public class TicketList {
-	private static HashMap<Id, Ticket> tickets = new HashMap<>();
+	private HashMap<Id, Ticket> tickets = new HashMap<>();
 	
-	public static Ticket find(Id id) {
+	public Ticket find(Id id) {
 		Ticket ret = null;
 		if(tickets.containsKey(id)) {
 			ret = tickets.get(id);

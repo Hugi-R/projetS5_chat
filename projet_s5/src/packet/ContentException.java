@@ -1,32 +1,32 @@
-package communication;
+package packet;
 
-public class IdException extends Exception {
+public class ContentException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public IdException() {
+	public ContentException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public IdException(String arg0) {
+	public ContentException(String arg0) {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 	}
 
-	public IdException(Throwable arg0) {
+	public ContentException(Throwable arg0) {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 	}
 
-	public IdException(String arg0, Throwable arg1) {
+	public ContentException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 		// TODO Auto-generated constructor stub
 	}
 
-	public IdException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
+	public ContentException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
 		super(arg0, arg1, arg2, arg3);
 		// TODO Auto-generated constructor stub
 	}
