@@ -1,21 +1,16 @@
 package packet;
 
-import java.io.Serializable;
-
-public abstract class Content implements Serializable{
+public abstract class Content extends Packet{
 	private static final long serialVersionUID = -3334205753488398387L;
 	protected long id;
 	
-	public long getId() {
-		return id;
-	}
-	
-	public Content(long id) {
+	public Content(byte command, long id) {
+		super(command);
 		this.id = id;
 	}
-	
-	public Content() {
-		id = 0;
+
+	public long getId() {
+		return id;
 	}
 	
 	@Override

@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import packet.Content;
 import packet.ContentType;
-import packet.Id;
 import packet.Message;
+import utils.Id;
 
 public class Handler implements Runnable{
 	CommunicatorServer comm;
