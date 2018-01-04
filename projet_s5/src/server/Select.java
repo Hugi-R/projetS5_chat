@@ -115,11 +115,15 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),(r.getString(3).compareTo("AGENT")==0),recupListGroupOfUser(idUser,state),recupListTicketOfUser(idUser, state));
+				String nom = r.getString(1);
+				String prenom = r.getString(2);
+				boolean agent = ("AGENT".equals(r.getString(3)));
+				List<Long> groups = recupListGroupOfUser(idUser,state);
+				List<Long> tickets = recupListTicketOfUser(idUser, state);
+				u = new User(Commands.SEND,idUser,nom,prenom,agent,groups,tickets);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return u;
 		}
 		return u;
 	}

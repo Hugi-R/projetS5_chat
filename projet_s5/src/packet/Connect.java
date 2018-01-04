@@ -18,5 +18,10 @@ public class Connect extends Packet {
 	public String getPassword() {
 		return password;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString()+"username : "+username+", password : "+password+" }";
+	}
 
 }

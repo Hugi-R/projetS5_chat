@@ -3,16 +3,20 @@ package server;
 import java.io.IOException;
 
 import packet.Commands;
+import packet.Connect;
 import packet.ContentType;
 import packet.Packet;
 import packet.Request;
 import utils.Id;
 
 public class Handler implements Runnable{
-	CommunicatorServer comm;
+	private CommunicatorServer comm;
+	private long connectedUser;
+	
 
 	public Handler(CommunicatorServer comm) {
 		this.comm = comm;
+		connectedUser = 0;
 	}
 
 	@Override
@@ -43,9 +47,9 @@ public class Handler implements Runnable{
 					System.out.println("SEND : "+data);
 					send(data);
 					break;
-				case Commands.UPDATE :
-					System.out.println("UPDATE : "+data);
-					update(data);
+				case Commands.SEND | Commands.CONNECT :
+					System.out.println("CONNECT : "+data);
+					connect(data);
 					break;
 				default :
 					System.err.println("Unknow command");
@@ -56,6 +60,25 @@ public class Handler implements Runnable{
 		
 	}
 	
+
+	private void connect(Packet data) {
+		Connect c = (Connect) data;
+		long u = Database.connect(c.getPassword(), c.getUsername());
+		Packet resp = null;
+		if(u == -1) {
+			byte command = Commands.FAIL | Commands.CONNECT;
+			resp = new Packet(command);
+		} else {
+			resp = Database.RecupUserWithList(u);
+			connectedUser = u;
+		}
+		try {
+			comm.send(resp);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Retrieve data from database and send them to the client
@@ -102,15 +125,6 @@ public class Handler implements Runnable{
 	 * @param p
 	 */
 	private void send(Packet p) {
-		
-	}
-	
-	/**
-	 * no use yet for server
-	 * @param p
-	 */
-	private void update(Packet p) {
-		// TODO Auto-generated method stub
 		
 	}
 
