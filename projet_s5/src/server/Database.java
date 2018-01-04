@@ -9,6 +9,7 @@ import java.util.List;
 import client.Categorie;
 import client.Etat;
 import packet.Message;
+import packet.User;
 
 public class Database {
 	private static Connection conn = null;
@@ -138,6 +139,18 @@ public class Database {
 	public static Message RecupMessage (long idMessage){
 		if (isStarted())
 			return select.RecupMessage(idMessage, state);
+		else
+			return null;
+	}
+	public static User RecupUserWithList(long idUser){
+		if (isStarted())
+			return select.RecupUserWithList(idUser, state);
+		else
+			return null;
+	}
+	public static User RecupUserShort(long idUser,java.sql.Statement state){
+		if (isStarted())
+			return select.RecupUserShort(idUser, state);
 		else
 			return null;
 	}

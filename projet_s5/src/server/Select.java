@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import packet.Commands;
 import packet.Message;
-import packet.Ticket;
 import packet.User;
 
 public class Select {
@@ -35,7 +35,6 @@ public class Select {
 				l.add(r.getLong(2));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return l;
@@ -82,30 +81,61 @@ public class Select {
 		}
 		return m;
 	}
-	private List<Ticket> recupListTicketOfUser (long idUser,java.sql.Statement state){
-		List<Ticket> ListTicket = new ArrayList<>();
+	
+	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
+		List<Long> ListTicket = new ArrayList<>();
 		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessa = idMessage AND (( auteur='"+idUser+"') OR (idGrpDestinataire = idGrp and idUtil='"+idUser+"'));";
-		
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()) {
+				ListTicket.add(r.getLong(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ListTicket;
 	}
+	private List<Long> recupListGroupOfUser (long idUser,java.sql.Statement state){
+		List<Long> Listgroup = new ArrayList<>();
+		sql= "SELECT idGrp FROM posseder,groupe WHERE idUtil = '"+idUser+"' AND idGrp = idGroupe ;";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()) {
+				Listgroup.add(r.getLong(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Listgroup;
+	}
+	
 	protected User RecupUserWithList(long idUser,java.sql.Statement state){
-		sql= "SELECT * FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
+		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
 		User u = null;
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				//u = new User();
-				//TODO completer 
+				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),(r.getString(3).compareTo("AGENT")==0),recupListGroupOfUser(idUser,state),recupListTicketOfUser(idUser, state));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return u;
 		}
 		return u;
 	}
 	protected User RecupUserShort(long idUser,java.sql.Statement state){
+		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
 		User u = null;
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()) {
+				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),(r.getString(3).compareTo("AGENT")==0),null,null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return u;
+		}
 		return u;
 	}
+	
 }
