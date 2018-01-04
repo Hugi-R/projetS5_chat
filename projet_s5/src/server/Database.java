@@ -166,42 +166,4 @@ public class Database {
 		else
 			return -1;
 	}
-	
-	public static void main(String[] args) {
-		String url = "jdbc:mysql://localhost:3306/projet";
-		String user = "root";
-		String passwd = "";
-		start(url,user,passwd);
-		String groupe = "sfhj";
-		long val =7;
-		long val1 = 6;
-		String prenom= "sdfghj";
-		String motDePasse = "retggdhjg5e";
-		Categorie cat = Categorie.ETUDIANT;
-		long date = 6542685L;
-		 Etat etat = Etat.RECUT;
-		String texte = "bonjour a salle 205 du batiment U2 a une ampoule cassée";
-		System.out.println(addutilisateur(val, motDePasse, groupe, prenom, cat));
-		System.out.println(addmessage(15, val, texte));
-		System.out.println(addgroup(val1, groupe));
-		System.out.println(addposseder(val1, val));
-		System.out.println(addstatus(val1, val, etat));
-		System.out.println(adddestinataire(val, val1));
-		System.out.println(addticket(val, val1));
-		String sql = "SELECT * FROM utilisateur;";
-		/*try {
-			ResultSet r = state.executeQuery(sql);
-			while(r.next()){ 
-				System.out.print(r.getObject(1) + "\n");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		addutilisateur(val1, "patate", "nomUtilisateur", "prenom", Categorie.INVITE);
-		System.out.println(changePasswd(val1, "carrotte"));
-		System.out.println(RecupMessage(15));
-	}
-
-
 }

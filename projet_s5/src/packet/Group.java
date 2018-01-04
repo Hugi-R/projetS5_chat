@@ -2,10 +2,15 @@ package packet;
 
 public class Group extends Content{
 	private static final long serialVersionUID = 8180388956052672819L;
-
-	public Group(byte command, long id) {
+	private String nomGroup;
+	
+	public Group(byte command, long id, String nomGroup) {
 		super(command, id);
-		// TODO Auto-generated constructor stub
+		this.nomGroup = nomGroup;
+	}
+
+	public String getNomGroup() {
+		return nomGroup;
 	}
 
 	@Override
