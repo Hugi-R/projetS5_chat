@@ -2,11 +2,10 @@ package client;
 
 import java.io.IOException;
 
-import packet.ContentType;
-import packet.Id;
+import packet.Commands;
 import packet.Message;
-import packet.Ticket;
-import packet.User;
+import packet.Packet;
+import packet.Request;
 
 public class MainClient {
 
@@ -14,19 +13,17 @@ public class MainClient {
 		System.out.println("Lancement du client");
 		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
 		try {
-			for(int i = 0; i< 3; i++) {
-				User u = new User(Id.generate(ContentType.USER));
-				Ticket t = new Ticket(Id.generate(ContentType.TICKET));
-				Message message = new Message(Id.generate(ContentType.MESSAGE), u.getId(), t.getId(), 1000L, "message"+i);
-				comm.send(message);
-			}
-		} catch (IOException e) {
+			Packet request = new Request(Commands.RETRIEVE, 97506691153493440L);
+			System.out.println("request : "+request);
+			comm.send(request);
+			Message resp = (Message) comm.receive();
+			System.out.println("response : "+resp);
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
 			comm.close();
 		}
 		System.out.println("Fin du client");
-		
 
 	}
 

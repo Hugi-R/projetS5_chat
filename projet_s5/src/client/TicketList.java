@@ -2,8 +2,8 @@ package client;
 
 import java.util.HashMap;
 
-import packet.Id;
 import packet.Ticket;
+import utils.Id;
 
 public class TicketList {
 	private HashMap<Id, Ticket> tickets = new HashMap<>();

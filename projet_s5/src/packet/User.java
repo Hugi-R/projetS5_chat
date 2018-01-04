@@ -12,8 +12,8 @@ public class User extends Content {
 	
 	
 
-	public User(long id) {
-		super(id);
+	public User(byte command, long id) {
+		super(command, id);
 	}
 	
 	public String getNom() {

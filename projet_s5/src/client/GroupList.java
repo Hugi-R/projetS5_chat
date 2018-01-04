@@ -3,7 +3,7 @@ package client;
 import java.util.HashMap;
 
 import packet.Group;
-import packet.Id;
+import utils.Id;
 
 public class GroupList {
 	private HashMap<Id, Group> groups = new HashMap<>();

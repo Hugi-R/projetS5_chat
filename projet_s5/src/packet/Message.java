@@ -7,8 +7,8 @@ public class Message extends Content {
 	private long time;
 	private String textMessage;
 	
-	public Message(long id, long user, long ticket, long time, String textMessage) {
-		super(id);
+	public Message(byte command, long id, long user, long ticket, long time, String textMessage) {
+		super(command, id);
 		this.textMessage = textMessage;
 		this.user = user;
 		this.ticket = ticket;

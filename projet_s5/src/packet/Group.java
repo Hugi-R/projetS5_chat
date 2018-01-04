@@ -3,8 +3,8 @@ package packet;
 public class Group extends Content{
 	private static final long serialVersionUID = 8180388956052672819L;
 
-	public Group(long id) {
-		super(id);
+	public Group(byte command, long id) {
+		super(command, id);
 		// TODO Auto-generated constructor stub
 	}
 
