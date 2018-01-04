@@ -33,19 +33,22 @@ public class Interface_Serveur extends javax.swing.JFrame {
         usersList = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         groups = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listeDesGroupes = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listeDesUtilisateurs = new javax.swing.JList<>();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listeDesUtilisateurs = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listeDesGroupes = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("gestion du serveur");
 
         tableau.setAutoscrolls(true);
 
@@ -77,14 +80,14 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         groups.setLayout(new java.awt.GridLayout(1, 0));
 
-        listeDesGroupes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "group 1", "group 2", "group 3" };
+        listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "User 1", "User 2", "User 3" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(listeDesGroupes);
+        jScrollPane1.setViewportView(listeDesUtilisateurs);
 
-        groups.add(jScrollPane2);
+        groups.add(jScrollPane1);
 
         jPanel9.setLayout(new java.awt.GridLayout(4, 0));
 
@@ -106,6 +109,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jButton1.setText("ajouter au groupe");
         jPanel11.add(jButton1, java.awt.BorderLayout.CENTER);
 
+        jLabel1.setText("                               -->");
+        jPanel11.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
         jPanel9.add(jPanel11);
 
         jPanel12.setLayout(new java.awt.BorderLayout());
@@ -117,6 +123,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
             }
         });
         jPanel12.add(jButton2, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setText("                               <--");
+        jPanel12.add(jLabel2, java.awt.BorderLayout.PAGE_END);
 
         jPanel9.add(jPanel12);
 
@@ -135,14 +144,14 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         groups.add(jPanel9);
 
-        listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "User 1", "User 2", "User 3" };
+        listeDesGroupes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "group 1", "group 2", "group 3" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(listeDesUtilisateurs);
+        jScrollPane2.setViewportView(listeDesGroupes);
 
-        groups.add(jScrollPane1);
+        groups.add(jScrollPane2);
 
         tableau.addTab("Groupes", groups);
 
@@ -194,6 +203,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private javax.swing.JPanel groups;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

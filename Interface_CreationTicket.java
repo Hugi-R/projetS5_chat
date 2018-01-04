@@ -41,6 +41,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         listGroups = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("nouveau ticket");
         setResizable(false);
 
         SaisieIntitule.setText(texteIntitule);
@@ -157,7 +158,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 
     private void BoutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCreerActionPerformed
         // TODO add your handling code here:
-        new Interface_NotificationCreationTicket().setVisible(true);
+        new Interface_NotificationSucces().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BoutonCreerActionPerformed
 

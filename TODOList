@@ -1,4 +1,16 @@
 
+
+
+PROJET ENTIER
+
+vérifier les redimensions
+titre de la fenetre
+taille min/max
+
+
+
+
+
 Interface_Connexion
 
 lien entre fenetres (plus tard)
@@ -21,7 +33,9 @@ Interface_ErreurCo
 
 /////////////////////////////////////////////////////////////////////////
 Interface_Inscription
-	all todo
+
+boutonCreer
+	envoi a la BD
 
 /////////////////////////////////////////////////////////////////////////
 Interface_MessageStatus
