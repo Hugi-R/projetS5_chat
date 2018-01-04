@@ -39,14 +39,14 @@ public class Add {
 		return i;
 	}
 	
-	protected int addUtilisateur (long id, String motDePasse, String nomUtilisateur ,String prenom ,Categorie categorie,java.sql.Statement state) {
+	protected int addUtilisateur (long id, String motDePasse, String nomUtilisateur ,String prenom ,String courriel,Categorie categorie,java.sql.Statement state) {
 		int i = 0;
 		sql = "SELECT * FROM utilisateur WHERE idUtilisateur = '"+id+"';";
 		if( foundValues(state)) {
 			System.err.println("[KO] l'utilisateur: "+id+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur+"', '"+prenom+"','"+categorie+"');";	
+		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur+"', '"+prenom+"','"+courriel+"','"+categorie+"');";	
 		i =executeUpdate(state);
 		return i;
 	}

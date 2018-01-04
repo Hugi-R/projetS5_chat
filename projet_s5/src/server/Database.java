@@ -67,9 +67,9 @@ public class Database {
 		else
 			return -1;
 	}
-	public static int addutilisateur(long id, String motDePasse, String nomUtilisateur ,String prenom ,Categorie categorie){
+	public static int addutilisateur(long id, String motDePasse, String nomUtilisateur ,String prenom ,String courriel,Categorie categorie){
 			if (isStarted())
-				return add.addUtilisateur(id, motDePasse, nomUtilisateur, prenom, categorie, state);
+				return add.addUtilisateur(id, motDePasse, nomUtilisateur, prenom, courriel, categorie, state);
 			else
 				return -1;
 	}
