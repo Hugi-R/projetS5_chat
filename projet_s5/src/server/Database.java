@@ -78,9 +78,9 @@ public class Database {
 		else
 			return -1;
 	}
-	protected static int addmessage (long id , long date , long auteur,String text) {
+	protected static int addmessage (long id, long auteur,String text) {
 		if (isStarted())
-			return add.addMessage(id, date, auteur, text, state);
+			return add.addMessage(id, auteur, text, state);
 		else
 			return -1;
 	}
@@ -182,7 +182,7 @@ public class Database {
 		 Etat etat = Etat.RECUT;
 		String texte = "bonjour a salle 205 du batiment U2 a une ampoule cassée";
 		System.out.println(addutilisateur(val, motDePasse, groupe, prenom, cat));
-		System.out.println(addmessage(1, 789456, val, "bonjour message ouvert test alpha 4 STOP"));
+		System.out.println(addmessage(15, val, texte));
 		System.out.println(addgroup(val1, groupe));
 		System.out.println(addposseder(val1, val));
 		System.out.println(addstatus(val1, val, etat));
@@ -200,7 +200,7 @@ public class Database {
 		}*/
 		addutilisateur(val1, "patate", "nomUtilisateur", "prenom", Categorie.INVITE);
 		System.out.println(changePasswd(val1, "carrotte"));
-		System.out.println(RecupMessage(1));
+		System.out.println(RecupMessage(15));
 	}
 
 }

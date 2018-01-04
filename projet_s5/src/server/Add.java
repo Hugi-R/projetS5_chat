@@ -64,14 +64,14 @@ public class Add {
 			
 	}
 	
-	protected int addMessage (long id , long date , long auteur ,String text,java.sql.Statement state) {
+	protected int addMessage (long id , long auteur ,String text,java.sql.Statement state) {
 		int i = 0 ;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
 			if( foundValues(state)) {
 				System.err.println("[KO] le message "+id+" existe deja.");
 				return -1;
 			}
-		sql = "INSERT INTO message (idMessage,dateMessage , auteur , message) VALUES ( '"+id+"','"+date+"','"+auteur+"','"+text+"');";	
+		sql = "INSERT INTO message (idMessage,dateMessage , auteur , message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+text+"');";	
 		i =executeUpdate(state);
 		return i;
 	}
