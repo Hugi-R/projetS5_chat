@@ -7,6 +7,7 @@ import java.util.List;
 
 import packet.Commands;
 import packet.Message;
+import packet.Ticket;
 import packet.User;
 
 public class Select {
@@ -74,7 +75,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				m = new Message(idMessage,r.getLong(2),0,r.getLong(1),r.getString(3));
+				m = new Message(Commands.SEND,idMessage,r.getLong(2),0,r.getLong(1),r.getString(3));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -82,6 +83,11 @@ public class Select {
 			return m;
 		}
 		return m;
+	}
+	private List<Ticket> recupListTicketOfUser (long idUser,java.sql.Statement state){
+		List<Ticket> ListTicket = new ArrayList<>();
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessa = idMessage AND (( auteur='"+idUser+"') OR (idGrpDestinataire = idGrp and idUtil=8));"
+		return ListTicket;
 	}
 	protected User RecupUser(long idUser,java.sql.Statement state){
 		sql= "SELECT * FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
