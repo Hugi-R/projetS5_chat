@@ -111,9 +111,9 @@ public class Database {
 			return -1;
 	}
 /*fonction de selection*********************************************/
-	public static long searchIdUtil (String motDePasse, String nomUtilisateur ,String prenom) {
+	public static long connect (String motDePasse, String mail) {
 		if (isStarted())
-			return select.searchUtil(motDePasse, nomUtilisateur, prenom, state);
+			return select.connect(motDePasse, mail, state);
 		else
 			return -1;
 	}

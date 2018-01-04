@@ -12,16 +12,15 @@ import packet.User;
 
 public class Select {
 	private static String sql;
-	protected long searchUtil (String motDePasse, String nomUtilisateur ,String prenom,java.sql.Statement state) {
+	protected long connect (String motDePasse, String mail,java.sql.Statement state) {
 		long i = -1;
-		sql = "SELECT * FROM utilisateur WHERE motDePasse = MD5('"+motDePasse+"') AND prenom = '"+prenom+"' AND nomUtilisateur = '"+nomUtilisateur+"';";
+		sql = "SELECT idUtilisateur FROM utilisateur WHERE motDePasse = SHA1('"+motDePasse+"') AND courriel= '"+mail+"';";
 		try {
-		ResultSet r = state.executeQuery(sql);
-		if(r.next()){ 
-			i=r.getLong(1);
-		}
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()){ 
+				i=r.getLong(1);
+			}
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return i;
@@ -50,7 +49,6 @@ public class Select {
 				l.add(r.getLong(2));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return l;
@@ -86,10 +84,11 @@ public class Select {
 	}
 	private List<Ticket> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Ticket> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessa = idMessage AND (( auteur='"+idUser+"') OR (idGrpDestinataire = idGrp and idUtil=8));"
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessa = idMessage AND (( auteur='"+idUser+"') OR (idGrpDestinataire = idGrp and idUtil='"+idUser+"'));";
+		
 		return ListTicket;
 	}
-	protected User RecupUser(long idUser,java.sql.Statement state){
+	protected User RecupUserWithList(long idUser,java.sql.Statement state){
 		sql= "SELECT * FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
 		User u = null;
 		try {
@@ -103,6 +102,10 @@ public class Select {
 			e.printStackTrace();
 			return u;
 		}
+		return u;
+	}
+	protected User RecupUserShort(long idUser,java.sql.Statement state){
+		User u = null;
 		return u;
 	}
 }
