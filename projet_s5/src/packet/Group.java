@@ -2,20 +2,20 @@ package packet;
 
 public class Group extends Content{
 	private static final long serialVersionUID = 8180388956052672819L;
-	private String nomGroup;
+	private String groupName;
 	
 	public Group(byte command, long id, String nomGroup) {
 		super(command, id);
-		this.nomGroup = nomGroup;
+		this.groupName = nomGroup;
 	}
 
 	public String getNomGroup() {
-		return nomGroup;
+		return groupName;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString()+" TODO }";
+		return super.toString()+" groupName :"+groupName+" }";
 	}
 	
 

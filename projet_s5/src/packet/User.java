@@ -7,12 +7,12 @@ public class User extends Content {
 	private String nom;
 	private String prenom;
 	private boolean agent;
-	private List<Group> groupList;
-	private List<Ticket> ticketList;
+	private List<Long> groupList;
+	private List<Long> ticketList;
 	
 	
 
-	public User(byte command, long id, String nom ,String prenom, boolean agent, List<Group> groupList , List<Ticket> ticketList ) {
+	public User(byte command, long id, String nom ,String prenom, boolean agent, List<Long> groupList , List<Long> ticketList ) {
 		super(command, id);
 		this.nom = nom;
 		this.prenom = prenom;
@@ -33,24 +33,16 @@ public class User extends Content {
 		return agent;
 	}
 
-	public List<Group> getGroupList() {
+	public List<Long> getGroupList() {
 		return groupList;
 	}
 
-	public List<Ticket> getTicketList() {
+	public List<Long> getTicketList() {
 		return ticketList;
-	}
-	
-	private String idDesGroup () {
-		String result = "";
-		for(Group g : groupList) {
-			result = result+"-"+g.getId();
-		}
-		return result;
 	}
 	
 	@Override
 	public String toString() {
-		return super.toString()+"Nom : "+nom+", Prenom : "+prenom+",Is a agent ["+agent+"] , liste des groupes ["+idDesGroup()+"-]";
+		return super.toString()+"Nom : "+nom+", Prenom : "+prenom+",Is agent ["+agent+"], groups ["+groupList+"], tickets : ["+ticketList+"] }";
 	}
 }
