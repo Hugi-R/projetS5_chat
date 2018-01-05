@@ -9,8 +9,8 @@ public class ClientDB {
 	private static TicketList tickets;
 	private static UserList users;
 	
-	public ClientDB() {
-		// TODO Auto-generated constructor stub
+	private ClientDB() {
+		// no constructor
 	}
 
 }

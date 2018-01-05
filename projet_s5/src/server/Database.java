@@ -152,7 +152,7 @@ public class Database {
 		else
 			return null;
 	}
-	public static User retrieveUserShort(long idUser,java.sql.Statement state){
+	public static User retrieveUserShort(long idUser){
 		if (isStarted())
 			return select.RecupUserShort(idUser, state);
 		else

@@ -26,7 +26,7 @@ public class Update {
 	
 	protected int changeStatus( long idMess , long idUtil,Etat etat,java.sql.Statement state) {
 		int i=0;
-		sql="UPDATE status SET etat = '"+etat+"' WHERE idMess = '"+idMess+"' AND idLecteur = '"+idUtil+"';";
+		sql="UPDATE status SET etat = '"+etat+"' WHERE idMessageStatus = '"+idMess+"' AND idLecteur = '"+idUtil+"';";
 		i = executeUpdate(state);
 		return i;
 	}

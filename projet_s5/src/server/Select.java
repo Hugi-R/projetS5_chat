@@ -41,7 +41,7 @@ public class Select {
 	}
 	protected List<Long> idutilInGroup (long idGrp,java.sql.Statement state) {
 		List<Long> l = new ArrayList<>();
-		sql = "SELECT * FROM posseder WHERE idGrp = '"+idGrp+"';";
+		sql = "SELECT * FROM posseder WHERE idGroupePosseder = '"+idGrp+"';";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
@@ -54,7 +54,7 @@ public class Select {
 	}
 	protected List<Long> RecupMessageDest (long idDest,long date,java.sql.Statement state){
 		List<Long> l = new ArrayList<>();
-		sql = "SELECT DISTINCT * FROM posseder,destinataire,message WHERE idUtil = '"+idDest+"' AND idGrp = idGrpDestinataire AND dateMessage >'"+date+"';";
+		sql = "SELECT DISTINCT * FROM posseder,destinataire,message WHERE idUtilisateurPosseder = '"+idDest+"' AND idGroupePosseder = idGroupDestinataire AND dateMessage >'"+date+"';";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
@@ -84,7 +84,7 @@ public class Select {
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Long> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessa = idMessage AND (( auteur='"+idUser+"') OR (idGrpDestinataire = idGrp and idUtil='"+idUser+"'));";
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessageTicket = idMessage AND (( auteur='"+idUser+"') OR (idGroupDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
@@ -97,7 +97,7 @@ public class Select {
 	}
 	private List<Long> recupListGroupOfUser (long idUser,java.sql.Statement state){
 		List<Long> Listgroup = new ArrayList<>();
-		sql= "SELECT idGrp FROM posseder,groupe WHERE idUtil = '"+idUser+"' AND idGrp = idGroupe ;";
+		sql= "SELECT idGroupePosseder FROM posseder,groupe WHERE idUtilisateurPosseder = '"+idUser+"' AND idGroupePosseder = idGroupe ;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
