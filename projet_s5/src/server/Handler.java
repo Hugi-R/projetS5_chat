@@ -138,6 +138,12 @@ public class Handler implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+			try {
+				comm.send(new Content(Commands.FAIL, r.getId()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
