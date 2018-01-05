@@ -1,4 +1,4 @@
-package content;
+package packet;
 
 public class ContentException extends Exception {
 

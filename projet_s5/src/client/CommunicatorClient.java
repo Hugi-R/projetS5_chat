@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import content.Content;
+import packet.Packet;
 
 public class CommunicatorClient {
 	private String server;
@@ -36,15 +36,15 @@ public class CommunicatorClient {
 		}
 	}
 	
-	public void send(Content data) throws IOException{
+	public void send(Packet data) throws IOException{
 		if((socket == null) || (socket.isClosed() || !socket.isConnected())) {
 			open();
 		}
 		out.writeObject(data);
 	}
 	
-	public Content receive() throws IOException, ClassNotFoundException{
-		return (Content) in.readObject();
+	public Packet receive() throws IOException, ClassNotFoundException{
+		return (Packet) in.readObject();
 	}
 	
 	

@@ -1,11 +1,14 @@
-package content;
+package client;
 
 import java.util.HashMap;
 
+import packet.Group;
+import utils.Id;
+
 public class GroupList {
-	private static HashMap<Id, Group> groups = new HashMap<>();
+	private HashMap<Id, Group> groups = new HashMap<>();
 	
-	public static Group find(Id id) {
+	public Group find(Id id) {
 		Group ret = null;
 		if(groups.containsKey(id)) {
 			ret = groups.get(id);

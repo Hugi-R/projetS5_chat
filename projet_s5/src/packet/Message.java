@@ -1,32 +1,32 @@
-package content;
+package packet;
 
 public class Message extends Content {
 	private static final long serialVersionUID = -123551427390012409L;
-	private User user;
-	private Ticket ticket;
+	private long user;
+	private long ticket;
 	private long time;
 	private String textMessage;
 	
-	public Message(Id id, User user, Ticket ticket, long time, String textMessage) {
-		super(id);
+	public Message(byte command, long id, long user, long ticket, long time, String textMessage) {
+		super(command, id);
 		this.textMessage = textMessage;
 		this.user = user;
 		this.ticket = ticket;
 		this.time = time;
 	}
 
-	public String getMessage() {
-		return textMessage;
-	}
-
-	public User getWriter() {
+	public long getUser() {
 		return user;
 	}
 
-	public Ticket getParent() {
+	public long getTicket() {
 		return ticket;
 	}
-	
+
+	public String getTextMessage() {
+		return textMessage;
+	}
+
 	public long getTime() {
 		return time;
 	}
