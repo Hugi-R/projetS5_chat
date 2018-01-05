@@ -10,6 +10,12 @@ public class Connect extends Packet {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public Connect(String username, String password) {
+		super((byte)(Commands.SEND | Commands.CONNECT));
+		this.username = username;
+		this.password = password;
+	}
 
 	public String getUsername() {
 		return username;

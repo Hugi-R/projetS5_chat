@@ -1,19 +1,19 @@
 package client;
 
-import java.io.IOException;
-
-import packet.Commands;
-import packet.Connect;
-import packet.Message;
-import packet.Packet;
-import packet.Request;
+import interfaces_projet.Interface_Connexion;
+import interfaces_projet.Interface_Utilisateur_principale;
+import packet.User;
 
 public class MainClient {
-
+	public static CommunicatorClient comm;
+	public static User user;
+	public static Interface_Utilisateur_principale ui;
+	
 	public static void main(String[] args) {
 		System.out.println("Lancement du client");
-		CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
-		try {
+		comm = new CommunicatorClient("localhost", 3636);
+		user = null;
+		/*try {
 			//try to request
 			Packet request = new Request(Commands.RETRIEVE, 97506691153493440L);
 			System.out.println("request : "+request);
@@ -42,8 +42,12 @@ public class MainClient {
 			e.printStackTrace();
 		} finally {
 			comm.close();
-		}
-		System.out.println("Fin du client");
+		}*/
+		
+		new Interface_Connexion().setVisible(true);
+		
+		//TODO close comm on exit
+		//comm.close();
 
 	}
 

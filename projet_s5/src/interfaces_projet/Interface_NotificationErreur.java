@@ -10,11 +10,13 @@ package interfaces_projet;
  * @author adrian
  */
 public class Interface_NotificationErreur extends javax.swing.JFrame {
-
+	String erreur;
+	
     /**
      * Creates new form Interface_NotificationCreationTicket
      */
-    public Interface_NotificationErreur() {
+    public Interface_NotificationErreur(String erreur) {
+    	this.erreur = erreur;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -47,7 +49,7 @@ public class Interface_NotificationErreur extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("         Une erreur s'est produite");
+        jLabel1.setText(erreur);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +131,7 @@ public class Interface_NotificationErreur extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface_NotificationErreur().setVisible(true);
+                new Interface_NotificationErreur("Error placeholder").setVisible(true);
             }
         });
     }
