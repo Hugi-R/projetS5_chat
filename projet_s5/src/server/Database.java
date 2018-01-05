@@ -4,6 +4,7 @@ package server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import client.Categorie;
@@ -19,6 +20,10 @@ public class Database {
 	private static Select select = new Select();
 	private static Update update = new Update();
 	
+	//mise en prive suite a une demande de sonartlint
+	private Database () {	
+	}
+	
 	public static int start(String url , String user , String passwd) {
 		int i =0;
 		try {
@@ -29,7 +34,6 @@ public class Database {
 			System.out.println("[OK] connection etablie");
 			state = conn.createStatement();		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			i=1;
 		}
@@ -47,7 +51,7 @@ public class Database {
 			System.out.println("[OK] connection close");
 			return 1;
 		}else {
-			System.out.println("[KO] connection deja close ");
+			System.err.println("[KO] connection deja close ");
 			return -1;
 		}
 		
@@ -55,49 +59,49 @@ public class Database {
 	
 	public static boolean isStarted() {
 		if (state == null) {
-			System.out.println("[KO] la connection n'a pas été établie");
+			System.err.println("[KO] la connection n'a pas été établie");
 			return false;
 		}
 		return true ;
 	}
 /* fonction d'ajout de donnée dans la base *******************/
-	public static int addgroup(long val, String nom){
+	public static int addgroup(long idGroup, String nom){
 		if (isStarted())
-			return add.addGroup(val,nom,state);
+			return add.addGroup(idGroup,nom,state);
 		else
 			return -1;
 	}
-	public static int addutilisateur(long id, String motDePasse, String nomUtilisateur ,String prenom ,String courriel,Categorie categorie){
+	public static int addUser(long id, String password, String name ,String firstName ,String email,Categorie category){
 			if (isStarted())
-				return add.addUtilisateur(id, motDePasse, nomUtilisateur, prenom, courriel, categorie, state);
+				return add.addUser(id, password, name, firstName, email, category, state);
 			else
 				return -1;
 	}
-	protected static int addposseder (long idgrp , long idutil) {
+	protected static int addGroupToUser(long idGrp , long idUser) {
 		if (isStarted())
-			return add.addPosseder(idgrp, idutil, state);
+			return add.addGroupToUser(idGrp, idUser, state);
 		else
 			return -1;
 	}
-	protected static int addmessage (long id, long auteur,String text) {
+	protected static int addMessage (long idMessage, long author,String text) {
 		if (isStarted())
-			return add.addMessage(id, auteur, text, state);
+			return add.addMessage(idMessage, author, text, state);
 		else
 			return -1;
 	}
-	protected static int addstatus (long idlecteur,long idMessage, Etat etat) {
+	protected static int addStatus (long idReader,long idMessage, Etat etat) {
 		if (isStarted())
-			return add.addStatus(idlecteur, idMessage, etat, state);
+			return add.addStatus(idReader, idMessage, etat, state);
 		else
 			return -1;
 	}
-	protected static int adddestinataire (long idmess , long idgrp) {
+	protected static int addRecipient (long idMessage , long idGroup) {
 		if (isStarted())
-			return add.addDestinataire(idmess, idgrp, state);
+			return add.addDestinataire(idMessage, idGroup, state);
 		else
 			return -1;
 	}
-	protected static int addticket (long idTicket , long idMessage) {
+	protected static int addTicket (long idTicket , long idMessage) {
 		if (isStarted())
 			return add.addTicket(idTicket, idMessage, state);
 		else
@@ -105,16 +109,16 @@ public class Database {
 	}
 	
 /*fonction de suppression de donnée********************************/
-	public static int deletegroup (long id) {
+	public static int deleteGroup (long idGroup) {
 		if (isStarted())
-			return delete.deletegroup(id, state);
+			return delete.deletegroup(idGroup, state);
 		else
 			return -1;
 	}
 /*fonction de selection*********************************************/
-	public static long connect (String motDePasse, String mail) {
+	public static long connect (String password, String email) {
 		if (isStarted())
-			return select.connect(motDePasse, mail, state);
+			return select.connect(password, email, state);
 		else
 			return -1;
 	}
@@ -122,60 +126,60 @@ public class Database {
 		if (isStarted())
 			return select.idMessageOfTicket(idTicket, state);
 		else
-			return null;
+			return new ArrayList<>();
 	}
-	public static List<Long> idUtilInGroup (long idGrp){
+	public static List<Long> idUserInGroup (long idGroup){
 		if (isStarted())
-			return select.idutilInGroup(idGrp, state);
+			return select.idutilInGroup(idGroup, state);
 		else
-			return null;
+			return new ArrayList<>();
 	}
-	public static List<Long> RecupMessageForDest (long idDest,long date){
+	public static List<Long> retrieveMessageForRecipient (long idUser,long date){
 		if (isStarted())
-			return select.RecupMessageDest(idDest, date, state);
+			return select.RecupMessageDest(idUser, date, state);
 		else
-			return null;
+			return new ArrayList<>();
 	}
-	public static Message RecupMessage (long idMessage){
+	public static Message retrieveMessage (long idMessage){
 		if (isStarted())
 			return select.RecupMessage(idMessage, state);
 		else
 			return null;
 	}
-	public static User RecupUserWithList(long idUser){
+	public static User retrieveUserWithList(long idUser){
 		if (isStarted())
 			return select.RecupUserWithList(idUser, state);
 		else
 			return null;
 	}
-	public static User RecupUserShort(long idUser,java.sql.Statement state){
+	public static User retrieveUserShort(long idUser,java.sql.Statement state){
 		if (isStarted())
 			return select.RecupUserShort(idUser, state);
 		else
 			return null;
 	}
 /*fonction de changement de valeur dans la base de donnée**********/
-	public static int changePasswd(long idUtil,String newPasswd) {
+	public static int changePasswd(long idUser,String newPassword) {
 		if (isStarted())
-			return update.changePasswd(idUtil, newPasswd, state);
+			return update.changePasswd(idUser, newPassword, state);
 		else
 			return -1;
 	}
-	public static int changeEtatStatus(long idMess , long idUtil,Etat etat) {
+	public static int changeEtatStatus(long idMessage , long idUser,Etat etat) {
 		if (isStarted())
-			return update.changeStatus(idMess, idUtil, etat, state);
+			return update.changeStatus(idMessage, idUser, etat, state);
 		else
 			return -1;
 	}
-	public static int changeCategorieUtil(long idUtil ,Categorie cat) {
+	public static int changeCategorieUser(long idUser ,Categorie category) {
 		if (isStarted())
-			return update.changeCategorie(idUtil, cat, state);
+			return update.changeCategorie(idUser, category, state);
 		else
 			return -1;
 	}
-	public static int changeContenueMessage(long idMessage,String newTexte) {
+	public static int changeContentsMessage(long idMessage,String newText) {
 		if (isStarted())
-			return update.changeMessage(idMessage, newTexte, state);
+			return update.changeMessage(idMessage, newText, state);
 		else
 			return -1;
 	}

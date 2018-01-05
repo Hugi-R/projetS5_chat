@@ -39,7 +39,7 @@ public class Add {
 		return i;
 	}
 	
-	protected int addUtilisateur (long id, String motDePasse, String nomUtilisateur ,String prenom ,String courriel,Categorie categorie,java.sql.Statement state) {
+	protected int addUser (long id, String motDePasse, String nomUtilisateur ,String prenom ,String courriel,Categorie categorie,java.sql.Statement state) {
 		int i = 0;
 		sql = "SELECT * FROM utilisateur WHERE idUtilisateur = '"+id+"';";
 		if( foundValues(state)) {
@@ -51,7 +51,7 @@ public class Add {
 		return i;
 	}
 	
-	protected int addPosseder (long idgrp , long idutil,java.sql.Statement state) {
+	protected int addGroupToUser (long idgrp , long idutil,java.sql.Statement state) {
 		int i = 0 ;
 		sql = "SELECT * FROM posseder WHERE idGrp= '"+idgrp+"' AND idUtil = '"+idutil+"';";
 		if( foundValues(state) ) {
@@ -63,7 +63,6 @@ public class Add {
 		return i;
 			
 	}
-	
 	protected int addMessage (long id , long auteur ,String text,java.sql.Statement state) {
 		int i = 0 ;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";

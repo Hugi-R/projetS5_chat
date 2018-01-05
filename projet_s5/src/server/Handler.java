@@ -69,7 +69,7 @@ public class Handler implements Runnable{
 			byte command = Commands.FAIL | Commands.CONNECT;
 			resp = new Packet(command);
 		} else {
-			resp = Database.RecupUserWithList(u);
+			resp = Database.retrieveUserWithList(u);
 			connectedUser = u;
 		}
 		try {
@@ -92,7 +92,7 @@ public class Handler implements Runnable{
 		//retrieve data for response
 		switch (type) {
 		case ContentType.MESSAGE :
-			response = Database.RecupMessage(r.getId());
+			response = Database.retrieveMessage(r.getId());
 			break;
 		case ContentType.USER :
 			//TODO
