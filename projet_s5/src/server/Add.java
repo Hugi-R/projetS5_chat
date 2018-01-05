@@ -53,12 +53,12 @@ public class Add {
 	
 	protected int addGroupToUser (long idgrp , long idutil,java.sql.Statement state) {
 		int i = 0 ;
-		sql = "SELECT * FROM posseder WHERE idGrp= '"+idgrp+"' AND idUtil = '"+idutil+"';";
+		sql = "SELECT * FROM posseder WHERE idGroupePosseder= '"+idgrp+"' AND idUtilisateurPosseder = '"+idutil+"';";
 		if( foundValues(state) ) {
 			System.err.println("[KO] l'utilisateur: "+idgrp+" est deja dans le groupe: "+idutil);
 			return i;
 		}
-		sql = "INSERT INTO posseder (idGrp, idUtil) VALUES ( '"+idgrp+"','"+idutil+"');";	
+		sql = "INSERT INTO posseder (idGroupePosseder, idUtilisateurPosseder) VALUES ( '"+idgrp+"','"+idutil+"');";	
 		i =executeUpdate(state);
 		return i;
 			
@@ -77,36 +77,36 @@ public class Add {
 	
 	protected int addStatus (long idlecteur,long idMessage, Etat etat,java.sql.Statement state) {
 		int i = 0 ;
-		sql = "SELECT * FROM status WHERE idLecteur= '"+idlecteur+"' AND idMess ='"+idMessage+"' ;";
+		sql = "SELECT * FROM status WHERE idLecteur= '"+idlecteur+"' AND idMessageStatus ='"+idMessage+"' ;";
 		if( foundValues(state)) {
 			System.err.println("[KO] le message:"+idMessage+" possede deja un status pour le destinataire:"+idlecteur);
 			return -1;
 		}
-		sql = "INSERT INTO status (idLecteur, idMess,etat) VALUES ( '"+idlecteur+"','"+idMessage+"','"+etat+"');";	
+		sql = "INSERT INTO status (idLecteur, idMessageStatus,etat) VALUES ( '"+idlecteur+"','"+idMessage+"','"+etat+"');";	
 		i =executeUpdate(state);
 		return i;
 	}
 	
 	protected int addDestinataire (long idmess , long idgrp ,java.sql.Statement state) {
 		int i = 0 ;
-		sql = "SELECT * FROM destinataire WHERE idGrpDestinataire= '"+idgrp+"' AND idMes = '"+idmess+"';";
+		sql = "SELECT * FROM destinataire WHERE idGroupDestinataire = '"+idgrp+"' AND idMessageDestinataire = '"+idmess+"';";
 		if( foundValues(state)) {
 			System.err.println("[KO] le message:"+idmess+" possede deja un destinataire:"+idgrp);
 			return -1;
 		}
-		sql = "INSERT INTO destinataire (idMes, idGrpDestinataire) VALUES ( '"+idmess+"','"+idgrp+"');";	
+		sql = "INSERT INTO destinataire (idGroupDestinataire, idGroupDestinataire) VALUES ( '"+idmess+"','"+idgrp+"');";	
 		i =executeUpdate(state);
 		return i;
 	}
 	
 	protected int addTicket (long idTicket , long idMessage,java.sql.Statement state) {
 		int i = 0 ;
-		sql = "SELECT * FROM ticket WHERE idTicket= '"+idTicket+"' AND idMessa = '"+idMessage+"';";
+		sql = "SELECT * FROM ticket WHERE idTicket= '"+idTicket+"' AND idMessageTicket = '"+idMessage+"';";
 		if( foundValues(state)) {
 			System.err.println("[KO] Le ticket"+idTicket+" possede deja le message:"+idMessage);
 				return -1;
 		}
-		sql = "INSERT INTO ticket (idTicket, idMessa) VALUES ( '"+idTicket+"','"+idMessage+"');";	
+		sql = "INSERT INTO ticket (idTicket, idMessageTicket) VALUES ( '"+idTicket+"','"+idMessage+"');";	
 		i = executeUpdate(state);
 		return i;
 	}
