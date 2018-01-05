@@ -15,10 +15,6 @@ public class Message extends Content {
 		this.time = time;
 	}
 
-	public String getMessage() {
-		return textMessage;
-	}
-	
 	public long getUser() {
 		return user;
 	}

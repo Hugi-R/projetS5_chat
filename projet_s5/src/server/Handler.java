@@ -4,9 +4,12 @@ import java.io.IOException;
 
 import packet.Commands;
 import packet.Connect;
+import packet.Content;
 import packet.ContentType;
+import packet.Message;
 import packet.Packet;
 import packet.Request;
+import packet.Ticket;
 import utils.Id;
 
 public class Handler implements Runnable{
@@ -37,27 +40,44 @@ public class Handler implements Runnable{
 			if(data == null) {
 				comm.close();
 			} else {
-				System.out.println(data);
-				switch (data.getCommand()) {
-				case Commands.RETRIEVE :
-					System.out.println("RETRIVE : "+data);
-					retrieve(data);
-					break;
-				case Commands.SEND :
-					System.out.println("SEND : "+data);
-					send(data);
-					break;
-				case Commands.SEND | Commands.CONNECT :
-					System.out.println("CONNECT : "+data);
-					connect(data);
-					break;
-				default :
-					System.err.println("Unknow command");
+				if(connectedUser != 0) {
+					System.out.println(data);
+					switch (data.getCommand()) {
+					case Commands.RETRIEVE :
+						System.out.println("RETRIVE : "+data);
+						commandRetrieve(data);
+						break;
+					case Commands.SEND :
+						System.out.println("SEND : "+data);
+						commandSend(data);
+						break;
+					case Commands.SEND | Commands.CONNECT :
+						System.out.println("CONNECT : "+data);
+						connect(data);
+						break;
+					default :
+						System.err.println("Unknow command");
+					}
+				} else {
+					if(data.getCommand() == (Commands.SEND | Commands.CONNECT)) {
+						System.out.println("CONNECT : "+data);
+						connect(data);
+					} else {
+						permissionDenied();
+					}
 				}
 			}
 		}
 		System.out.println("Fin handler");
 		
+	}
+	
+	private void permissionDenied() {
+		try {
+			comm.send(new Packet((byte)(Commands.FAIL | Commands.CONNECT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -75,7 +95,6 @@ public class Handler implements Runnable{
 		try {
 			comm.send(resp);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -84,9 +103,10 @@ public class Handler implements Runnable{
 	 * Retrieve data from database and send them to the client
 	 * @param p
 	 */
-	private void retrieve(Packet p) {
+	private void commandRetrieve(Packet p) {
 		Request r = (Request) p;
 		byte type = Id.type(r.getId());
+		boolean isAll = ((p.getCommand() & Commands.ALL)==Commands.ALL);
 		Packet response = null;
 		
 		//retrieve data for response
@@ -95,13 +115,17 @@ public class Handler implements Runnable{
 			response = Database.retrieveMessage(r.getId());
 			break;
 		case ContentType.USER :
-			//TODO
+			if(isAll) {
+				response = Database.retrieveUserWithList(r.getId());
+			} else {
+				//response = Database.retrieveUserShort(r.getId());
+			}
 			break;
 		case ContentType.GROUP :
-			//TODO
+			//TODO waiting retrieveGroup
 			break;
 		case ContentType.TICKET :
-			//TODO
+			//TODO waiting retrieveTicket
 			break;
 		default :
 			System.err.println("Unknow content type");
@@ -112,7 +136,6 @@ public class Handler implements Runnable{
 			try {
 				comm.send(response);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -124,7 +147,21 @@ public class Handler implements Runnable{
 	 * Usually new message or ticket
 	 * @param p
 	 */
-	private void send(Packet p) {
+	private void commandSend(Packet p) {
+		Content data = (Content) p;
+		byte contentType = Id.type(data.getId());
+		switch(contentType) {
+		case ContentType.MESSAGE :
+			Message message = (Message) data;
+			while(Database.addMessage(Id.generate(contentType), message.getUser(), message.getTextMessage()) == -1);
+			break;
+		case ContentType.TICKET :
+			Ticket ticket = (Ticket) data;
+			while(Database.addTicket(ticket.getId(), ticket.getMessageList().get(0)) == -1);
+			break;
+		default :
+			System.err.println("commandSend : contentType invalid");	
+		}
 		
 	}
 
