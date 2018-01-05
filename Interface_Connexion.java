@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet;
+package interfaces_projet;
 
 import java.awt.Component;
 
@@ -34,8 +34,10 @@ public class Interface_Connexion extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         saisieIdentifiant = new javax.swing.JTextField();
-        saisieMDP = new javax.swing.JTextField();
         boutonConnexion = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         boutonInscription = new javax.swing.JButton();
         boutonOublie = new javax.swing.JButton();
@@ -46,7 +48,6 @@ public class Interface_Connexion extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        saisieIdentifiant.setText("identifiant");
         saisieIdentifiant.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saisieIdentifiantMouseClicked(evt);
@@ -55,18 +56,6 @@ public class Interface_Connexion extends javax.swing.JFrame {
         saisieIdentifiant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saisieIdentifiantActionPerformed(evt);
-            }
-        });
-
-        saisieMDP.setText("mot de passe");
-        saisieMDP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saisieMDPMouseClicked(evt);
-            }
-        });
-        saisieMDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saisieMDPActionPerformed(evt);
             }
         });
 
@@ -82,41 +71,54 @@ public class Interface_Connexion extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("identifiant");
+
+        jLabel2.setText("mot de passe");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saisieMDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saisieIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(boutonConnexion)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2)
+                        .addComponent(saisieIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saisieIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(saisieMDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(boutonConnexion)
-                .addGap(22, 22, 22))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,11 +148,11 @@ public class Interface_Connexion extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(boutonInscription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(boutonOublie)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +177,6 @@ public class Interface_Connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_saisieIdentifiantActionPerformed
 
-    private void saisieMDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saisieMDPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saisieMDPActionPerformed
-
     private void boutonInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boutonInscriptionMouseClicked
         // TODO add your handling code here:
         new Interface_Inscription().setVisible(true);
@@ -190,7 +188,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
         if(/*test validité ID et MDP*/true)
             new Interface_Utilisateur_principale().setVisible(true);
         else
-            new Interface_ErreurCo().setVisible(true);
+            new Interface_NotificationErreur().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_boutonConnexionMouseClicked
 
@@ -205,14 +203,6 @@ public class Interface_Connexion extends javax.swing.JFrame {
             saisieIdentifiant.setText(null);
         }
     }//GEN-LAST:event_saisieIdentifiantMouseClicked
-
-    private void saisieMDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisieMDPMouseClicked
-        // TODO add your handling code here:
-        Component component = evt.getComponent();
-        if (saisieMDP.equals(component)&&texteSaisieMDP.equals(saisieMDP.getText())){
-            saisieMDP.setText(null);
-        }
-    }//GEN-LAST:event_saisieMDPMouseClicked
 
     /**
      * @param args the command line arguments
@@ -253,10 +243,12 @@ public class Interface_Connexion extends javax.swing.JFrame {
     private javax.swing.JButton boutonConnexion;
     private javax.swing.JButton boutonInscription;
     private javax.swing.JButton boutonOublie;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField saisieIdentifiant;
-    private javax.swing.JTextField saisieMDP;
     // End of variables declaration//GEN-END:variables
 }

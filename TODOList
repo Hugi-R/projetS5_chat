@@ -1,6 +1,5 @@
 
 
-
 PROJET ENTIER
 
 vérifier les redimensions
@@ -21,6 +20,7 @@ Interface_CreationTicket
 
 boutonCreer
 	ajouter envoi a la BD avant de fermer la fenetre
+	COMMENCÉ
 
 listGroups
 	model
@@ -40,9 +40,9 @@ boutonCreer
 /////////////////////////////////////////////////////////////////////////
 Interface_MessageStatus
 
-auteur[JLabel]/date[JLabel]
-	chercher infos
+chercher infos userListStatusMessage
 
+a continuer
 
 
 /////////////////////////////////////////////////////////////////////////

@@ -9,12 +9,12 @@ package interfaces_projet;
  *
  * @author adrian
  */
-public class Interface_NotificationSucces extends javax.swing.JFrame {
+public class Interface_NotificationErreur extends javax.swing.JFrame {
 
     /**
      * Creates new form Interface_NotificationCreationTicket
      */
-    public Interface_NotificationSucces() {
+    public Interface_NotificationErreur() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -47,7 +47,7 @@ public class Interface_NotificationSucces extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("      L'opération a été un succès");
+        jLabel1.setText("         Une erreur s'est produite");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,21 +101,35 @@ public class Interface_NotificationSucces extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface_NotificationSucces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface_NotificationErreur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface_NotificationSucces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface_NotificationErreur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface_NotificationSucces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface_NotificationErreur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface_NotificationSucces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface_NotificationErreur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface_NotificationSucces().setVisible(true);
+                new Interface_NotificationErreur().setVisible(true);
             }
         });
     }

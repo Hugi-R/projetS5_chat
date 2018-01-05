@@ -3,19 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet;
+package interfaces_projet;
 
+import content.*;
+        
 /**
  *
  * @author adrian
  */
 public class Interface_MessageStatus extends javax.swing.JFrame {
-
+    private Message message;
+    
     /**
      * Creates new form Interface_MessageStatus
+     * @param message: message selectionné
      */
-    public Interface_MessageStatus() {
+    public Interface_MessageStatus(Message message) {
         initComponents();
+        this.message=message;
     }
 
     /**
@@ -31,7 +36,7 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         auteur = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        message = new javax.swing.JTextArea();
+        TexteMessage = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
@@ -39,32 +44,30 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("status du message");
 
-        auteur.setText("nom prenom auteur");
+        auteur.setText(this.message.getWriter().toString());
 
-        date.setText("date de création");
+        date.setText(Long.toString(this.message.getTime()));
 
-        message.setEditable(false);
-        message.setColumns(20);
-        message.setRows(5);
-        message.setText("Ceci est un message temporaire.\nIl ne s'autodétruira pas !");
-        jScrollPane1.setViewportView(message);
+        TexteMessage.setEditable(false);
+        TexteMessage.setColumns(20);
+        TexteMessage.setRows(5);
+        TexteMessage.setText(this.message.getMessage());
+        jScrollPane1.setViewportView(TexteMessage);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(20, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(60, Short.MAX_VALUE)
-                        .addComponent(auteur)
-                        .addGap(15, 15, 15)
-                        .addComponent(date)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)))
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(auteur)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(date)
+                .addGap(54, 54, 54))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,12 +124,33 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface_MessageStatus().setVisible(true);
+                Id idUser=null;
+                Id idMessage=null;
+                Id idTicket=null;
+                try{
+                    idUser = new Id(42);
+                } catch (IdException idE){
+                    System.err.println("erreur idUser");
+                };
+                try{
+                    idMessage = new Id(123);
+                } catch (IdException idE){
+                    System.err.println("erreur idMessage");
+                };
+                try{
+                    idTicket = new Id(1);
+                } catch (IdException idE){
+                    System.err.println("erreur idTicket");
+                };
+                
+                Message message =  new Message(idMessage, new User(idUser), new Ticket(idTicket), 10, "message test");
+                new Interface_MessageStatus(message).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TexteMessage;
     private javax.swing.JLabel auteur;
     private javax.swing.JLabel date;
     private javax.swing.JPanel jPanel1;
@@ -134,6 +158,5 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTree jTree1;
-    private javax.swing.JTextArea message;
     // End of variables declaration//GEN-END:variables
 }

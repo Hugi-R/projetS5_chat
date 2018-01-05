@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet;
+package interfaces_projet;
 
 import java.awt.Component;
+import content.*;
+import client.*;
+import server.*;
 
 /**
  *
@@ -39,12 +42,14 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         BoutonAnnuler = new javax.swing.JButton();
         BoutonCreer = new javax.swing.JButton();
         listGroups = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("nouveau ticket");
         setResizable(false);
 
-        SaisieIntitule.setText(texteIntitule);
         SaisieIntitule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SaisieIntituleMouseClicked(evt);
@@ -58,7 +63,6 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 
         saisieMessage.setColumns(20);
         saisieMessage.setRows(5);
-        saisieMessage.setText(texteSaisieMessage);
         saisieMessage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saisieMessageMouseClicked(evt);
@@ -87,6 +91,12 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Intitulé");
+
+        jLabel2.setText("groupe destinataire");
+
+        jLabel3.setText("Message");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,27 +107,43 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BoutonCreer)
                 .addGap(70, 70, 70))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SaisieIntitule)
-                    .addComponent(listGroups, 0, 140, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2)))
                 .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listGroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BoutonAnnuler)
                     .addComponent(BoutonCreer))
@@ -158,6 +184,15 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 
     private void BoutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCreerActionPerformed
         // TODO add your handling code here:
+        Id id=null;
+        User user=null;
+        Ticket ticket= new Ticket(null);
+        long time=0;
+        String textMessage=saisieMessage.getText();
+        Message message = new Message(id, user, ticket, time, textMessage);
+        
+        
+        
         new Interface_NotificationSucces().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BoutonCreerActionPerformed
@@ -202,6 +237,9 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     private javax.swing.JButton BoutonAnnuler;
     private javax.swing.JButton BoutonCreer;
     private javax.swing.JTextField SaisieIntitule;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> listGroups;
     private javax.swing.JTextArea saisieMessage;
