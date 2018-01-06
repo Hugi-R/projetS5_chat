@@ -83,9 +83,9 @@ public class Database {
 		else
 			return -1;
 	}
-	protected static int addMessage (long idMessage, long author,String text) {
+	protected static int addMessage (long idMessage, long author,long idTicket,String text) {
 		if (isStarted())
-			return add.addMessage(idMessage, author, text, state);
+			return add.addMessage(idMessage, author,idTicket, text, state);
 		else
 			return -1;
 	}
@@ -95,15 +95,9 @@ public class Database {
 		else
 			return -1;
 	}
-	protected static int addRecipient (long idMessage , long idGroup) {
+	protected static int addTicket (long idTicket , long idGroupRecipient,String objet) {
 		if (isStarted())
-			return add.addDestinataire(idMessage, idGroup, state);
-		else
-			return -1;
-	}
-	protected static int addTicket (long idTicket , long idMessage) {
-		if (isStarted())
-			return add.addTicket(idTicket, idMessage, state);
+			return add.addTicket(idTicket, idGroupRecipient,objet, state);
 		else
 			return -1;
 	}
@@ -148,13 +142,19 @@ public class Database {
 	}
 	public static User retrieveUserWithList(long idUser){
 		if (isStarted())
-			return select.RecupUserWithList(idUser, state);
+			return select.recupUserWithList(idUser, state);
 		else
 			return null;
 	}
 	public static User retrieveUserShort(long idUser){
 		if (isStarted())
-			return select.RecupUserShort(idUser, state);
+			return select.recupUserShort(idUser, state);
+		else
+			return null;
+	}
+	public static String nameOfGroup ( long idGroup ) {
+		if(isStarted())
+			return select.nameOfGroup(idGroup, state);
 		else
 			return null;
 	}

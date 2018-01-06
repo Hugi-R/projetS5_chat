@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import packet.Commands;
 import packet.Message;
+import packet.Ticket;
 import packet.User;
 
 public class Select {
@@ -109,7 +109,7 @@ public class Select {
 		return Listgroup;
 	}
 	
-	protected User RecupUserWithList(long idUser,java.sql.Statement state){
+	protected User recupUserWithList(long idUser,java.sql.Statement state){
 		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
 		User u = null;
 		try {
@@ -127,7 +127,7 @@ public class Select {
 		}
 		return u;
 	}
-	protected User RecupUserShort(long idUser,java.sql.Statement state){
+	protected User recupUserShort(long idUser,java.sql.Statement state){
 		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
 		User u = null;
 		try {
@@ -141,5 +141,33 @@ public class Select {
 		}
 		return u;
 	}
-	
+	protected String nameOfGroup ( long idGroup ,java.sql.Statement state){
+		sql="SELECT nomGroupe FROM groupe WHERE idGroupe = '"+idGroup+"';";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()){ 
+				return r.getString(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private long retriveAuthorOfTicket (long idTicket,java.sql.Statement state){
+		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' AND objet IS NOT NULL AND idMessage = idMessageTicket ; ";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()){ 
+				return r.getLong(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1 ;
+	}
+	protected Ticket retriveTicket (long idTicket,java.sql.Statement state){
+		Ticket t=null;
+		
+		return t;
+	}
 }

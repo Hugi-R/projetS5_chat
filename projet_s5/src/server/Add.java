@@ -63,14 +63,14 @@ public class Add {
 		return i;
 			
 	}
-	protected int addMessage (long id , long auteur ,String text,java.sql.Statement state) {
+	protected int addMessage (long id , long auteur,long idTicket ,String text,java.sql.Statement state) {
 		int i = 0 ;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
 			if( foundValues(state)) {
 				System.err.println("[KO] le message "+id+" existe deja.");
 				return -1;
 			}
-		sql = "INSERT INTO message (idMessage,dateMessage , auteur , message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+text+"');";	
+		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text+"');";	
 		i =executeUpdate(state);
 		return i;
 	}
@@ -87,26 +87,14 @@ public class Add {
 		return i;
 	}
 	
-	protected int addDestinataire (long idmess , long idgrp ,java.sql.Statement state) {
+	protected int addTicket (long idTicket , long idGroup,String objet,java.sql.Statement state) {
 		int i = 0 ;
-		sql = "SELECT * FROM destinataire WHERE idGroupDestinataire = '"+idgrp+"' AND idMessageDestinataire = '"+idmess+"';";
+		sql = "SELECT * FROM ticket WHERE idTicket= '"+idTicket+"' AND idGroupeDestinataire = '"+idGroup+"';";
 		if( foundValues(state)) {
-			System.err.println("[KO] le message:"+idmess+" possede deja un destinataire:"+idgrp);
-			return -1;
-		}
-		sql = "INSERT INTO destinataire (idGroupDestinataire, idGroupDestinataire) VALUES ( '"+idmess+"','"+idgrp+"');";	
-		i =executeUpdate(state);
-		return i;
-	}
-	
-	protected int addTicket (long idTicket , long idMessage,java.sql.Statement state) {
-		int i = 0 ;
-		sql = "SELECT * FROM ticket WHERE idTicket= '"+idTicket+"' AND idMessageTicket = '"+idMessage+"';";
-		if( foundValues(state)) {
-			System.err.println("[KO] Le ticket"+idTicket+" possede deja le message:"+idMessage);
+			System.err.println("[KO] Le ticket"+idTicket+" existe deja");
 				return -1;
 		}
-		sql = "INSERT INTO ticket (idTicket, idMessageTicket) VALUES ( '"+idTicket+"','"+idMessage+"');";	
+		sql = "INSERT INTO ticket (idTicket, idGroupeDestinataire,objet) VALUES ( '"+idTicket+"','"+idGroup+"','"+objet+"');";	
 		i = executeUpdate(state);
 		return i;
 	}
