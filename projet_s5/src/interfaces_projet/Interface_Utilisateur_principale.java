@@ -7,6 +7,10 @@ package interfaces_projet;
 
 import java.awt.Component;
 
+import javax.swing.JOptionPane;
+
+import client.MainClient;
+
 /**
  *
  * @author adrian
@@ -19,6 +23,21 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
      */
     public Interface_Utilisateur_principale() {
         initComponents();
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(null, 
+                    "Are you sure to close this window?", "Really Closing?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                	//action on closing
+                    MainClient.comm.close();
+                    System.exit(0);
+                }
+            }
+        });
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -39,8 +58,6 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
         saisieMessage = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         messagesTicket = new javax.swing.JList<>();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanelPincipal.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -148,6 +165,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arborescence;

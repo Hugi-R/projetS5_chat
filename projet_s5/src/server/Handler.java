@@ -159,11 +159,11 @@ public class Handler implements Runnable{
 		switch(contentType) {
 		case ContentType.MESSAGE :
 			Message message = (Message) data;
-			while(Database.addMessage(Id.generate(contentType), message.getUser(), message.getTextMessage()) == -1);
+			while(Database.addMessage(Id.generate(contentType), message.getUser(), message.getTicket(), message.getTextMessage()) == -1);
 			break;
 		case ContentType.TICKET :
 			Ticket ticket = (Ticket) data;
-			while(Database.addTicket(ticket.getId(), ticket.getMessageList().get(0)) == -1);
+			while(Database.addTicket(Id.generate(contentType), ticket.getGroupId(), ticket.getName()) == -1);
 			break;
 		default :
 			System.err.println("commandSend : contentType invalid");	

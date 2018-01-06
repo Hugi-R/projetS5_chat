@@ -13,13 +13,13 @@ import packet.*;
  */
 public class Interface_MessageStatus extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
-	private Message message;
+	private MessagePanel message;
     
     /**
      * Creates new form Interface_MessageStatus
      * @param message: message selectionné
      */
-    public Interface_MessageStatus(Message message) {
+    public Interface_MessageStatus(MessagePanel message) {
         initComponents();
         this.message=message;
     }
@@ -144,7 +144,7 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
                     System.err.println("erreur idTicket");
                 };
                 
-                Message message =  new Message(idMessage, new User(idUser), new Ticket(idTicket), 10, "message test");
+                MessagePanel message =  new MessagePanel(idMessage, new User(idUser), new Ticket(idTicket), 10, "message test");
                 new Interface_MessageStatus(message).setVisible(true);
             }
         });

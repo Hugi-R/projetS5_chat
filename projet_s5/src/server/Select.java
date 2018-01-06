@@ -117,10 +117,10 @@ public class Select {
 			if(r.next()) {
 				String nom = r.getString(1);
 				String prenom = r.getString(2);
-				boolean agent = ("AGENT".equals(r.getString(3)));
+				String category = r.getString(3);
 				List<Long> groups = recupListGroupOfUser(idUser,state);
 				List<Long> tickets = recupListTicketOfUser(idUser, state);
-				u = new User(Commands.SEND,idUser,nom,prenom,agent,groups,tickets);
+				u = new User(Commands.SEND,idUser,nom,prenom,category,groups,tickets);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -133,7 +133,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),(r.getString(3).compareTo("AGENT")==0),null,null);
+				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),r.getString(3),null,null);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,6 +153,7 @@ public class Select {
 		}
 		return null;
 	}
+	
 	private long retriveAuthorOfTicket (long idTicket,java.sql.Statement state){
 		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' AND objet IS NOT NULL AND idMessage = idMessageTicket ; ";
 		try {

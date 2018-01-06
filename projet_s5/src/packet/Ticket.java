@@ -6,12 +6,14 @@ public class Ticket extends Content{
 	private static final long serialVersionUID = -7044448245749898134L;
 	private long creatorId;
 	private long groupId;
+	private String name;
 	private List<Long> messageList;
 
-	public Ticket(byte command, long id, long creatorId, long groupId, List<Long> messageList) {
+	public Ticket(byte command, long id, long creatorId, long groupId, String name, List<Long> messageList) {
 		super(command, id);
 		this.creatorId = creatorId;
 		this.groupId = groupId;
+		this.name = name;
 		this.messageList = messageList;
 	}
 
@@ -25,6 +27,10 @@ public class Ticket extends Content{
 
 	public List<Long> getMessageList() {
 		return messageList;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	@Override
