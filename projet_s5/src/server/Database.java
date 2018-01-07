@@ -9,6 +9,7 @@ import java.util.List;
 
 import client.Categorie;
 import client.Etat;
+import packet.Group;
 import packet.Message;
 import packet.Ticket;
 import packet.User;
@@ -153,6 +154,18 @@ public class Database {
 		else
 			return null;
 	}
+	public static Group retrieveGroup (long idGroup) {
+		if(isStarted())
+			return select.retrieveGroup(idGroup, state);
+		else
+			return null;
+	}
+	public static Ticket retriveTicket (long idTicket) {
+		if (isStarted()) {
+			return select.retrieveTicket(idTicket, state);
+		}else
+			return null ;
+	}
 /*fonction de changement de valeur dans la base de donnée**********/
 	public static int changePasswd(long idUser,String newPassword) {
 		if (isStarted())
@@ -177,11 +190,5 @@ public class Database {
 			return update.changeMessage(idMessage, newText, state);
 		else
 			return -1;
-	}
-	public static Ticket retriveTicket (long idTicket) {
-		if (isStarted()) {
-			return select.retriveTicket(idTicket, state);
-		}else
-			return null ;
 	}
 }

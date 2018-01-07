@@ -142,14 +142,14 @@ public class Select {
 		}
 		return null;
 	}
-	protected Group retriveGroup (long idGroup,java.sql.Statement state) {
+	protected Group retrieveGroup (long idGroup,java.sql.Statement state) {
 		String name;
 		if ((name=nameOfGroup(idGroup, state))==null)
 			return null;
 		else
 			return new Group(Commands.SEND, idGroup, name);
 	}
-	private long retriveAuthorOfTicket (long idTicket,java.sql.Statement state){
+	private long retrieveAuthorOfTicket (long idTicket,java.sql.Statement state){
 		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' ;";
 		try {
 			ResultSet r = state.executeQuery(sql);
@@ -162,7 +162,7 @@ public class Select {
 		return -1 ;
 	}
 	
-	protected Ticket retriveTicket (long idTicket,java.sql.Statement state){
+	protected Ticket retrieveTicket (long idTicket,java.sql.Statement state){
 		long idGroup = 0;
 		long idAuteur ;
 		String name ;
@@ -179,7 +179,7 @@ public class Select {
 			e.printStackTrace();
 			return null;
 		}
-		if ( (idAuteur = retriveAuthorOfTicket(idTicket, state)) ==-1) {
+		if ( (idAuteur = retrieveAuthorOfTicket(idTicket, state)) ==-1) {
 			return null;
 		}
 		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
