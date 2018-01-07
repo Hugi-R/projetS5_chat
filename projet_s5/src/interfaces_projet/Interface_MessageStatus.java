@@ -5,7 +5,10 @@
  */
 package interfaces_projet;
 
-import packet.*;
+import packet.Ticket;
+import packet.User;
+import utils.Id;
+import utils.IdException;
         
 /**
  *

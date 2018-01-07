@@ -6,9 +6,10 @@
 package interfaces_projet;
 
 import java.awt.Component;
-import packet.*;
-import client.*;
-import server.*;
+
+import packet.Ticket;
+import packet.User;
+import utils.Id;
 
 /**
  *
@@ -186,7 +187,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         // TODO add your handling code here:
         Id id=null;
         User user=null;
-        Ticket ticket= new Ticket(null);
+        Ticket ticket= null;
         long time=0;
         String textMessage=saisieMessage.getText();
         MessagePanel message = new MessagePanel(id, user, ticket, time, textMessage);

@@ -20,18 +20,38 @@ public class MessagePanel extends javax.swing.JPanel {
     /**
      * Creates new form Message
      */
+	//TODO : ajouter Ticket
     public MessagePanel(long id, long time, UserPanel user, String message) {
     	this.id = id;
     	this.time = time;
     	this.user = user;
     	this.message = message;
-    	
         initComponents();
         
         updateDisplayedData();
     }
     
-    public long getId() {
+    public String getMessage() {
+		return message;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public UserPanel getUser() {
+		return user;
+	}
+
+	public javax.swing.JTextArea getTextMessage() {
+		return TextMessage;
+	}
+
+	public javax.swing.JLabel getNomCreateur() {
+		return nomCreateur;
+	}
+
+	public long getId() {
     	return id;
     }
     
