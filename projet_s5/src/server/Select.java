@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import packet.Commands;
+import packet.Group;
 import packet.Message;
 import packet.Ticket;
 import packet.User;
@@ -18,6 +19,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()){ 
+				System.out.println("[OK] requete connect");
 				i=r.getLong(1);
 			}
 		}catch (Exception e) {
@@ -28,7 +30,7 @@ public class Select {
 	
 	protected List<Long> idMessageOfTicket (long idTicket,java.sql.Statement state) {
 		List<Long> l = new ArrayList<>();
-		sql = "SELECT * FROM ticket WHERE idTicket = '"+idTicket+"';";
+		sql = "SELECT DISTINCT idMessage FROM message WHERE idTicketMessage = '"+idTicket+"';";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
@@ -52,20 +54,7 @@ public class Select {
 		}
 		return l;
 	}
-	protected List<Long> RecupMessageDest (long idDest,long date,java.sql.Statement state){
-		List<Long> l = new ArrayList<>();
-		sql = "SELECT DISTINCT * FROM posseder,destinataire,message WHERE idUtilisateurPosseder = '"+idDest+"' AND idGroupePosseder = idGroupDestinataire AND dateMessage >'"+date+"';";
-		try {
-			ResultSet r = state.executeQuery(sql);
-			while(r.next()){ 
-				l.add(r.getLong(5));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return l;
-	}
+	
 	protected Message RecupMessage (long idMessage ,java.sql.Statement state){
 		sql= "SELECT UNIX_TIMESTAMP(dateMessage),auteur,message FROM message WHERE idMessage= '"+idMessage+"';";
 		Message m = null;
@@ -84,7 +73,7 @@ public class Select {
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Long> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire,posseder where idMessageTicket = idMessage AND (( auteur='"+idUser+"') OR (idGroupDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
@@ -117,10 +106,10 @@ public class Select {
 			if(r.next()) {
 				String nom = r.getString(1);
 				String prenom = r.getString(2);
-				String category = r.getString(3);
+				String agent = r.getString(3);
 				List<Long> groups = recupListGroupOfUser(idUser,state);
 				List<Long> tickets = recupListTicketOfUser(idUser, state);
-				u = new User(Commands.SEND,idUser,nom,prenom,category,groups,tickets);
+				u = new User(Commands.SEND,idUser,nom,prenom,agent,groups,tickets);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,9 +142,15 @@ public class Select {
 		}
 		return null;
 	}
-	
+	protected Group retriveGroup (long idGroup,java.sql.Statement state) {
+		String name;
+		if ((name=nameOfGroup(idGroup, state))==null)
+			return null;
+		else
+			return new Group(Commands.SEND, idGroup, name);
+	}
 	private long retriveAuthorOfTicket (long idTicket,java.sql.Statement state){
-		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' AND objet IS NOT NULL AND idMessage = idMessageTicket ; ";
+		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' ;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()){ 
@@ -166,9 +161,27 @@ public class Select {
 		}
 		return -1 ;
 	}
+	
 	protected Ticket retriveTicket (long idTicket,java.sql.Statement state){
-		Ticket t=null;
-		
-		return t;
+		long idGroup = 0;
+		long idAuteur ;
+		String name ;
+		sql = "SELECT idGroupeDestinataire,objet FROM ticket WHERE idTicket ='"+idTicket+"' ";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()){ 
+				idGroup = r.getLong(1);
+				name = r.getString(2);
+			}else {
+				return null;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		if ( (idAuteur = retriveAuthorOfTicket(idTicket, state)) ==-1) {
+			return null;
+		}
+		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
 	}
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import client.Categorie;
 import client.Etat;
 import packet.Message;
+import packet.Ticket;
 import packet.User;
 
 public class Database {
@@ -128,12 +129,6 @@ public class Database {
 		else
 			return new ArrayList<>();
 	}
-	public static List<Long> retrieveMessageForRecipient (long idUser,long date){
-		if (isStarted())
-			return select.RecupMessageDest(idUser, date, state);
-		else
-			return new ArrayList<>();
-	}
 	public static Message retrieveMessage (long idMessage){
 		if (isStarted())
 			return select.RecupMessage(idMessage, state);
@@ -182,5 +177,11 @@ public class Database {
 			return update.changeMessage(idMessage, newText, state);
 		else
 			return -1;
+	}
+	public static Ticket retriveTicket (long idTicket) {
+		if (isStarted()) {
+			return select.retriveTicket(idTicket, state);
+		}else
+			return null ;
 	}
 }

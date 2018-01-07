@@ -66,10 +66,14 @@ public class Add {
 	protected int addMessage (long id , long auteur,long idTicket ,String text,java.sql.Statement state) {
 		int i = 0 ;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
-			if( foundValues(state)) {
-				System.err.println("[KO] le message "+id+" existe deja.");
-				return -1;
-			}
+		if( foundValues(state)) {
+			System.err.println("[KO] le message "+id+" existe deja.");
+			return -1;
+		}
+		sql = "SELECT * FROM ticket WHERE idTicket = '"+idTicket+"';";
+		if(foundValues(state)) {
+			System.err.println("[KO] le ticket "+idTicket+" n'existe pas");
+		}
 		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text+"');";	
 		i =executeUpdate(state);
 		return i;
