@@ -34,7 +34,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
-				l.add(r.getLong(2));
+				l.add(r.getLong(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class Select {
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Long> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,destinataire where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
