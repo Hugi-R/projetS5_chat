@@ -9,7 +9,7 @@ public class Group extends Content{
 		this.groupName = nomGroup;
 	}
 
-	public String getNomGroup() {
+	public String getName() {
 		return groupName;
 	}
 

@@ -5,13 +5,17 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import interfaces_projet.GroupPanel;
 import interfaces_projet.MessagePanel;
+import interfaces_projet.TicketPanel;
 import interfaces_projet.UserPanel;
 import packet.Commands;
 import packet.ContentType;
+import packet.Group;
 import packet.Message;
 import packet.Packet;
 import packet.Request;
+import packet.Ticket;
 import packet.User;
 import utils.Id;
 
@@ -20,8 +24,8 @@ public class ClientDB {
 	 * Store data for user
 	 * If data not present, retrieve it from server
 	 */
-	//private static List<> groups;
-	//private static TicketList tickets;
+	private static HashMap<Long, GroupPanel> groupList = new HashMap<>();
+	private static HashMap<Long, TicketPanel> ticketList;
 	private static HashMap<Long, UserPanel> userList = new HashMap<>();
 	private static HashMap<Long, MessagePanel> messageList = new HashMap<>();
 	
@@ -36,13 +40,13 @@ public class ClientDB {
 			ret = findMessage(id);
 			break;
 		case ContentType.USER :
-			//TODO
+			ret = findUser(id);
 			break;
 		case ContentType.TICKET :
-			//TODO
+			ret = findTicket(id);
 			break;
 		case ContentType.GROUP :
-			//TODO
+			ret = findGroup(id);
 			break;
 		default :
 			System.err.println("ClientDB find : unknow ContentType");
@@ -79,6 +83,33 @@ public class ClientDB {
 		return ret;
 	}
 	
+	public static GroupPanel findGroup(long id) {
+		GroupPanel ret = null;
+		if((ret = groupList.get(id)) == null) {
+			Group g = (Group) retrieve(id);
+			if(g != null) {
+				GroupPanel group = new GroupPanel(g.getId(), g.getName());
+				groupList.put(g.getId(), group);
+				ret = group;
+			}
+		}
+		
+		return ret;
+	}
+	
+	public static TicketPanel findTicket(long id) {
+		TicketPanel ret = null;
+		if((ret = ticketList.get(id)) == null) {
+			Ticket t = (Ticket) retrieve(id);
+			if(t != null) {
+				TicketPanel ticket = new TicketPanel(t.getId(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
+				ticketList.put(t.getId(), ticket);
+				ret = ticket;
+			}
+		}
+		return ret;
+	}
+	
 	private static Packet retrieve(long id) {
 		Packet ret = null;
 		try {
@@ -92,5 +123,6 @@ public class ClientDB {
 			ret = null;
 		return ret;
 	}
+	
 
 }
