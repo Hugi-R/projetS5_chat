@@ -39,6 +39,12 @@ public class TicketPanel extends JPanel {
 	public List<Long> getMessages() {
 		return messages;
 	}
+
+
+	@Override
+	public String toString() {
+		return "TicketPanel [id=" + id + ", creator=" + creator + ", group=" + group + ", messages=" + messages + "]";
+	}
 	
 	
 

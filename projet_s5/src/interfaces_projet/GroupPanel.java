@@ -24,6 +24,13 @@ public class GroupPanel extends JPanel {
 	public String getName() {
 		return name;
 	}
+
+
+	@Override
+	public String toString() {
+		return "GroupPanel [id=" + id + ", name=" + name + "]";
+	}
+	
 	
 
 }

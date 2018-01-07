@@ -16,8 +16,13 @@ public class MessagePanel extends javax.swing.JPanel {
 	private long time;
 	private UserPanel user;
 	
+	
+    @Override
+	public String toString() {
+		return "MessagePanel [id=" + id + ", message=" + message + ", time=" + time + ", user=" + user + "]";
+	}
 
-    /**
+	/**
      * Creates new form Message
      */
 	//TODO : ajouter Ticket

@@ -34,7 +34,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
-				l.add(r.getLong(2));
+				l.add(r.getLong(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

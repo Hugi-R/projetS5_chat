@@ -25,7 +25,7 @@ public class ClientDB {
 	 * If data not present, retrieve it from server
 	 */
 	private static HashMap<Long, GroupPanel> groupList = new HashMap<>();
-	private static HashMap<Long, TicketPanel> ticketList;
+	private static HashMap<Long, TicketPanel> ticketList = new HashMap<>();
 	private static HashMap<Long, UserPanel> userList = new HashMap<>();
 	private static HashMap<Long, MessagePanel> messageList = new HashMap<>();
 	
@@ -99,7 +99,8 @@ public class ClientDB {
 	
 	public static TicketPanel findTicket(long id) {
 		TicketPanel ret = null;
-		if((ret = ticketList.get(id)) == null) {
+		ret = ticketList.get(id);
+		if(ret == null) {
 			Ticket t = (Ticket) retrieve(id);
 			if(t != null) {
 				TicketPanel ticket = new TicketPanel(t.getId(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());

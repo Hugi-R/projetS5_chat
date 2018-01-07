@@ -118,14 +118,14 @@ public class Handler implements Runnable{
 			if(isAll) {
 				response = Database.retrieveUserWithList(r.getId());
 			} else {
-				//response = Database.retrieveUserShort(r.getId());
+				response = Database.retrieveUserShort(r.getId());
 			}
 			break;
 		case ContentType.GROUP :
-			//TODO waiting retrieveGroup
+			response = Database.retrieveGroup(r.getId());		
 			break;
 		case ContentType.TICKET :
-			//TODO waiting retrieveTicket
+			response = Database.retriveTicket(r.getId());
 			break;
 		default :
 			System.err.println("Unknow content type");
