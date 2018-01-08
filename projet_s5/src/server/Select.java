@@ -150,7 +150,7 @@ public class Select {
 			return new Group(Commands.SEND, idGroup, name);
 	}
 	private long retrieveAuthorOfTicket (long idTicket,java.sql.Statement state){
-		sql="SELECT DISTINCT auteur  FROM ticket,message WHERE idTicket='"+idTicket+"' ;";
+		sql="SELECT DISTINCT auteur FROM ticket,message WHERE idTicket ='"+idTicket+"' AND idTicketMessage = idTicket ORDER BY dateMessage;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()){ 
