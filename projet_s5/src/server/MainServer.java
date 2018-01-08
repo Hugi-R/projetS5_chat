@@ -2,6 +2,8 @@ package server;
 
 import java.io.IOException;
 
+import interfaces_projet.Interface_Serveur;
+
 public class MainServer {
 	public static void main(String[] args) {
 		System.out.println("Lancement du serveur");
@@ -10,13 +12,22 @@ public class MainServer {
 		String passwd = "projets5_psswd";
 		Database.start(url,user,passwd);
 		
-		try {
-			Daemon d = new Daemon(3636);
-			d.listen();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
+		boolean gui = false;
+		
+		if(args.length == 2)
+			gui = "gui".equals(args[1]);
+		
+		if(gui){
+			new Interface_Serveur();
+		} else {
+			try {
+				Daemon d = new Daemon(3636);
+				d.listen();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+			System.out.println("Fin du serveur");
 		}
-		System.out.println("Fin du serveur");
 	}
 }
