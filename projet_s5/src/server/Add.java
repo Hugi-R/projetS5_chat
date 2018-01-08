@@ -34,7 +34,7 @@ public class Add {
 			System.err.println("[KO] le groupe: "+val+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+val+"','"+nom+"');";
+		sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+val+"','"+nom.replace("'", "''")+"');";
 		i = executeUpdate(state);
 		return i;
 	}
@@ -46,7 +46,7 @@ public class Add {
 			System.err.println("[KO] l'utilisateur: "+id+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur+"', '"+prenom+"','"+courriel+"','"+categorie+"');";	
+		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur.replace("'", "''")+"', '"+prenom.replace("'", "''")+"','"+courriel+"','"+categorie+"');";	
 		i =executeUpdate(state);
 		return i;
 	}
@@ -98,7 +98,7 @@ public class Add {
 			System.err.println("[KO] Le ticket"+idTicket+" existe deja");
 				return -1;
 		}
-		sql = "INSERT INTO ticket (idTicket, idGroupeDestinataire,objet) VALUES ( '"+idTicket+"','"+idGroup+"','"+objet+"');";	
+		sql = "INSERT INTO ticket (idTicket, idGroupeDestinataire,objet) VALUES ( '"+idTicket+"','"+idGroup+"','"+objet.replace("'", "''")+"');";	
 		i = executeUpdate(state);
 		return i;
 	}

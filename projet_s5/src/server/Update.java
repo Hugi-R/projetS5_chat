@@ -39,7 +39,7 @@ public class Update {
 	
 	protected int changeMessage(long idMessage,String newTexte,java.sql.Statement state) {
 		int i = 0;
-		sql="UPDATE message SET message = '"+newTexte+"' WHERE idUtilisateur='"+idMessage+"';";
+		sql="UPDATE message SET message = '"+newTexte.replace("'", "''")+"' WHERE idUtilisateur='"+idMessage+"';";
 		i = executeUpdate(state);
 		return i;
 	}
