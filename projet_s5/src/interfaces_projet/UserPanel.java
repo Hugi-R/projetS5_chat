@@ -2,8 +2,7 @@ package interfaces_projet;
 
 import javax.swing.JPanel;
 
-import client.GroupList;
-import client.TicketList;
+import java.util.List;
 
 public class UserPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -11,11 +10,11 @@ public class UserPanel extends JPanel {
 	private String nom;
 	private String prenom;
 	private String category;
-	private TicketList ticketList;
-	private GroupList groupList;
+	private List<TicketPanel> ticketList;
+	private List<GroupPanel> groupList;
 	
 	
-	public UserPanel(long id, String nom, String prenom, String category, TicketList ticketList, GroupList groupList) {
+	public UserPanel(long id, String nom, String prenom, String category, List<TicketPanel> ticketList, List<GroupPanel> groupList) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -26,6 +25,10 @@ public class UserPanel extends JPanel {
 	}
 
 
+        public List<GroupPanel> getGroupList(){
+            return this.groupList;
+        }
+        
 	@Override
 	public String toString() {
 		return "UserPanel [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", category=" + category

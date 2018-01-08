@@ -7,17 +7,19 @@ import javax.swing.JPanel;
 public class TicketPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private long id;
+	private String nom;
 	private UserPanel creator;
 	private GroupPanel group;
-	private List<Long> messages;
+	private List<MessagePanel> messages;
 	
 	
-	public TicketPanel(long id, UserPanel creator, GroupPanel group, List<Long> messages) {
+	public TicketPanel(long id, UserPanel creator, String intitule, GroupPanel group, List<MessagePanel> messages) {
 		super();
 		this.id = id;
 		this.creator = creator;
 		this.group = group;
 		this.messages = messages;
+		this.nom = intitule;
 	}
 
 
@@ -25,6 +27,9 @@ public class TicketPanel extends JPanel {
 		return id;
 	}
 
+	public String getName() {
+		return name;
+	}
 
 	public UserPanel getCreator() {
 		return creator;
@@ -36,7 +41,7 @@ public class TicketPanel extends JPanel {
 	}
 
 
-	public List<Long> getMessages() {
+	public List<MessagePanel> getMessages() {
 		return messages;
 	}
 

@@ -5,11 +5,20 @@
  */
 package interfaces_projet;
 
+import client.GroupList;
 import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
 import client.MainClient;
+import client.TicketList;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -18,11 +27,13 @@ import client.MainClient;
 public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	static String texteSaisieMessage = "Saisissez votre texte ici.";
+        private UserPanel user;
     /**
      * Creates new form JFrame
      */
-    public Interface_Utilisateur_principale() {
+    public Interface_Utilisateur_principale(UserPanel user) {
         initComponents();
+        this.user=user;
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -39,7 +50,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
         });
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +81,30 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
         jScrollPane4.setAutoscrolls(true);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(100, 400));
 
-        arborescence.setToolTipText("groupe1\n\tmessage1\n\tmessage2\ngroupe2\n\tmessage1\n\tmessage2");
+        
+        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode(user.toString());
+        if (!user.getGroupList().isEmpty()){
+            Iterable<GroupPanel> iterable2 = user.getGroupList();
+            for(GroupPanel groupe : iterable2){
+                DefaultMutableTreeNode treeNode2 = new DefaultMutableTreeNode(groupe.getName());
+                if(!groupe.getTicketList().isEmpty()){
+                    Iterable<TicketPanel> iterable3 = groupe.getTicketList();
+                    for(TicketPanel ticket : iterable3){
+                        DefaultMutableTreeNode treeNode3 = new DefaultMutableTreeNode(ticket.getName());
+                        Iterable<MessagePanel> iterable4 = ticket.getMessages();
+                        for(MessagePanel message : iterable4){
+                            DefaultMutableTreeNode treeNode4 = new DefaultMutableTreeNode(message.getMessage());
+                            treeNode3.add(treeNode4);
+                        }
+                        treeNode2.add(treeNode3);
+                    }
+                }
+                treeNode1.add(treeNode2);
+            }
+        }
+        
+        arborescence.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        
         arborescence.setAlignmentX(0.0F);
         arborescence.setAlignmentY(0.0F);
         arborescence.setAutoscrolls(true);
@@ -161,7 +195,18 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface_Utilisateur_principale().setVisible(true);
+                List<TicketPanel> ticketList = new ArrayList<>();
+                List<GroupPanel> groupList = new ArrayList<>();
+                
+                GroupPanel group = new GroupPanel(2, "Eleve");
+                groupList.add(group);
+                UserPanel Hugo = new UserPanel(1, "ROUSSEL", "Hugo", "Eleve", ticketList, groupList);
+                List<MessagePanel> messages = new ArrayList<>();
+                ticketList.add(new TicketPanel(3, Hugo, group, messages));
+                messages.add(new MessagePanel(232, 5198651, Hugo, "Ceci est un message test"));
+                
+                
+                new Interface_Utilisateur_principale(Hugo).setVisible(true);
             }
         });
     }

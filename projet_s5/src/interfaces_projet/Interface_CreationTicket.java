@@ -190,7 +190,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         Ticket ticket= null;
         long time=0;
         String textMessage=saisieMessage.getText();
-        MessagePanel message = new MessagePanel(id, user, ticket, time, textMessage);
+        TicketPanel ticket = new TicketPanel(time, user, group, messages);
         
         
         
