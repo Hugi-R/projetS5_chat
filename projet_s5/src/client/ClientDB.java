@@ -10,6 +10,7 @@ import interfaces_projet.MessagePanel;
 import interfaces_projet.TicketPanel;
 import interfaces_projet.UserPanel;
 import packet.Commands;
+import packet.Content;
 import packet.ContentType;
 import packet.Group;
 import packet.Message;
@@ -31,6 +32,34 @@ public class ClientDB {
 	
 	private ClientDB() {
 		// no constructor
+	}
+	
+	public static void add(Content packet) {
+		switch(Id.type(packet.getId())) {
+		case ContentType.MESSAGE :
+			Message m = (Message) packet;
+			MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getTextMessage());
+			messageList.put(m.getId(), message);
+			break;
+		case ContentType.USER :
+			User u = (User) packet;
+			UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null);
+			userList.put(u.getId(), user);
+			break;
+		case ContentType.TICKET :
+			Ticket t = (Ticket) packet;
+			TicketPanel ticket = new TicketPanel(t.getId(), t.getName(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
+			ticketList.put(t.getId(), ticket);
+			break;
+		case ContentType.GROUP :
+			Group g = (Group) packet;
+			GroupPanel group = new GroupPanel(g.getId(), g.getName());
+			groupList.put(g.getId(), group);
+			break;
+		default :
+			System.err.println("ClientDB find : unknow ContentType");
+				
+		}
 	}
 	
 	public static JPanel find(long id){

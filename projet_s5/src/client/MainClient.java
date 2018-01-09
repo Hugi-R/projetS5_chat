@@ -2,12 +2,13 @@ package client;
 
 import java.io.IOException;
 
+import interfaces_projet.Interface_CreationTicket;
 import interfaces_projet.Interface_Utilisateur_principale;
-import interfaces_projet.TicketPanel;
 import packet.Commands;
 import packet.Connect;
 import packet.Packet;
 import packet.User;
+import utils.Id;
 
 public class MainClient {
 	public static CommunicatorClient comm;
@@ -26,24 +27,16 @@ public class MainClient {
 			if(connectResp.getCommand() == (Commands.FAIL | Commands.CONNECT)) {
 				System.err.println("Username or password invalid");
 			} else {
-				//TODO : store user in clientDB
-				
-				//retrieve a message
-				TicketPanel ticket = ClientDB.findTicket(317943147588095081L);
-				System.out.println(ticket.toString());
-				for(Long id : ticket.getMessages()) {
-					System.out.println(ClientDB.findMessage(id).toString());
-				}
-		
+				user = (User)connectResp;
 			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
-		} finally {
-			comm.close();
 		}
 		
 		//new Interface_Connexion().setVisible(true);
+		new Interface_CreationTicket().setVisible(true);;
 
+		System.out.println(Id.DEFAULT_ID_MESSAGE);
 		System.out.println("Fin client");
 	}
 

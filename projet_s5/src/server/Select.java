@@ -155,7 +155,7 @@ public class Select {
 		return -1 ;
 	}
 	protected Group retrieveGroup(long idGroup,java.sql.Statement state) {
-		sql = "SELECT nomGroupe FROM groupe WHERE idGroupe = '"+idGroup+" ";
+		sql = "SELECT nomGroupe FROM groupe WHERE idGroupe = '"+idGroup+"';";
 		Group g = null;
 		try {
 			ResultSet r = state.executeQuery(sql);

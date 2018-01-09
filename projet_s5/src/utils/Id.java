@@ -1,8 +1,16 @@
 package utils;
 import java.util.Random;
 
+import packet.ContentType;
+
 public class Id{
 	private static Random rand = new Random();
+	public static final long DEFAULT_ID_MESSAGE = (long)ContentType.MESSAGE << 56;
+	public static final long DEFAULT_ID_TICKET = (long)ContentType.TICKET << 56;
+	
+	
+	private Id() {
+	}
 	
 	public static long generate(byte type) {
 		long i = rand.nextLong();

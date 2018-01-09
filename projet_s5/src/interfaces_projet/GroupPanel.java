@@ -35,7 +35,7 @@ public class GroupPanel extends JPanel {
         
 	@Override
 	public String toString() {
-		return "GroupPanel [id=" + id + ", name=" + name + ", ticketList=" + ticketList.toString() + "]";
+		return name;
 	}
 
 

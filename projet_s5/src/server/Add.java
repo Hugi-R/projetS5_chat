@@ -64,10 +64,6 @@ public class Add {
 			System.err.println("[KO] le message "+id+" existe deja.");
 			return -1;
 		}
-		sql = "SELECT * FROM ticket WHERE idTicket = '"+idTicket+"';";
-		if(foundValues(state)) {
-			System.err.println("[KO] le ticket "+idTicket+" n'existe pas");
-		}
 		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text+"');";
 		return executeUpdate(state);
 	}

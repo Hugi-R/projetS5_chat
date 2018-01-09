@@ -35,13 +35,14 @@ public class Handler implements Runnable{
 				data = comm.receive();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
+				data = null;
 			}
 			
 			if(data == null) {
 				comm.close();
 			} else {
 				if(connectedUser != 0) {
-					System.out.println(data);
+					//System.out.println(data);
 					switch (data.getCommand()) {
 					case Commands.RETRIEVE :
 						System.out.println("RETRIVE : "+data);
@@ -156,19 +157,57 @@ public class Handler implements Runnable{
 	private void commandSend(Packet p) {
 		Content data = (Content) p;
 		byte contentType = Id.type(data.getId());
+		long id = 0L;
+		int returnCode;
+		int i = 0;
 		switch(contentType) {
 		case ContentType.MESSAGE :
 			Message message = (Message) data;
-			while(Database.addMessage(Id.generate(contentType), message.getUser(), message.getTicket(), message.getTextMessage()) == -1);
+			do {
+				id = Id.generate(contentType);
+				returnCode = Database.addMessage(id, message.getUser(), message.getTicket(), message.getTextMessage());
+				i++;
+				if(i > 5) {
+					fail();
+					return;
+				}
+			}while((returnCode == -1) || (returnCode == 0));
+			try {
+				comm.send(Database.retrieveMessage(id));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 		case ContentType.TICKET :
 			Ticket ticket = (Ticket) data;
-			while(Database.addTicket(Id.generate(contentType), ticket.getGroupId(), ticket.getName()) == -1);
+			do {
+				id = Id.generate(contentType);
+				returnCode = Database.addTicket(id , ticket.getGroupId(), ticket.getName());
+				i++;
+				if(i > 5) {
+					fail();
+					return;
+				}
+			}while((returnCode == -1) || (returnCode == 0));
+			try {
+				comm.send(new Ticket(Commands.SEND, id, ticket.getCreatorId(), ticket.getGroupId(), ticket.getName(), null));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 		default :
 			System.err.println("commandSend : contentType invalid");	
 		}
+		//System.out.println("created id : "+id);
 		
+	}
+	
+	private void fail() {
+		try {
+			comm.send(new Packet(Commands.FAIL));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
