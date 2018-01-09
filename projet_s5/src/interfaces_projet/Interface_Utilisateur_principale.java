@@ -5,15 +5,11 @@
  */
 package interfaces_projet;
 
-import client.GroupList;
 import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
-import client.MainClient;
-import client.TicketList;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -91,11 +87,6 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
                     Iterable<TicketPanel> iterable3 = groupe.getTicketList();
                     for(TicketPanel ticket : iterable3){
                         DefaultMutableTreeNode treeNode3 = new DefaultMutableTreeNode(ticket.getName());
-                        Iterable<MessagePanel> iterable4 = ticket.getMessages();
-                        for(MessagePanel message : iterable4){
-                            DefaultMutableTreeNode treeNode4 = new DefaultMutableTreeNode(message.getMessage());
-                            treeNode3.add(treeNode4);
-                        }
                         treeNode2.add(treeNode3);
                     }
                 }
