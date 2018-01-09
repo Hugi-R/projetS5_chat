@@ -1,8 +1,5 @@
 package server;
 
-import client.Categorie;
-import client.Etat;
-
 public class remplirDatabase {
 	public static void main(String[] args){
 		System.out.println("Lancement du serveur");
@@ -10,7 +7,7 @@ public class remplirDatabase {
 		String user = "projets5_server";
 		String passwd = "projets5_psswd";
 		Database.start(url,user,passwd);
-		Database.addUser(212626373094099446L, "courgette", "Selebran", "pierre", "pierre.selebran@univ-tlse3.fr", Categorie.ETUDIANT);
+		/*Database.addUser(212626373094099446L, "courgette", "Selebran", "pierre", "pierre.selebran@univ-tlse3.fr", Categorie.ETUDIANT);
 		Database.addUser(166955891725051629L, "carrotte", "ROUSSEL", "hugo", "hugo.roussel@univ-tlse3.fr", Categorie.ENSEIGNANT_CHERCHEUR);
 		Database.addUser(190796928726647178L, "ananas", "ROUSSEL-FAYARD", "adrian", "adrian.roussel-fayard@univ-tlse3.fr", Categorie.AGENT);
 		Database.addgroup(256835400352577846L, "fac");
@@ -40,6 +37,7 @@ public class remplirDatabase {
 		Database.addMessage(130233831795944727L, 190796928726647178L,337516536014150299L, "service en vacance nous ne pourrons plus repondre ");
 		Database.addStatus(166955891725051629L, 130233831795944727L, Etat.RECUT);
 		Database.addStatus(212626373094099446L, 130233831795944727L, Etat.LU);
-	
+		*/
+		System.out.println(Database.retriveTicket(317943147588095081L));
 	}
 }

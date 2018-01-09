@@ -5,6 +5,13 @@
  */
 package interfaces_projet;
 
+import java.awt.event.ActionEvent;
+import java.util.List;
+
+import packet.Group;
+import packet.User;
+import server.Database;
+
 /**
  *
  * @author adrian
@@ -17,7 +24,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     public Interface_Serveur() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,7 +33,10 @@ public class Interface_Serveur extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	String url = "jdbc:mysql://eralyon.net:3306/projets5";
+		String user = "projets5_server";
+		String passwd = "projets5_psswd";
+		Database.start(url,user,passwd);
         tableau = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -70,6 +80,11 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel7.setLayout(new java.awt.GridLayout(2, 0));
 
         boutonAddUser.setText("ajouter un utilisateur");
+        boutonAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	addUserActionPerformed(evt);
+            }
+        });
         jPanel7.add(boutonAddUser);
 
         boutonDelUser.setText("supprimer un utilisateur");
@@ -83,11 +98,11 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         jButton3.setText("modifier");
         jPanel8.add(jButton3, java.awt.BorderLayout.PAGE_END);
-
+       
         listUsers.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        	List<User> listUser = Database.retrieveAllUser();       	
+            public int getSize() { return listUser.size(); }
+            public String getElementAt(int i) { return listUser.get(i).getPrenom()+" "+listUser.get(i).getNom();}
         });
         jScrollPane2.setViewportView(listUsers);
 
@@ -105,9 +120,10 @@ public class Interface_Serveur extends javax.swing.JFrame {
         groups.setLayout(new java.awt.GridLayout(1, 0));
 
         listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "User 1", "User 2", "User 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        	List<User> listUserg = Database.retrieveAllUser();
+            public int getSize() { return listUserg.size(); }
+            public String getElementAt(int i) { return listUserg.get(i).getPrenom()+" "+listUserg.get(i).getNom(); }
+            public long getId(int i) { return listUserg.get(i).getId();}
         });
         jScrollPane1.setViewportView(listeDesUtilisateurs);
 
@@ -155,9 +171,10 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         listGroups.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "group 1", "group 2", "group 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            List<Group> ListGrp = Database.retrieveAllGroup();
+            public int getSize() { return ListGrp.size(); }
+            public String getElementAt(int i) { return ListGrp.get(i).getName(); }
+            public long getidGrp(int i) { return ListGrp.get(i).getId();}
         });
         jScrollPane3.setViewportView(listGroups);
 
@@ -185,7 +202,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
+        System.out.println("r"+listeDesUtilisateurs.getSelectedIndex());
+    }//GEN-LAST:event_SaisieIntituleActionPerformed
     /**
      * @param args the command line arguments
      */

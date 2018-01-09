@@ -166,6 +166,18 @@ public class Database {
 		}else
 			return null ;
 	}
+	public static List<User> retrieveAllUser(){
+		if (isStarted()) {
+			return select.retrieveAllUser(state);
+		}else
+			return null ;
+	}
+	public static List<Group> retrieveAllGroup(){
+		if (isStarted())
+			return select.retrieveAllGroup(state);
+		else
+			return null ;
+	}
 /*fonction de changement de valeur dans la base de donnée**********/
 	public static int changePasswd(long idUser,String newPassword) {
 		if (isStarted())

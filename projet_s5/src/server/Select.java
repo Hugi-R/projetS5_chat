@@ -142,13 +142,6 @@ public class Select {
 		}
 		return null;
 	}
-	protected Group retrieveGroup (long idGroup,java.sql.Statement state) {
-		String name;
-		if ((name=nameOfGroup(idGroup, state))==null)
-			return null;
-		else
-			return new Group(Commands.SEND, idGroup, name);
-	}
 	private long retrieveAuthorOfTicket (long idTicket,java.sql.Statement state){
 		sql="SELECT DISTINCT auteur FROM ticket,message WHERE idTicket ='"+idTicket+"' AND idTicketMessage = idTicket ORDER BY dateMessage;";
 		try {
@@ -161,7 +154,20 @@ public class Select {
 		}
 		return -1 ;
 	}
-	
+	protected Group retrieveGroup(long idGroup,java.sql.Statement state) {
+		sql = "SELECT nomGroupe FROM groupe WHERE idGroupe = '"+idGroup+" ";
+		Group g = null;
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()) {
+				g = new Group(Commands.SEND,idGroup,r.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return g;
+	}
 	protected Ticket retrieveTicket (long idTicket,java.sql.Statement state){
 		long idGroup = 0;
 		long idAuteur ;
@@ -183,5 +189,33 @@ public class Select {
 			return null;
 		}
 		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
+	}
+	protected List<User> retrieveAllUser(java.sql.Statement state) {
+		sql = "SELECT idUtilisateur,nomUtilisateur,prenom,categorie FROM utilisateur";
+		List<User> listUser = new ArrayList<>();
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()) {
+				listUser.add(new User(Commands.SEND,r.getLong(1),r.getString(2),r.getString(3),null,null,null));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return listUser;
+	}
+	protected List<Group> retrieveAllGroup(java.sql.Statement state) {
+		sql = "SELECT idGroupe,nomGroupe FROM groupe";
+		List<Group> listGrp = new ArrayList<>();
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()) {
+				listGrp.add(new Group(Commands.SEND,r.getLong(1),r.getString(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return listGrp;
 	}
 }
