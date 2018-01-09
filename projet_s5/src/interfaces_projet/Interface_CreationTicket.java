@@ -6,7 +6,16 @@
 package interfaces_projet;
 
 import java.awt.Component;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import client.Categorie;
+import client.CommunicatorClient;
+import client.MainClient;
+import packet.Commands;
+import packet.ContentType;
+import packet.Packet;
 import packet.Ticket;
 import packet.User;
 import utils.Id;
@@ -37,7 +46,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        SaisieIntitule = new javax.swing.JTextField();
+        saisieIntitule = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         saisieMessage = new javax.swing.JTextArea();
         BoutonAnnuler = new javax.swing.JButton();
@@ -51,12 +60,12 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         setTitle("nouveau ticket");
         setResizable(false);
 
-        SaisieIntitule.addMouseListener(new java.awt.event.MouseAdapter() {
+        saisieIntitule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SaisieIntituleMouseClicked(evt);
             }
         });
-        SaisieIntitule.addActionListener(new java.awt.event.ActionListener() {
+        saisieIntitule.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaisieIntituleActionPerformed(evt);
             }
@@ -120,7 +129,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
                 .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(listGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jLabel1))
@@ -135,7 +144,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,8 +183,8 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     private void SaisieIntituleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaisieIntituleMouseClicked
         // TODO add your handling code here:
         Component component = evt.getComponent();
-        if (SaisieIntitule.equals(component)&& texteIntitule.equals(SaisieIntitule.getText())) {
-            SaisieIntitule.setText(null);
+        if (saisieIntitule.equals(component)&& texteIntitule.equals(saisieIntitule.getText())) {
+            saisieIntitule.setText(null);
         }
     }//GEN-LAST:event_SaisieIntituleMouseClicked
 
@@ -185,17 +194,30 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 
     private void BoutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCreerActionPerformed
         // TODO add your handling code here:
-        Id id=null;
-        User user=null;
-        Ticket ticket= null;
-        long time=0;
+    	//TODO attention valeur en dure 
+        User user = new User(Commands.SEND, 5, "test", "test","test", null, null);
+        long idGroupe = 6; 
+        CommunicatorClient comm = new CommunicatorClient("localhost", 3636);
+        long idTicket = Id.generate(ContentType.TICKET);
         String textMessage=saisieMessage.getText();
-        TicketPanel ticket = new TicketPanel(time, user, group, messages);
-        
-        
-        
+        String textIntitule = saisieIntitule.getText();
+        Packet resp = null;
+        if( !textIntitule.isEmpty() && !textMessage.isEmpty()) {
+        	Ticket ticket = new Ticket(Commands.SEND,idTicket,user.getId(),idGroupe,texteIntitule,null);
+        	try {
+				comm.send(ticket);
+				resp = comm.receive();
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+        	if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
+        		new Interface_NotificationErreur("Erreur lors de l'envoie").setVisible(true);
+        	}
         new Interface_NotificationSucces().setVisible(true);
-        this.dispose();
+        	this.dispose();
+        }else {
+        	new Interface_NotificationErreur("Veuillez tout compléter").setVisible(true);
+        }
     }//GEN-LAST:event_BoutonCreerActionPerformed
 
     /**
@@ -237,7 +259,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonAnnuler;
     private javax.swing.JButton BoutonCreer;
-    private javax.swing.JTextField SaisieIntitule;
+    private javax.swing.JTextField saisieIntitule;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
