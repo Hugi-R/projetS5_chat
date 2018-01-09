@@ -15,6 +15,7 @@ public class Add {
 			i = state.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			i=-1;
 		}
 		return i;
 	}
@@ -22,7 +23,6 @@ public class Add {
 		try {
 			return state.executeQuery(sql).next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
