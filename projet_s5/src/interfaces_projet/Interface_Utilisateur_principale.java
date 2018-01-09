@@ -16,6 +16,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import client.MainClient;
+
 /**
  *
  * @author adrian
@@ -192,9 +194,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
                 GroupPanel group = new GroupPanel(2, "Eleve");
                 groupList.add(group);
                 UserPanel Hugo = new UserPanel(1, "ROUSSEL", "Hugo", "Eleve", ticketList, groupList);
-                List<MessagePanel> messages = new ArrayList<>();
-                ticketList.add(new TicketPanel(3, Hugo, group, messages));
-                messages.add(new MessagePanel(232, 5198651, Hugo, "Ceci est un message test"));
+                List<Long> messages = new ArrayList<>();
+                ticketList.add(new TicketPanel(3, "Test ticket", Hugo, group, messages));
+                //messages.add(new MessagePanel(232, 5198651, Hugo, "Ceci est un message test"));
                 
                 
                 new Interface_Utilisateur_principale(Hugo).setVisible(true);

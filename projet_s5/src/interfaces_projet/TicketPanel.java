@@ -10,10 +10,10 @@ public class TicketPanel extends JPanel {
 	private String nom;
 	private UserPanel creator;
 	private GroupPanel group;
-	private List<MessagePanel> messages;
+	private List<Long> messages;
 	
 	
-	public TicketPanel(long id, UserPanel creator, String intitule, GroupPanel group, List<MessagePanel> messages) {
+	public TicketPanel(long id, String intitule, UserPanel creator, GroupPanel group, List<Long> messages) {
 		super();
 		this.id = id;
 		this.creator = creator;
@@ -28,7 +28,7 @@ public class TicketPanel extends JPanel {
 	}
 
 	public String getName() {
-		return name;
+		return nom;
 	}
 
 	public UserPanel getCreator() {
@@ -41,7 +41,7 @@ public class TicketPanel extends JPanel {
 	}
 
 
-	public List<MessagePanel> getMessages() {
+	public List<Long> getMessages() {
 		return messages;
 	}
 

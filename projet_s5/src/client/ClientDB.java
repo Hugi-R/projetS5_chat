@@ -103,7 +103,7 @@ public class ClientDB {
 		if(ret == null) {
 			Ticket t = (Ticket) retrieve(id);
 			if(t != null) {
-				TicketPanel ticket = new TicketPanel(t.getId(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
+				TicketPanel ticket = new TicketPanel(t.getId(), t.getName(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
 				ticketList.put(t.getId(), ticket);
 				ret = ticket;
 			}
