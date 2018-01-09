@@ -5,6 +5,8 @@
  */
 package interfaces_projet;
 
+import java.sql.Time;
+
 import packet.Ticket;
 import packet.User;
 import utils.Id;
@@ -48,7 +50,7 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("status du message");
 
-        auteur.setText(this.message.getWriter().toString());
+        auteur.setText(this.message.getUser().toString());
 
         date.setText(Long.toString(this.message.getTime()));
 
@@ -128,26 +130,7 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Id idUser=null;
-                Id idMessage=null;
-                Id idTicket=null;
-                try{
-                    idUser = new Id(42);
-                } catch (IdException idE){
-                    System.err.println("erreur idUser");
-                };
-                try{
-                    idMessage = new Id(123);
-                } catch (IdException idE){
-                    System.err.println("erreur idMessage");
-                };
-                try{
-                    idTicket = new Id(1);
-                } catch (IdException idE){
-                    System.err.println("erreur idTicket");
-                };
-                
-                MessagePanel message =  new MessagePanel(idMessage, new User(idUser), new Ticket(idTicket), 10, "message test");
+                MessagePanel message =  new MessagePanel(1, 1219865321, new UserPanel(123, "ROUSSEL", "Hugo", "CAT", null, null), new String("Message de merde"));
                 new Interface_MessageStatus(message).setVisible(true);
             }
         });
