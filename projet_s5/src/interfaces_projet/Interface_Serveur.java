@@ -17,7 +17,8 @@ import server.Database;
  * @author adrian
  */
 public class Interface_Serveur extends javax.swing.JFrame {
-
+	private List<User> listUser ;
+	private List<Group> listGroup;
     /**
      * Creates new form Interface_Serveur
      */
@@ -37,6 +38,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
 		String user = "projets5_server";
 		String passwd = "projets5_psswd";
 		Database.start(url,user,passwd);
+		listUser=Database.retrieveAllUser();
+		listGroup =Database.retrieveAllGroup();
         tableau = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -100,9 +103,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel8.add(jButton3, java.awt.BorderLayout.PAGE_END);
        
         listUsers.setModel(new javax.swing.AbstractListModel<String>() {
-        	List<User> listUser = Database.retrieveAllUser();       	
-            public int getSize() { return listUser.size(); }
-            public String getElementAt(int i) { return listUser.get(i).getPrenom()+" "+listUser.get(i).getNom();}
+        	List<User> listUserU = listUser;       	
+            public int getSize() { return listUserU.size(); }
+            public String getElementAt(int i) { return listUserU.get(i).getPrenom()+" "+listUserU.get(i).getNom();}
         });
         jScrollPane2.setViewportView(listUsers);
 
@@ -120,7 +123,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         groups.setLayout(new java.awt.GridLayout(1, 0));
 
         listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
-        	List<User> listUserg = Database.retrieveAllUser();
+        	List<User> listUserg =  listUser;
             public int getSize() { return listUserg.size(); }
             public String getElementAt(int i) { return listUserg.get(i).getPrenom()+" "+listUserg.get(i).getNom(); }
             public long getId(int i) { return listUserg.get(i).getId();}
@@ -203,8 +206,14 @@ public class Interface_Serveur extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
-        System.out.println("r"+listeDesUtilisateurs.getSelectedIndex());
+        System.out.println("r"+listUser.get( listUsers.getSelectedIndex()).getId());
     }//GEN-LAST:event_SaisieIntituleActionPerformed
+    private void MoveUserInGroup(java.awt.event.ActionEvent evt) {
+    
+    }
+    private void MoveUserOutGroup(java.awt.event.ActionEvent evt) {
+        
+    }
     /**
      * @param args the command line arguments
      */
