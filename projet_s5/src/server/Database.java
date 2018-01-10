@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import client.Categorie;
@@ -117,6 +118,12 @@ public class Database {
 		else
 			return -1;
 	}
+	public static int deleteUser (long idUser ) {
+		if (isStarted())
+			return delete.deleteUser(idUser, state);
+		else
+			return -1;
+	}
 /*fonction de selection*********************************************/
 	public static long connect (String password, String email) {
 		if (isStarted())
@@ -181,6 +188,12 @@ public class Database {
 	public static List<Group> retrieveAllGroup(){
 		if (isStarted())
 			return select.retrieveAllGroup(state);
+		else
+			return null ;
+	}
+	public static HashMap<String,Long> recupStatus(long idMessage){
+		if (isStarted())
+			return select.recupStatus(idMessage, state);
 		else
 			return null ;
 	}
