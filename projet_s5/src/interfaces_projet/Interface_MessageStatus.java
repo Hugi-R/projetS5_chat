@@ -5,13 +5,6 @@
  */
 package interfaces_projet;
 
-import java.sql.Time;
-
-import packet.Ticket;
-import packet.User;
-import utils.Id;
-import utils.IdException;
-        
 /**
  *
  * @author adrian

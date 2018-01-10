@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import client.Categorie;
-import client.Etat;
 import packet.Group;
 import packet.Message;
 import packet.Ticket;
@@ -92,7 +91,7 @@ public class Database {
 		else
 			return -1;
 	}
-	public static int addStatus (long idReader,long idMessage, Etat etat) {
+	public static int addStatus (long idReader,long idMessage, byte etat) {
 		if (isStarted())
 			return add.addStatus(idReader, idMessage, etat, state);
 		else
@@ -191,7 +190,7 @@ public class Database {
 		else
 			return null ;
 	}
-	public static HashMap<String,Long> recupStatus(long idMessage){
+	public static HashMap<Byte,List<Long>> recupStatus(long idMessage){
 		if (isStarted())
 			return select.recupStatus(idMessage, state);
 		else
@@ -204,7 +203,7 @@ public class Database {
 		else
 			return -1;
 	}
-	public static int changeEtatStatus(long idMessage , long idUser,Etat etat) {
+	public static int changeEtatStatus(long idMessage , long idUser,byte etat) {
 		if (isStarted())
 			return update.changeStatus(idMessage, idUser, etat, state);
 		else

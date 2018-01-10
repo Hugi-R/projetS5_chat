@@ -105,7 +105,6 @@ public class ClientDB {
 		if((ret = userList.get(id)) == null) {
 			User u = (User) retrieve(id);
 			if(u != null) {
-				//TODO groupList and ticketList
 				UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null);
 				userList.put(u.getId(), user);
 				ret = user;
@@ -152,7 +151,7 @@ public class ClientDB {
 	public static TicketPanel findTicket(long id) {
 		TicketPanel ret = null;
 		ret = ticketList.get(id);
-		if(ret == null) {
+		if(ret != null) {
 			Ticket t = (Ticket) retrieve(id);
 			if(t != null) {
 				TicketPanel ticket = new TicketPanel(t.getId(), t.getName(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
@@ -175,7 +174,6 @@ public class ClientDB {
 		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL)
 			ret = null;
 		return ret;
-	}
-	
+	}	
 
 }

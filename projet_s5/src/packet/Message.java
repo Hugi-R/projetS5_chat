@@ -5,14 +5,16 @@ public class Message extends Content {
 	private long user;
 	private long ticket;
 	private long time;
+	private byte status;
 	private String textMessage;
 	
-	public Message(byte command, long id, long user, long ticket, long time, String textMessage) {
+	public Message(byte command, long id, long user, long ticket, long time, byte status, String textMessage) {
 		super(command, id);
 		this.textMessage = textMessage;
 		this.user = user;
 		this.ticket = ticket;
 		this.time = time;
+		this.status = status;
 	}
 
 	public long getUser() {
@@ -29,6 +31,10 @@ public class Message extends Content {
 
 	public long getTime() {
 		return time;
+	}
+	
+	public byte getStatus() {
+		return status;
 	}
 	
 	@Override

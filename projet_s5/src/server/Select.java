@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import client.Etat;
 import packet.Commands;
 import packet.Group;
 import packet.Message;
 import packet.Ticket;
 import packet.User;
+import utils.StatusType;
 
 public class Select {
 	private static String sql;
@@ -63,7 +63,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1),r.getString(3));
+				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), recupStatusMessage(idMessage, state), r.getString(3));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -220,18 +220,37 @@ public class Select {
 		}
 		return listGrp;
 	}
-	protected HashMap<String,Long> recupStatus(long idMessage,java.sql.Statement state){
-		HashMap<String,Long> status = new HashMap<>();
+	protected HashMap<Byte,List<Long>> recupStatus(long idMessage,java.sql.Statement state){
+		HashMap<Byte,List<Long>> status = new HashMap<>();
+		status.put(StatusType.USER_PENDING, new ArrayList<>());
+		status.put(StatusType.USER_SENT, new ArrayList<>());
+		status.put(StatusType.USER_READ, new ArrayList<>());
 		sql = "SELECT idLecteur,etat FROM status WHERE IdMessageStatus";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
-				status.put(r.getString(2), r.getLong(1));
+				status.get(r.getByte(2)).add(r.getLong(1));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 		return status;
+	}
+	
+	protected byte recupStatusMessage(long idMessage, java.sql.Statement state) {
+		byte ret = 0;
+		HashMap<Byte, List<Long>> etat = recupStatus(idMessage, state);
+		if(etat.get(StatusType.USER_PENDING).isEmpty()) {
+			if(etat.get(StatusType.USER_SENT).isEmpty()) {
+				ret = StatusType.USER_READ;
+			} else {
+				ret = StatusType.USER_SENT;
+			}
+		} else {
+			ret = StatusType.USER_PENDING;
+		}
+		return ret;
 	}
 }

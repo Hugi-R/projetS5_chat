@@ -4,7 +4,6 @@ package server;
 import java.sql.SQLException;
 
 import client.Categorie;
-import client.Etat;
 
 public class Add {
 	private String sql;
@@ -68,7 +67,7 @@ public class Add {
 		return executeUpdate(state);
 	}
 	
-	protected int addStatus (long idlecteur,long idMessage, Etat etat,java.sql.Statement state) {
+	protected int addStatus (long idlecteur,long idMessage, byte etat,java.sql.Statement state) {
 		sql = "SELECT * FROM status WHERE idLecteur= '"+idlecteur+"' AND idMessageStatus ='"+idMessage+"' ;";
 		if( foundValues(state)) {
 			System.err.println("[KO] le message:"+idMessage+" possede deja un status pour le destinataire:"+idlecteur);
