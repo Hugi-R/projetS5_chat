@@ -61,7 +61,7 @@ public class Database {
 	
 	public static boolean isStarted() {
 		if (state == null) {
-			System.err.println("[KO] la connection n'a pas été établie");
+			System.err.println("[KO] la connection n'a pas ete etablie");
 			return false;
 		}
 		return true ;
@@ -108,6 +108,12 @@ public class Database {
 	public static int deleteGroup (long idGroup) {
 		if (isStarted())
 			return delete.deletegroup(idGroup, state);
+		else
+			return -1;
+	}
+	public static int takeUserOutOfGroup (long idGroup , long idUser) {
+		if (isStarted())
+			return delete.takeUserOutOfGroup(idGroup,idUser, state);
 		else
 			return -1;
 	}
