@@ -1,7 +1,9 @@
 package client;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -105,6 +107,27 @@ public class ClientDB {
 			if(u != null) {
 				//TODO groupList and ticketList
 				UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null);
+				userList.put(u.getId(), user);
+				ret = user;
+			}
+		}
+		return ret;
+	}
+	
+	public static UserPanel findUserAll(long id) {
+		UserPanel ret = null;
+		if((ret = userList.get(id)) == null) {
+			User u = (User) retrieve(id);
+			if(u != null) {
+				List<GroupPanel> groups = new ArrayList<>();
+				for(long groupId : u.getGroupList()) {
+					groups.add(ClientDB.findGroup(groupId));
+				}
+				List<TicketPanel> tickets = new ArrayList<>();
+				for(long ticketId : u.getTicketList()) {
+					tickets.add(ClientDB.findTicket(ticketId));
+				}
+				UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), tickets, groups);
 				userList.put(u.getId(), user);
 				ret = user;
 			}
