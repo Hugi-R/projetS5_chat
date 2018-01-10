@@ -6,6 +6,8 @@
  */
 package interfaces_projet;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author adrian
@@ -61,14 +63,14 @@ public class Interface_ModifUser extends javax.swing.JFrame {
             }
         });
 
-        saisieNom.setText(user.getName());
+        saisieNom.setText(user.getNom());
         
         jLabel1.setText("Nom");
 
         saisiePrenom.setText(user.getPrenom());
         jLabel2.setText("Prenom");
 
-        jLabel3.setText("mot de passe");
+        jLabel3.setText("nouveau mot de passe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,7 +187,8 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface_ModifUser(null).setVisible(true);
+            	UserPanel hugo = new UserPanel(10, "ROUSSEL", "Hugo", "CAT", new ArrayList<>() , new ArrayList<>());
+                new Interface_ModifUser(hugo).setVisible(true);
             }
         });
     }
