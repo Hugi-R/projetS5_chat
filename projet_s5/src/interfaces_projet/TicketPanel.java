@@ -1,13 +1,16 @@
 package interfaces_projet;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class TicketPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private String nom;
+	private String intitule;
 	private UserPanel creator;
 	private GroupPanel group;
 	private List<Long> messages;
@@ -19,7 +22,25 @@ public class TicketPanel extends JPanel {
 		this.creator = creator;
 		this.group = group;
 		this.messages = messages;
-		this.nom = intitule;
+		this.intitule = intitule;
+		
+		/* données test TODO: delete test*/
+		setLayout(new GridLayout(0, 1));
+		setBorder(new LineBorder(Color.BLACK));
+		setBackground(Color.LIGHT_GRAY);
+
+		UserPanel hugo =  new UserPanel(0, "ROUSSEL", "Hugo", "CAT", null, null);
+		MessagePanel m = new MessagePanel(0, 0, hugo, "Message1");
+		add(m);
+		m = new MessagePanel(0, 0, hugo, "Ceci est un treeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+
+			"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees looooo"+
+			"oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"+
+			"ong message");
+		add(m);
+		m = new MessagePanel(0, 0, hugo, "Message3");
+		add(m);
+		m = new MessagePanel(0, 0, hugo, "Message4");
+		add(m);
 	}
 
 
@@ -28,7 +49,7 @@ public class TicketPanel extends JPanel {
 	}
 
 	public String getName() {
-		return nom;
+		return intitule;
 	}
 
 	public UserPanel getCreator() {
@@ -48,7 +69,7 @@ public class TicketPanel extends JPanel {
 
 	@Override
 	public String toString() {
-		return "TicketPanel [id=" + id + ", creator=" + creator + ", group=" + group + ", messages=" + messages + "]";
+		return "TicketPanel [id=" + id + ", creator=" + creator.getName() + ", group=" + group + ", messages=" + messages + "]";
 	}
 	
 	

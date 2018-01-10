@@ -5,7 +5,6 @@
  */
 package interfaces_projet;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 import packet.Group;
@@ -58,7 +57,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonMoveUserInGroup = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
@@ -91,6 +90,11 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel7.add(boutonAddUser);
 
         boutonDelUser.setText("supprimer un utilisateur");
+        boutonDelUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+   
+            }
+        });
         jPanel7.add(boutonDelUser);
 
         jPanel6.add(jPanel7);
@@ -149,8 +153,13 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         jPanel11.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("-- ajouter au groupe ->");
-        jPanel11.add(jButton1, java.awt.BorderLayout.CENTER);
+        jButtonMoveUserInGroup.setText("-- ajouter au groupe ->");
+        jButtonMoveUserInGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	moveUserInGroup(evt);
+            }
+        });
+        jPanel11.add(jButtonMoveUserInGroup, java.awt.BorderLayout.CENTER);
 
         jPanel9.add(jPanel11);
 
@@ -159,7 +168,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jButton2.setText("<- retirer du groupe --");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+            	moveUserOutGroup(evt);
             }
         });
         jPanel12.add(jButton2, java.awt.BorderLayout.CENTER);
@@ -177,7 +186,6 @@ public class Interface_Serveur extends javax.swing.JFrame {
             List<Group> ListGrp = Database.retrieveAllGroup();
             public int getSize() { return ListGrp.size(); }
             public String getElementAt(int i) { return ListGrp.get(i).getName(); }
-            public long getidGrp(int i) { return ListGrp.get(i).getId();}
         });
         jScrollPane3.setViewportView(listGroups);
 
@@ -208,12 +216,38 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
         System.out.println("r"+listUser.get( listUsers.getSelectedIndex()).getId());
     }//GEN-LAST:event_SaisieIntituleActionPerformed
-    private void MoveUserInGroup(java.awt.event.ActionEvent evt) {
     
+    private void moveUserInGroup(java.awt.event.ActionEvent evt) {
+    	int selectUser = listGroups.getSelectedIndex();
+    	int selectGroup = listeDesUtilisateurs.getSelectedIndex();
+    	int i = 0;
+    	if(selectUser != -1 && selectGroup != -1) {
+    		i=Database.addGroupToUser(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
+    		if( i==0) {
+    			new Interface_NotificationErreur("Erreur cet utilisateur est deja dans ce groupe").setVisible(true);
+    		}else {
+    			new Interface_NotificationSucces().setVisible(true);
+    		}
+    	}else {
+    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur et un groupe").setVisible(true);
+    	}
     }
-    private void MoveUserOutGroup(java.awt.event.ActionEvent evt) {
-        
+    private void moveUserOutGroup(java.awt.event.ActionEvent evt) {
+    	int selectUser = listGroups.getSelectedIndex();
+    	int selectGroup = listeDesUtilisateurs.getSelectedIndex();
+    	int i = 0;
+    	if(selectUser != -1 && selectGroup != -1) {
+    		i=Database.takeUserOutOfGroup(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
+    		if( i==0) {
+    			new Interface_NotificationErreur("Erreur cet utilisateur n'est pas dans ce groupe").setVisible(true);
+    		}else {
+    			new Interface_NotificationSucces().setVisible(true);
+    		}
+    	}else {
+    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur et un groupe").setVisible(true);
+    	}
     }
+
     /**
      * @param args the command line arguments
      */
@@ -255,7 +289,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private javax.swing.JButton boutonDelGroup;
     private javax.swing.JButton boutonDelUser;
     private javax.swing.JPanel groups;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonMoveUserInGroup;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;

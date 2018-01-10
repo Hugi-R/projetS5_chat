@@ -20,4 +20,16 @@ public class Delete {
 		i = executeUpdate(state);
 		return i;
 	}
+	protected int takeUserOutOfGroup (long idGroup , long idUser ,java.sql.Statement state) {
+		int i= 0;
+		sql = "DELETE FROM posseder where  idGroupePosseder='"+idGroup+"' AND idUtilisateurPosseder = '"+idUser+"';";
+		i = executeUpdate(state);
+		return i;
+	}
+	protected int deleteUser (long idUser ,java.sql.Statement state) {
+		int i= 0;
+		sql="UPDATE utilisateur SET motDePasse = NULL AND courriel = NULL WHERE idUtilisateur='"+idUser+"';";
+		i = executeUpdate(state);
+		return i;
+	}
 }

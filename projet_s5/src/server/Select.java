@@ -3,8 +3,10 @@ package server;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import client.Etat;
 import packet.Commands;
 import packet.Group;
 import packet.Message;
@@ -217,5 +219,19 @@ public class Select {
 			return null;
 		}
 		return listGrp;
+	}
+	protected HashMap<String,Long> recupStatus(long idMessage,java.sql.Statement state){
+		HashMap<String,Long> status = new HashMap<>();
+		sql = "SELECT idLecteur,etat FROM status WHERE IdMessageStatus";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			while(r.next()) {
+				status.put(r.getString(2), r.getLong(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return status;
 	}
 }

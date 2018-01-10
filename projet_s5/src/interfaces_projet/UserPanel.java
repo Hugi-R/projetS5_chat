@@ -36,11 +36,15 @@ public class UserPanel extends JPanel {
 	}
 	
 	public String getName() {
-		return nom;
+		return nom+" "+prenom;
 	}
 	
 	public String getPrenom() {
 		return prenom;
+	}
+	
+	public String getNom() {
+		return nom;
 	}
 
 }

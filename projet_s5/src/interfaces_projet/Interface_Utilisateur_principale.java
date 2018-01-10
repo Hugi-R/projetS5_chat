@@ -81,13 +81,15 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		jScrollPane4.setAutoscrolls(true);
 		jScrollPane4.setPreferredSize(new java.awt.Dimension(100, 400));
 
-		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode(user.toString());
+		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("test");/*
 		if (!user.getGroupList().isEmpty()) {
 			Iterable<GroupPanel> iterable2 = user.getGroupList();
+			System.out.println("iterable2=" + iterable2.toString());
 			for (GroupPanel groupe : iterable2) {
 				DefaultMutableTreeNode treeNode2 = new DefaultMutableTreeNode(groupe.getName());
 				if (!groupe.getTicketList().isEmpty()) {
 					Iterable<TicketPanel> iterable3 = groupe.getTicketList();
+					System.out.println("iterable3=" + iterable3.toString());
 					for (TicketPanel ticket : iterable3) {
 						DefaultMutableTreeNode treeNode3 = new DefaultMutableTreeNode(ticket.getName());
 						treeNode2.add(treeNode3);
@@ -95,7 +97,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 				}
 				treeNode1.add(treeNode2);
 			}
-		}
+		}*/
 
 		arborescence.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 
@@ -130,8 +132,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		});
 		jScrollPane1.setViewportView(saisieMessage);
 
-		ticketView = new TicketView();
-		
+		this.ticketView = new TicketPanel(0L, "", this.user, new GroupPanel(0L, ""), new ArrayList<>());
+		jScrollPane3.add(ticketView);
 		jScrollPane3.setViewportView(ticketView);
 		
 		
@@ -220,6 +222,6 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 	private javax.swing.JScrollPane jScrollPane4;
 	private javax.swing.JScrollPane jScrollPaneMessageTicket;
 	private javax.swing.JTextArea saisieMessage;
-	private TicketView ticketView;
+	private TicketPanel ticketView;
 	// End of variables declaration//GEN-END:variables
 }

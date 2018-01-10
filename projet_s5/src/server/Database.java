@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import client.Categorie;
@@ -61,7 +62,7 @@ public class Database {
 	
 	public static boolean isStarted() {
 		if (state == null) {
-			System.err.println("[KO] la connection n'a pas été établie");
+			System.err.println("[KO] la connection n'a pas ete etablie");
 			return false;
 		}
 		return true ;
@@ -108,6 +109,18 @@ public class Database {
 	public static int deleteGroup (long idGroup) {
 		if (isStarted())
 			return delete.deletegroup(idGroup, state);
+		else
+			return -1;
+	}
+	public static int takeUserOutOfGroup (long idGroup , long idUser) {
+		if (isStarted())
+			return delete.takeUserOutOfGroup(idGroup,idUser, state);
+		else
+			return -1;
+	}
+	public static int deleteUser (long idUser ) {
+		if (isStarted())
+			return delete.deleteUser(idUser, state);
 		else
 			return -1;
 	}
@@ -175,6 +188,12 @@ public class Database {
 	public static List<Group> retrieveAllGroup(){
 		if (isStarted())
 			return select.retrieveAllGroup(state);
+		else
+			return null ;
+	}
+	public static HashMap<String,Long> recupStatus(long idMessage){
+		if (isStarted())
+			return select.recupStatus(idMessage, state);
 		else
 			return null ;
 	}
