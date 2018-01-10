@@ -79,25 +79,25 @@ public class Database {
 			else
 				return -1;
 	}
-	protected static int addGroupToUser(long idGrp , long idUser) {
+	public static int addGroupToUser(long idGrp , long idUser) {
 		if (isStarted())
 			return add.addGroupToUser(idGrp, idUser, state);
 		else
 			return -1;
 	}
-	protected static int addMessage (long idMessage, long author,long idTicket,String text) {
+	public static int addMessage (long idMessage, long author,long idTicket,String text) {
 		if (isStarted())
 			return add.addMessage(idMessage, author,idTicket, text, state);
 		else
 			return -1;
 	}
-	protected static int addStatus (long idReader,long idMessage, Etat etat) {
+	public static int addStatus (long idReader,long idMessage, Etat etat) {
 		if (isStarted())
 			return add.addStatus(idReader, idMessage, etat, state);
 		else
 			return -1;
 	}
-	protected static int addTicket (long idTicket , long idGroupRecipient,String objet) {
+	public static int addTicket (long idTicket , long idGroupRecipient,String objet) {
 		if (isStarted())
 			return add.addTicket(idTicket, idGroupRecipient,objet, state);
 		else
