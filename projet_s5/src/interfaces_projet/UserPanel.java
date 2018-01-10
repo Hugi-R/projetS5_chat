@@ -47,4 +47,7 @@ public class UserPanel extends JPanel {
 		return nom;
 	}
 
+	public String getCategory() {
+		return category;
+	}
 }

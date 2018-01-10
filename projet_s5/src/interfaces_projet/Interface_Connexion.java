@@ -8,6 +8,7 @@ package interfaces_projet;
 import java.awt.Component;
 import java.io.IOException;
 
+import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
 import packet.Connect;
@@ -209,7 +210,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
             jPasswordField1.setText("");
         } else {
             MainClient.user = (User) resp;
-            MainClient.ui = new Interface_Utilisateur_principale();
+            MainClient.ui = new Interface_Utilisateur_principale(ClientDB.findUserAll(MainClient.user.getId()));
             MainClient.ui.setVisible(true);
             this.dispose();
         }

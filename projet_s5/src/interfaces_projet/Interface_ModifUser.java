@@ -7,6 +7,11 @@
 package interfaces_projet;
 
 import java.util.ArrayList;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -20,6 +25,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
      * Creates new form Interface_modifUser
      */
     public Interface_ModifUser(UserPanel user) {
+    	setResizable(false);
     	this.user = user;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -71,71 +77,86 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         jLabel2.setText("Prenom");
 
         jLabel3.setText("nouveau mot de passe");
+        
+        saisieCategorie = new JTextField();
+        saisieCategorie.setText(user.getCategory());
+        
+        JLabel label = new JLabel();
+        label.setText("Categorie");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(boutonAnnuler))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saisieNom, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(saisiePrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabel3))
-                        .addComponent(saisieMDP)
-                        .addComponent(saisieMail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(boutonAddUser)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4)))
-                .addGap(20, 20, 20))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(20)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(saisieNom, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(10)
+        							.addComponent(jLabel2))
+        						.addComponent(saisieCategorie, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(10)
+        							.addComponent(label, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(29)
+        					.addComponent(jLabel1)))
+        			.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        					.addGroup(layout.createSequentialGroup()
+        						.addGap(10)
+        						.addComponent(jLabel3))
+        					.addComponent(saisieMDP)
+        					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(10)
+        					.addComponent(jLabel4)))
+        			.addGap(20))
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(34)
+        			.addComponent(boutonAnnuler)
+        			.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+        			.addComponent(boutonAddUser)
+        			.addGap(45))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saisieNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saisieMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saisieMDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saisiePrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boutonAnnuler)
-                    .addComponent(boutonAddUser))
-                .addContainerGap(20, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(26)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jLabel1)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(saisieNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jLabel4)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jLabel3)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(saisieMDP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jLabel2)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(18)
+        			.addComponent(label)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(saisieCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(boutonAnnuler)
+        				.addComponent(boutonAddUser))
+        			.addContainerGap(30, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>                        
@@ -204,5 +225,5 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     private javax.swing.JTextField saisieMail;
     private javax.swing.JTextField saisieNom;
     private javax.swing.JTextField saisiePrenom;
-    // End of variables declaration                   
+    private JTextField saisieCategorie;
 }
