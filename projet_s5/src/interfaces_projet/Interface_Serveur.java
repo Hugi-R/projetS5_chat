@@ -5,6 +5,8 @@
  */
 package interfaces_projet;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import packet.Group;
@@ -16,15 +18,26 @@ import server.Database;
  * @author adrian
  */
 public class Interface_Serveur extends javax.swing.JFrame {
-	private List<User> listUser ;
-	private List<Group> listGroup;
+	private List<UserPanel> listUser = new ArrayList<>();
+	private List<GroupPanel> listGroup=new ArrayList<>();
     /**
      * Creates new form Interface_Serveur
      */
     public Interface_Serveur() {
         initComponents();
     }
-    
+    private void recupUserPanel(){
+    	List<User> lUser = Database.retrieveAllUser();
+    	for(User u : lUser ) {
+    		this.listUser.add(new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null));
+    	}
+    }
+    private void recupGroupPanel(){
+    	List<Group> lGroup = Database.retrieveAllGroup();
+    	for(Group g : lGroup ) {
+    		this.listGroup.add(new GroupPanel(g.getId(), g.getName()));
+    	}
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,8 +50,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
 		String user = "projets5_server";
 		String passwd = "projets5_psswd";
 		Database.start(url,user,passwd);
-		listUser=Database.retrieveAllUser();
-		listGroup =Database.retrieveAllGroup();
+		recupUserPanel();
+		recupGroupPanel();
         tableau = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -92,7 +105,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         boutonDelUser.setText("supprimer un utilisateur");
         boutonDelUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-   
+            	deleteUserAction(evt);
             }
         });
         jPanel7.add(boutonDelUser);
@@ -103,11 +116,16 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jButton3.setText("modifier");
+        jButton3.setText("modifier utilisateur");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	modifUserAction(evt);
+            }
+        });
         jPanel8.add(jButton3, java.awt.BorderLayout.PAGE_END);
        
         listUsers.setModel(new javax.swing.AbstractListModel<String>() {
-        	List<User> listUserU = listUser;       	
+        	List<UserPanel> listUserU = listUser;       	
             public int getSize() { return listUserU.size(); }
             public String getElementAt(int i) { return listUserU.get(i).getPrenom()+" "+listUserU.get(i).getNom();}
         });
@@ -127,10 +145,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
         groups.setLayout(new java.awt.GridLayout(1, 0));
 
         listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
-        	List<User> listUserg =  listUser;
+        	List<UserPanel> listUserg =  listUser;
             public int getSize() { return listUserg.size(); }
             public String getElementAt(int i) { return listUserg.get(i).getPrenom()+" "+listUserg.get(i).getNom(); }
-            public long getId(int i) { return listUserg.get(i).getId();}
         });
         jScrollPane1.setViewportView(listeDesUtilisateurs);
 
@@ -183,7 +200,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         listGroups.setModel(new javax.swing.AbstractListModel<String>() {
-            List<Group> ListGrp = Database.retrieveAllGroup();
+            List<GroupPanel> ListGrp = listGroup;
             public int getSize() { return ListGrp.size(); }
             public String getElementAt(int i) { return ListGrp.get(i).getName(); }
         });
@@ -214,7 +231,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
-        System.out.println("r"+listUser.get( listUsers.getSelectedIndex()).getId());
+    	new Interface_ModifUser(new UserPanel(-1, "nom", "prenom", "category", null, null)).setVisible(true);
     }//GEN-LAST:event_SaisieIntituleActionPerformed
     
     private void moveUserInGroup(java.awt.event.ActionEvent evt) {
@@ -245,6 +262,25 @@ public class Interface_Serveur extends javax.swing.JFrame {
     		}
     	}else {
     		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur et un groupe").setVisible(true);
+    	}
+    }
+    private void deleteUserAction(java.awt.event.ActionEvent evt) {
+    	int selectUser = listUsers.getSelectedIndex();
+    	if(selectUser !=-1) {
+    		if (1== Database.deleteUser(listUser.get(selectUser).getId())) {
+    			new Interface_NotificationSucces().setVisible(true);
+    		}else {
+    			new Interface_NotificationErreur("Erreur Veuillez contacter les develeppeurs").setVisible(true);
+    		}
+    	}else {
+    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur").setVisible(true);
+    	}
+    }
+    
+    private void modifUserAction(java.awt.event.ActionEvent evt) {
+    	int selectUser = listUsers.getSelectedIndex();
+    	if(selectUser !=-1) {
+    		new Interface_ModifUser(listUser.get(selectUser)).setVisible(true);
     	}
     }
 

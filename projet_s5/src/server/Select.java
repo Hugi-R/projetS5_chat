@@ -101,7 +101,7 @@ public class Select {
 	}
 	
 	protected User recupUserWithList(long idUser,java.sql.Statement state){
-		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
+		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"' AND courriel IS NOT NULL;";
 		User u = null;
 		try {
 			ResultSet r = state.executeQuery(sql);
@@ -119,7 +119,7 @@ public class Select {
 		return u;
 	}
 	protected User recupUserShort(long idUser,java.sql.Statement state){
-		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"';";
+		sql= "SELECT nomUtilisateur,prenom,categorie FROM utilisateur WHERE idUtilisateur ='"+idUser+"' AND courriel IS NOT NULL;";
 		User u = null;
 		try {
 			ResultSet r = state.executeQuery(sql);
@@ -193,7 +193,7 @@ public class Select {
 		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
 	}
 	protected List<User> retrieveAllUser(java.sql.Statement state) {
-		sql = "SELECT idUtilisateur,nomUtilisateur,prenom,categorie FROM utilisateur";
+		sql = "SELECT idUtilisateur,nomUtilisateur,prenom,categorie FROM utilisateur WHERE courriel IS NOT NULL";
 		List<User> listUser = new ArrayList<>();
 		try {
 			ResultSet r = state.executeQuery(sql);

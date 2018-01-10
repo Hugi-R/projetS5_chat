@@ -28,7 +28,7 @@ public class Delete {
 	}
 	protected int deleteUser (long idUser ,java.sql.Statement state) {
 		int i= 0;
-		sql="UPDATE utilisateur SET motDePasse = NULL AND courriel = NULL WHERE idUtilisateur='"+idUser+"';";
+		sql="UPDATE utilisateur SET motDePasse = NULL,courriel = NULL WHERE idUtilisateur='"+idUser+"';";
 		i = executeUpdate(state);
 		return i;
 	}

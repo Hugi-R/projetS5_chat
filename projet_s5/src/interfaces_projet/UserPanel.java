@@ -34,7 +34,9 @@ public class UserPanel extends JPanel {
 		return "UserPanel [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", category=" + category
 				+ ", ticketList=" + ticketList + ", groupList=" + groupList + "]";
 	}
-	
+	public long getId() {
+		return id;
+	}
 	public String getName() {
 		return nom+" "+prenom;
 	}
