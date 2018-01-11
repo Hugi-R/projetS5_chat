@@ -13,6 +13,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import packet.ContentType;
+import utils.Id;
+
 /**
  *
  * @author adrian
@@ -39,23 +42,24 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
+        labelMail = new javax.swing.JLabel();
         boutonAnnuler = new javax.swing.JButton();
         boutonAddUser = new javax.swing.JButton();
         saisieNom = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        labelNom = new javax.swing.JLabel();
         saisiePrenom = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        labelPrenom = new javax.swing.JLabel();
         saisieMDP = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        labelMdp = new javax.swing.JLabel();
         saisieMail = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("modification utilisateur");
         setAlwaysOnTop(true);
         setResizable(false);
 
-        jLabel4.setText("adressse mail");
+        labelMail.setText("adressse mail");
+        saisieMail.setText(null);//TODO: getUserMail()
 
         boutonAnnuler.setText("annuler");
         boutonAnnuler.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,12 +77,12 @@ public class Interface_ModifUser extends javax.swing.JFrame {
 
         saisieNom.setText(user.getNom());
         
-        jLabel1.setText("Nom");
+        labelNom.setText("Nom");
 
         saisiePrenom.setText(user.getPrenom());
-        jLabel2.setText("Prenom");
+        labelPrenom.setText("Prenom");
 
-        jLabel3.setText("nouveau mot de passe");
+        labelMdp.setText("nouveau mot de passe");
         
         saisieCategorie = new JTextField();
         saisieCategorie.setText(user.getCategory());
@@ -98,25 +102,25 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         						.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
         							.addGap(10)
-        							.addComponent(jLabel2))
+        							.addComponent(labelPrenom))
         						.addComponent(saisieCategorie, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
         							.addGap(10)
         							.addComponent(label, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(29)
-        					.addComponent(jLabel1)))
+        					.addComponent(labelNom)))
         			.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
         					.addGroup(layout.createSequentialGroup()
         						.addGap(10)
-        						.addComponent(jLabel3))
+        						.addComponent(labelMdp))
         					.addComponent(saisieMDP)
         					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(10)
-        					.addComponent(jLabel4)))
+        					.addComponent(labelMail)))
         			.addGap(20))
         		.addGroup(layout.createSequentialGroup()
         			.addGap(34)
@@ -131,21 +135,21 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         			.addGap(26)
         			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel1)
+        					.addComponent(labelNom)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(saisieNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel4)
+        					.addComponent(labelMail)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel3)
+        					.addComponent(labelMdp)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(saisieMDP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLabel2)
+        					.addComponent(labelPrenom)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
         			.addGap(18)
@@ -167,16 +171,15 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         this.dispose();
     }                                          
 
-    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        // TODO add your handling code here:
-
-        //recuperer les donnees dans les differents JTextFields et ajouter a la BD
-
-        /*	new Interface_NotificationSucces().setVisible(true);
-        this.dispose();
-        }else {
-            new Interface_NotificationErreur("Veuillez tout compléter").setVisible(true);
-        }*/
+    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {                                                            
+    	UserPanel user = new UserPanel(Id.generate(ContentType.USER), saisieNom.getText(), saisiePrenom.getText(), saisieCategorie.getText(), null, null);
+    	String mail = saisieMail.getText();
+    	String mdp = saisieMDP.getText();
+    	
+    	//TODO: envoyer les données au serveur
+    	//notif succes echec avec ouverture fenetre correspondante
+        
+    	this.dispose();
     }
     
     /**
@@ -219,10 +222,10 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JButton boutonAddUser;
     private javax.swing.JButton boutonAnnuler;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel labelNom;
+    private javax.swing.JLabel labelPrenom;
+    private javax.swing.JLabel labelMdp;
+    private javax.swing.JLabel labelMail;
     private javax.swing.JTextField saisieMDP;
     private javax.swing.JTextField saisieMail;
     private javax.swing.JTextField saisieNom;

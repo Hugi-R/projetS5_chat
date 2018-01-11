@@ -41,7 +41,7 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("status du message");
         setAlwaysOnTop(true);
         setResizable(false);

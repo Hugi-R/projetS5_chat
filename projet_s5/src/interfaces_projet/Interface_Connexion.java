@@ -45,8 +45,8 @@ public class Interface_Connexion extends javax.swing.JFrame {
         saisieIdentifiant = new javax.swing.JTextField();
         boutonConnexion = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelId = new javax.swing.JLabel();
+        labelMdp = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         boutonInscription = new javax.swing.JButton();
         boutonOublie = new javax.swing.JButton();
@@ -58,32 +58,17 @@ public class Interface_Connexion extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        saisieIdentifiant.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saisieIdentifiantMouseClicked(evt);
-            }
-        });
-        saisieIdentifiant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saisieIdentifiantActionPerformed(evt);
-            }
-        });
 
         boutonConnexion.setText("se connecter");
-        boutonConnexion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boutonConnexionMouseClicked(evt);
-            }
-        });
         boutonConnexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonConnexionActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("identifiant");
+        labelId.setText("identifiant");
 
-        jLabel2.setText("mot de passe");
+        labelMdp.setText("mot de passe");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,9 +84,9 @@ public class Interface_Connexion extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(jLabel1))
+                        .addComponent(labelId))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2)
+                        .addComponent(labelMdp)
                         .addComponent(saisieIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(107, Short.MAX_VALUE))
         );
@@ -109,11 +94,11 @@ public class Interface_Connexion extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel1)
+                .addComponent(labelId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saisieIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(labelMdp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
@@ -140,9 +125,9 @@ public class Interface_Connexion extends javax.swing.JFrame {
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         boutonInscription.setText("inscription");
-        boutonInscription.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boutonInscriptionMouseClicked(evt);
+        boutonInscription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonInscriptionActionPerformed(evt);
             }
         });
 
@@ -183,17 +168,12 @@ public class Interface_Connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_boutonOublieActionPerformed
 
-    private void saisieIdentifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saisieIdentifiantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saisieIdentifiantActionPerformed
-
-    private void boutonInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boutonInscriptionMouseClicked
+    private void boutonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonInscriptionMouseClicked
         // TODO add your handling code here:
         new Interface_Inscription().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_boutonInscriptionMouseClicked
 
-    private void boutonConnexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boutonConnexionMouseClicked
+    private void boutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConnexionActionPerformed
         String username = saisieIdentifiant.getText();
         String password = jPasswordField1.getText();
         Packet resp = null;
@@ -215,19 +195,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
             MainClient.ui.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_boutonConnexionMouseClicked
-
-    private void boutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConnexionActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_boutonConnexionActionPerformed
-
-    private void saisieIdentifiantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisieIdentifiantMouseClicked
-        // TODO add your handling code here:
-        Component component = evt.getComponent();
-        if (saisieIdentifiant.equals(component)&&texteSaisieIdentifiant.equals(saisieIdentifiant.getText())){
-            saisieIdentifiant.setText(null);
-        }
-    }//GEN-LAST:event_saisieIdentifiantMouseClicked
 
     /**
      * @param args the command line arguments
@@ -268,8 +236,8 @@ public class Interface_Connexion extends javax.swing.JFrame {
     private javax.swing.JButton boutonConnexion;
     private javax.swing.JButton boutonInscription;
     private javax.swing.JButton boutonOublie;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labelId;
+    private javax.swing.JLabel labelMdp;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

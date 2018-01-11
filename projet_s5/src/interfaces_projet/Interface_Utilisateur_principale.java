@@ -51,7 +51,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 				}
 			}
 		});
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		jScrollPane4.setAutoscrolls(true);
 		jScrollPane4.setPreferredSize(new java.awt.Dimension(100, 400));
 
-		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("test");/*
+		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("test");/* TODO: affichage arbre
 		if (!user.getGroupList().isEmpty()) {
 			Iterable<GroupPanel> iterable2 = user.getGroupList();
 			System.out.println("iterable2=" + iterable2.toString());

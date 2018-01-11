@@ -61,7 +61,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         boutonAddUser = new javax.swing.JButton();
         boutonDelUser = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        boutonModifUser = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         listUsers = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
@@ -73,7 +73,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jButtonMoveUserInGroup = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        boutonRemoveFromGroup = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -117,13 +117,13 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jButton3.setText("modifier utilisateur");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        boutonModifUser.setText("modifier utilisateur");
+        boutonModifUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	modifUserAction(evt);
             }
         });
-        jPanel8.add(jButton3, java.awt.BorderLayout.PAGE_END);
+        jPanel8.add(boutonModifUser, java.awt.BorderLayout.PAGE_END);
        
         listUsers.setModel(new javax.swing.AbstractListModel<String>() {
         	List<UserPanel> listUserU = listUser;       	
@@ -183,13 +183,13 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setText("<- retirer du groupe --");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        boutonRemoveFromGroup.setText("<- retirer du groupe --");
+        boutonRemoveFromGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	moveUserOutGroup(evt);
             }
         });
-        jPanel12.add(jButton2, java.awt.BorderLayout.CENTER);
+        jPanel12.add(boutonRemoveFromGroup, java.awt.BorderLayout.CENTER);
 
         jPanel9.add(jPanel12);
 
@@ -228,12 +228,11 @@ public class Interface_Serveur extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
     	new Interface_ModifUser(new UserPanel(-1, "nom", "prenom", "category", null, null)).setVisible(true);
     }//GEN-LAST:event_SaisieIntituleActionPerformed
+    
+    //TODO: ActionPerformed des autres boutons
     
     private void moveUserInGroup(java.awt.event.ActionEvent evt) {
     	int selectUser = listGroups.getSelectedIndex();
@@ -327,8 +326,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private javax.swing.JButton boutonDelUser;
     private javax.swing.JPanel groups;
     private javax.swing.JButton jButtonMoveUserInGroup;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton boutonRemoveFromGroup;
+    private javax.swing.JButton boutonModifUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

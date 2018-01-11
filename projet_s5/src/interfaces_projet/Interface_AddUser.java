@@ -6,6 +6,9 @@
  */
 package interfaces_projet;
 
+import packet.ContentType;
+import utils.Id;
+
 /**
  *
  * @author adrian
@@ -30,34 +33,28 @@ public class Interface_AddUser extends javax.swing.JFrame {
     private void initComponents() {
 
         saisieNom = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        labelNom = new javax.swing.JLabel();
         saisiePrenom = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        labelPrenom = new javax.swing.JLabel();
         saisieMDP = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        labelMDP = new javax.swing.JLabel();
         saisieMail = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        labelMail = new javax.swing.JLabel();
         boutonAnnuler = new javax.swing.JButton();
         boutonAddUser = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ajouter utilisateur");
         setAlwaysOnTop(true);
         setResizable(false);
 
-        jLabel1.setText("Nom");
+        labelNom.setText("Nom");
 
-        jLabel2.setText("Prenom");
+        labelPrenom.setText("Prenom");
 
-        saisieMDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saisieMDPActionPerformed(evt);
-            }
-        });
+        labelMDP.setText("mot de passe");
 
-        jLabel3.setText("mot de passe");
-
-        jLabel4.setText("adressse mail");
+        labelMail.setText("adressse mail");
 
         boutonAnnuler.setText("annuler");
         boutonAnnuler.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,21 +89,21 @@ public class Interface_AddUser extends javax.swing.JFrame {
                                 .addComponent(boutonAnnuler))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addComponent(jLabel1))
+                                .addComponent(labelNom))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addComponent(jLabel2)))
+                                .addComponent(labelPrenom)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
-                            .addComponent(jLabel3))
+                            .addComponent(labelMDP))
                         .addComponent(saisieMDP)
                         .addComponent(saisieMail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel4))
+                        .addComponent(labelMail))
                     .addComponent(boutonAddUser))
                 .addGap(20, 20, 20))
         );
@@ -116,21 +113,21 @@ public class Interface_AddUser extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(labelMail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saisieMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelNom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saisieNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(labelMDP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saisieMDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(labelPrenom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saisiePrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(37, 37, 37)
@@ -143,24 +140,17 @@ public class Interface_AddUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void saisieMDPActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
     private void boutonAnnulerMouseClicked(java.awt.event.MouseEvent evt) {                                           
         this.dispose();
     }                                          
 
-    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        // TODO add your handling code here:
+    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {                                               
+        // TODO                      
+    	//UserPanel user = new UserPanel(Id.generate(ContentType.USER), this.saisieNom.getText(), this.saisiePrenom.getText(), this.saisieCategorie.getText(), null, null);
         
-        //recuperer les donnees dans les differents JTextFields et ajouter a la BD
-        
-        /*	new Interface_NotificationSucces().setVisible(true);
-        	this.dispose();
-        }else {
-        	new Interface_NotificationErreur("Veuillez tout compléter").setVisible(true);
-        }*/
+        //creer le nomveau groupe
+        //ouvre fenetre OK ou KO
+        this.dispose();
     }                                          
 
     /**
@@ -201,10 +191,10 @@ public class Interface_AddUser extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JButton boutonAddUser;
     private javax.swing.JButton boutonAnnuler;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel labelNom;
+    private javax.swing.JLabel labelPrenom;
+    private javax.swing.JLabel labelMDP;
+    private javax.swing.JLabel labelMail;
     private javax.swing.JTextField saisieMDP;
     private javax.swing.JTextField saisieMail;
     private javax.swing.JTextField saisieNom;

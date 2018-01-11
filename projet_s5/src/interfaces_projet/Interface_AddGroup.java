@@ -5,6 +5,9 @@
  */
 package interfaces_projet;
 
+import packet.ContentType;
+import utils.Id;
+
 /**
  *
  * @author adrian
@@ -29,22 +32,16 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     private void initComponents() {
 
         saisieNom = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        labelNom = new javax.swing.JLabel();
         boutonAnnuler = new javax.swing.JButton();
         boutonAddGroup = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ajouter groupe");
         setAlwaysOnTop(true);
         setResizable(false);
 
-        saisieNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saisieNomActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Nom");
+        labelNom.setText("Nom");
 
         boutonAnnuler.setText("annuler");
         boutonAnnuler.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -54,11 +51,6 @@ public class Interface_AddGroup extends javax.swing.JFrame {
         });
 
         boutonAddGroup.setText("creer groupe");
-        boutonAddGroup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boutonAddGroupMouseClicked(evt);
-            }
-        });
         boutonAddGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonAddGroupActionPerformed(evt);
@@ -81,7 +73,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jLabel1))
+                                .addComponent(labelNom))
                             .addComponent(saisieNom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 20, Short.MAX_VALUE))
         );
@@ -89,7 +81,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addComponent(labelNom)
                 .addGap(12, 12, 12)
                 .addComponent(saisieNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -105,25 +97,10 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     private void boutonAnnulerMouseClicked(java.awt.event.MouseEvent evt) {                                           
         this.dispose();
     }                                          
-
-    private void boutonAddGroupMouseClicked(java.awt.event.MouseEvent evt) {                                            
-        // TODO add your handling code here:
-
-        //recuperer les donnees dans les differents JTextFields et ajouter a la BD
-
-        /*	new Interface_NotificationSucces().setVisible(true);
-        this.dispose();
-        }else {
-            new Interface_NotificationErreur("Veuillez tout compléter").setVisible(true);
-        }*/
-    }                                           
-
-    private void saisieNomActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
+    
     private void boutonAddGroupActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO
+        // TODO                      
+    	GroupPanel group = new GroupPanel(Id.generate(ContentType.GROUP), this.saisieNom.getText());
         
         //creer le nomveau groupe
         //ouvre fenetre OK ou KO
@@ -168,7 +145,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JButton boutonAddGroup;
     private javax.swing.JButton boutonAnnuler;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelNom;
     private javax.swing.JTextField saisieNom;
     // End of variables declaration                   
 }

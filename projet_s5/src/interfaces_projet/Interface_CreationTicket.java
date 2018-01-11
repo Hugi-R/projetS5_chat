@@ -23,8 +23,6 @@ import utils.Id;
  */
 public class Interface_CreationTicket extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
-	static String texteSaisieMessage = "Saisissez votre message ici.";
-    static String texteIntitule = "Intitule";
     private GroupPanel[] groups;
 
     /**
@@ -54,33 +52,17 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         BoutonAnnuler = new javax.swing.JButton();
         BoutonCreer = new javax.swing.JButton();
         listGroups = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelIntitule = new javax.swing.JLabel();
+        labelGroupDest = new javax.swing.JLabel();
+        labelMessage = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("nouveau ticket");
         setAlwaysOnTop(true);
         setResizable(false);
 
-        saisieIntitule.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SaisieIntituleMouseClicked(evt);
-            }
-        });
-        saisieIntitule.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaisieIntituleActionPerformed(evt);
-            }
-        });
-
         saisieMessage.setColumns(20);
         saisieMessage.setRows(5);
-        saisieMessage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saisieMessageMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(saisieMessage);
 
         BoutonAnnuler.setText("Annuler");
@@ -104,11 +86,11 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Intitulé");
+        labelIntitule.setText("Intitulé");
 
-        jLabel2.setText("groupe destinataire");
+        labelGroupDest.setText("groupe destinataire");
 
-        jLabel3.setText("Message");
+        labelMessage.setText("Message");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,7 +108,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel3)
+                .addComponent(labelMessage)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(130, Short.MAX_VALUE)
@@ -135,25 +117,25 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
                     .addComponent(saisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel1))
+                        .addComponent(labelIntitule))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabel2)))
+                        .addComponent(labelGroupDest)))
                 .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelIntitule)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(labelGroupDest)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listGroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(labelMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -166,30 +148,13 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SaisieIntituleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaisieIntituleActionPerformed
-
     private void BoutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAnnulerActionPerformed
         this.dispose();
     }//GEN-LAST:event_BoutonAnnulerActionPerformed
 
-    private void saisieMessageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisieMessageMouseClicked
-        Component component = evt.getComponent();
-        if (saisieMessage.equals(component) && texteSaisieMessage.equals(saisieMessage.getText())) {
-            saisieMessage.setText(null);
-        }
-    }//GEN-LAST:event_saisieMessageMouseClicked
-
-    private void SaisieIntituleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaisieIntituleMouseClicked
-        Component component = evt.getComponent();
-        if (saisieIntitule.equals(component)&& texteIntitule.equals(saisieIntitule.getText())) {
-            saisieIntitule.setText(null);
-        }
-    }//GEN-LAST:event_SaisieIntituleMouseClicked
-
     private void listGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listGroupsActionPerformed
-        // TODO add your handling code here:
+        // TODO potentiellement a supprimer
+    	
     }//GEN-LAST:event_listGroupsActionPerformed
 
     private void BoutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCreerActionPerformed
@@ -238,9 +203,9 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     private javax.swing.JButton BoutonAnnuler;
     private javax.swing.JButton BoutonCreer;
     private javax.swing.JTextField saisieIntitule;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelIntitule;
+    private javax.swing.JLabel labelGroupDest;
+    private javax.swing.JLabel labelMessage;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<GroupPanel> listGroups;
     private javax.swing.JTextArea saisieMessage;
