@@ -16,6 +16,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
      */
     public Interface_AddGroup() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,6 +34,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
         boutonAddGroup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ajouter groupe");
         setAlwaysOnTop(true);
         setResizable(false);
 

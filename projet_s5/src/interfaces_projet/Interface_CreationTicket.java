@@ -60,6 +60,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("nouveau ticket");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         saisieIntitule.addMouseListener(new java.awt.event.MouseAdapter() {

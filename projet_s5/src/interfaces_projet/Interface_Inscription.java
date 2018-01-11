@@ -40,7 +40,8 @@ public class Interface_Inscription extends javax.swing.JFrame {
         BoutonCreer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("création d'un compte");
+        setTitle("creation d'un compte");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

@@ -41,6 +41,7 @@ public class Interface_AddUser extends javax.swing.JFrame {
         boutonAddUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ajouter utilisateur");
         setAlwaysOnTop(true);
         setResizable(false);
 

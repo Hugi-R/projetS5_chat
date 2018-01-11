@@ -25,7 +25,6 @@ public class Interface_ModifUser extends javax.swing.JFrame {
      * Creates new form Interface_modifUser
      */
     public Interface_ModifUser(UserPanel user) {
-    	setResizable(false);
     	this.user = user;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -52,6 +51,9 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         saisieMail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("modification utilisateur");
+        setAlwaysOnTop(true);
+        setResizable(false);
 
         jLabel4.setText("adressse mail");
 

@@ -18,8 +18,9 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
      * @param message: message selectionné
      */
     public Interface_MessageStatus(MessagePanel message) {
-        initComponents();
         this.message=message;
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -42,6 +43,8 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("status du message");
+        setAlwaysOnTop(true);
+        setResizable(false);
 
         auteur.setText(this.message.getUser().toString());
 
