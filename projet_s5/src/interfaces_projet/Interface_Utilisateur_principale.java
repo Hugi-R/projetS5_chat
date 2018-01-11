@@ -38,6 +38,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 	public Interface_Utilisateur_principale(UserPanel user) {
 		this.user = user;
 		initComponents();
+        this.setLocationRelativeTo(null);
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
@@ -69,7 +70,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		jPanel2 = new javax.swing.JPanel();
 		jPanel3 = new javax.swing.JPanel();
 		jScrollPaneMessageTicket = new javax.swing.JScrollPane();
-
+		
+        setTitle("forum universite");
+        
 		jPanelPincipal.setLayout(new java.awt.GridLayout(1, 3));
 
 		jPanel1.setAlignmentX(0.0F);

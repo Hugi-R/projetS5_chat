@@ -25,6 +25,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
      */
     public Interface_Serveur() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     private void recupUserPanel(){
     	List<User> lUser = Database.retrieveAllUser();
