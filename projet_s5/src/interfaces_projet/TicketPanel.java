@@ -7,14 +7,16 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import client.ClientDB;
+
 public class TicketPanel extends JPanel {
+	
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private String intitule;
 	private UserPanel creator;
 	private GroupPanel group;
 	private List<Long> messages;
-	
 	
 	public TicketPanel(long id, String intitule, UserPanel creator, GroupPanel group, List<Long> messages) {
 		super();
@@ -24,23 +26,14 @@ public class TicketPanel extends JPanel {
 		this.messages = messages;
 		this.intitule = intitule;
 		
-		/* données test TODO: delete test*/
 		setLayout(new GridLayout(0, 1));
 		setBorder(new LineBorder(Color.BLACK));
 		setBackground(Color.LIGHT_GRAY);
 
-		UserPanel hugo =  new UserPanel(0, "ROUSSEL", "Hugo", "CAT", null, null);
-		MessagePanel m = new MessagePanel(0, 0, hugo, "Message1");
-		add(m);
-		m = new MessagePanel(0, 0, hugo, "Ceci est un treeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+
-			"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees looooo"+
-			"oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"+
-			"ong message");
-		add(m);
-		m = new MessagePanel(0, 0, hugo, "Message3");
-		add(m);
-		m = new MessagePanel(0, 0, hugo, "Message4");
-		add(m);
+		Iterable<Long> iter = this.messages;
+		for(Long message : iter) {
+			this.add(ClientDB.findMessage(message));
+		}
 	}
 
 
@@ -69,7 +62,7 @@ public class TicketPanel extends JPanel {
 
 	@Override
 	public String toString() {
-		return "TicketPanel [id=" + id + ", creator=" + creator.getName() + ", group=" + group + ", messages=" + messages + "]";
+		return "TicketPanel [id=" + id + ", creator=" + creator.getName() + ", group=" + group + ", intitule=" + intitule + ", messages=" + messages + "]";
 	}
 	
 	
