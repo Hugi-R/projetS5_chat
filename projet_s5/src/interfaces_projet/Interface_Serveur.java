@@ -228,9 +228,19 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel4.setLayout(new java.awt.GridLayout(2, 0));
 
         boutonAddGroup.setText("ajouter un groupe");
+        boutonAddGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	addGroup(evt);
+            }
+        });
         jPanel4.add(boutonAddGroup);
 
         boutonDelGroup.setText("supprimer un groupe");
+        boutonDelGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	deleteGroup(evt);
+            }
+        });
         jPanel4.add(boutonDelGroup);
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_END);
@@ -249,7 +259,23 @@ public class Interface_Serveur extends javax.swing.JFrame {
     }//GEN-LAST:event_SaisieIntituleActionPerformed
     
     //TODO: ActionPerformed des autres boutons
-    
+    public void refreshPage2() {
+    	recupGroupPanel();
+    	listGroups.updateUI();
+    }
+    private void addGroup(java.awt.event.ActionEvent evt) {
+    		new Interface_AddGroup( this).setVisible(true);;
+    }
+    private void deleteGroup(java.awt.event.ActionEvent evt) {
+    	int selectGroup = listGroups.getSelectedIndex();
+    	if(selectGroup != -1) {
+    		if(0 !=Database.deleteGroup(listGroup.get(selectGroup).getId())){
+    			JOptionPane.showMessageDialog(null,listGroup.get(selectGroup).getName()+" a bien été supprimé ",
+    				    "",JOptionPane.INFORMATION_MESSAGE);
+    			refreshPage2();
+    		}
+    	}
+    }
     private void moveUserInGroup(java.awt.event.ActionEvent evt) {
     	int selectUser = listeDesUtilisateurs.getSelectedIndex();
     	int selectGroup = listGroups.getSelectedIndex();

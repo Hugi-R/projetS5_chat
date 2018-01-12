@@ -5,7 +5,10 @@
  */
 package interfaces_projet;
 
+import javax.swing.JOptionPane;
+
 import packet.ContentType;
+import server.Database;
 import utils.Id;
 
 /**
@@ -13,13 +16,14 @@ import utils.Id;
  * @author adrian
  */
 public class Interface_AddGroup extends javax.swing.JFrame {
-
+	Interface_Serveur fenetreprincipale;
     /**
      * Creates new form Interface_AddGroup
      */
-    public Interface_AddGroup() {
+    public Interface_AddGroup( Interface_Serveur interfaceFenetre) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.fenetreprincipale = interfaceFenetre;
     }
 
     /**
@@ -99,48 +103,16 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     }                                          
     
     private void boutonAddGroupActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO                      
-    	GroupPanel group = new GroupPanel(Id.generate(ContentType.GROUP), this.saisieNom.getText());
-        
-        //creer le nomveau groupe
-        //ouvre fenetre OK ou KO
+       if(saisieNom.getText() != "") {
+    	  if(1== Database.addgroup(Id.generate(ContentType.GROUP), saisieNom.getText())){
+    		  JOptionPane.showMessageDialog(this.boutonAddGroup, "Groupe cree","",JOptionPane.INFORMATION_MESSAGE);
+    		  fenetreprincipale.refreshPage2();
+			  this.dispose();
+    	  }
+       }
         this.dispose();
-    }                                              
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface_AddGroup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface_AddGroup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface_AddGroup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface_AddGroup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface_AddGroup().setVisible(true);
-            }
-        });
-    }
+    } 
+   
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton boutonAddGroup;
