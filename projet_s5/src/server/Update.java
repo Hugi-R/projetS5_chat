@@ -42,4 +42,10 @@ public class Update {
 		i = executeUpdate(state);
 		return i;
 	}
+	protected int changeUser(long idUser ,String name,String firstName , String mail , Categorie cat,java.sql.Statement state) {
+		int i = 0;
+		sql="UPDATE utilisateur SET nomUtilisateur = '"+name+"' , prenom = '"+firstName+"' , courriel = '"+mail+"',categorie ='"+cat+"' WHERE idUtilisateur = '"+idUser+"';";
+		i = executeUpdate(state);
+		return i;
+	}
 }

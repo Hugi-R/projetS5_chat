@@ -6,14 +6,18 @@
  */
 package interfaces_projet;
 
+import java.awt.Component;
 import java.util.ArrayList;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout.Alignment;
+
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import client.Categorie;
 import packet.ContentType;
+import server.Database;
 import utils.Id;
 
 /**
@@ -23,11 +27,13 @@ import utils.Id;
 public class Interface_ModifUser extends javax.swing.JFrame {
 
 	UserPanel user;
+	Interface_Serveur fenetreprincipale;
 	
     /**
      * Creates new form Interface_modifUser
      */
-    public Interface_ModifUser(UserPanel user) {
+    public Interface_ModifUser(UserPanel user,Interface_Serveur interfaceFenetre) {
+    	this.fenetreprincipale = interfaceFenetre;
     	this.user = user;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -52,14 +58,16 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         saisieMDP = new javax.swing.JTextField();
         labelMdp = new javax.swing.JLabel();
         saisieMail = new javax.swing.JTextField();
-
+        saisiecat = new javax.swing.JComboBox<>();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("modification utilisateur");
+        
         setAlwaysOnTop(true);
         setResizable(false);
-
+        
+        
+        
         labelMail.setText("adressse mail");
-        saisieMail.setText(null);//TODO: getUserMail()
+        saisieMail.setText(null);
 
         boutonAnnuler.setText("annuler");
         boutonAnnuler.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,7 +76,16 @@ public class Interface_ModifUser extends javax.swing.JFrame {
             }
         });
 
-        boutonAddUser.setText("ajouter utilisateur");
+        
+        if (user.getId() == 0) {
+        	boutonAddUser.setText("ajouter utilisateur");
+        	setTitle("creation utilisateur");
+        }else {
+        	boutonAddUser.setText("modifier utilisateur");
+        	setTitle("modification utilisateur");
+        	saisieMail.setText(Database.recupMail(user.getId()));
+        }
+        	
         boutonAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 boutonAddUserMouseClicked(evt);
@@ -84,11 +101,15 @@ public class Interface_ModifUser extends javax.swing.JFrame {
 
         labelMdp.setText("nouveau mot de passe");
         
-        saisieCategorie = new JTextField();
-        saisieCategorie.setText(user.getCategory());
+        saisiecat.setModel(new javax.swing.DefaultComboBoxModel<>(Categorie.values()));
+        saisiecat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
         
         JLabel label = new JLabel();
-        label.setText("Categorie");
+        //TODO trouver mieux
+        label.setText("Categorie actuelle [ "+user.getCategory()+" ]");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -98,15 +119,15 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         				.addGroup(layout.createSequentialGroup()
         					.addGap(20)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(saisieNom, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(saisieNom, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(saisiePrenom, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
         							.addGap(10)
         							.addComponent(labelPrenom))
-        						.addComponent(saisieCategorie, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(saisiecat, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
         							.addGap(10)
-        							.addComponent(label, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))))
+        							.addComponent(label, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(29)
         					.addComponent(labelNom)))
@@ -117,7 +138,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         						.addGap(10)
         						.addComponent(labelMdp))
         					.addComponent(saisieMDP)
-        					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(saisieMail, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(10)
         					.addComponent(labelMail)))
@@ -155,7 +176,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         			.addGap(18)
         			.addComponent(label)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(saisieCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(saisiecat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(boutonAnnuler)
@@ -170,53 +191,36 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     private void boutonAnnulerMouseClicked(java.awt.event.MouseEvent evt) {                                           
         this.dispose();
     }                                          
-
-    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {                                                            
-    	UserPanel user = new UserPanel(Id.generate(ContentType.USER), saisieNom.getText(), saisiePrenom.getText(), saisieCategorie.getText(), null, null);
-    	String mail = saisieMail.getText();
-    	String mdp = saisieMDP.getText();
-    	
-    	//TODO: envoyer les donnÃ©es au serveur
-    	//notif succes echec avec ouverture fenetre correspondante
-        
-    	this.dispose();
+    private void succes(String message) {
+    	JOptionPane.showMessageDialog(this.boutonAddUser, message,
+			    "",JOptionPane.INFORMATION_MESSAGE);
     }
+    private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {  
+    	System.out.println("test");
+    	
+    	if(user.getId() == 0) {
+    		if(saisieNom.getText() != "" && saisiePrenom.getText() != "" && saisieMDP.getText() !="" && saisieMail.getText() !="" ) {
+    			if( 1==Database.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
+    				succes("Utilisateur ajouté .");
+    				fenetreprincipale.refreshPage1();
+    				this.dispose();
+    			}
+    		}else {
+    			JOptionPane.showMessageDialog(this.boutonAddUser, "Veuillez remplir toutes les cases.",
+    				    "Erreur",JOptionPane.ERROR_MESSAGE);
+    		}
+    	}else {
+    		
+    		if (saisieMDP.getText() !="") {
+    			Database.changePasswd(user.getId(), saisieMDP.getText());
+    		}
+    		if( 1==Database.changeUser(user.getId(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
+    			succes("Utilisateur modifier .");
+				fenetreprincipale.refreshPage1();
+    			this.dispose();
+    		}
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface_ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface_ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface_ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface_ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            	UserPanel hugo = new UserPanel(10, "ROUSSEL", "Hugo", "CAT", new ArrayList<>() , new ArrayList<>());
-                new Interface_ModifUser(hugo).setVisible(true);
-            }
-        });
+    	}
     }
 
     // Variables declaration - do not modify                     
@@ -230,5 +234,5 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     private javax.swing.JTextField saisieMail;
     private javax.swing.JTextField saisieNom;
     private javax.swing.JTextField saisiePrenom;
-    private JTextField saisieCategorie;
+    private javax.swing.JComboBox<Categorie> saisiecat;
 }

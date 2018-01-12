@@ -66,7 +66,7 @@ public class Database {
 		}
 		return true ;
 	}
-/* fonction d'ajout de donnée dans la base *******************/
+/* fonction d'ajout de donnee dans la base *******************/
 	public static int addgroup(long idGroup, String nom){
 		if (isStarted())
 			return add.addGroup(idGroup,nom,state);
@@ -196,7 +196,13 @@ public class Database {
 		else
 			return null ;
 	}
-/*fonction de changement de valeur dans la base de donnée**********/
+	public static String recupMail(long idUser) {
+		if (isStarted())
+			return select.recupMail(idUser, state);
+		else
+			return null ;
+	}
+/*fonction de changement de valeur dans la base de donnee**********/
 	public static int changePasswd(long idUser,String newPassword) {
 		if (isStarted())
 			return update.changePasswd(idUser, newPassword, state);
@@ -218,6 +224,12 @@ public class Database {
 	public static int changeContentsMessage(long idMessage,String newText) {
 		if (isStarted())
 			return update.changeMessage(idMessage, newText, state);
+		else
+			return -1;
+	}
+	public static int changeUser(long idUser ,String name,String firstName , String mail , Categorie cat) {
+		if (isStarted())
+			return update.changeUser(idUser, name, firstName, mail, cat, state);
 		else
 			return -1;
 	}
