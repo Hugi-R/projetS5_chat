@@ -109,8 +109,11 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         
         JLabel label = new JLabel();
         //TODO trouver mieux
-        label.setText("Categorie actuelle [ "+user.getCategory()+" ]");
-
+        if (user.getId() != 0) {
+        	label.setText("Categorie actuelle [ "+user.getCategory()+" ]");
+        }else {
+        	label.setText("Categorie");
+        }
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
