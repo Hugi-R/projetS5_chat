@@ -52,7 +52,19 @@ public class ClientDB {
 			break;
 		case ContentType.USER :
 			User u = (User) packet;
-			UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null);
+			List<TicketPanel> tickets = new ArrayList<>();
+			if(u.getTicketList() != null) {
+				for(long ticketId : u.getTicketList()) {
+					tickets.add(findTicket(ticketId));
+				}
+			}
+			List<GroupPanel> groups = new ArrayList<>();
+			if(u.getGroupList() != null) {
+				for(long groupId : u.getGroupList()) {
+					groups.add(findGroup(groupId));
+				}
+			}
+			UserPanel user = new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), tickets, groups);
 			userList.put(u.getId(), user);
 			break;
 		case ContentType.TICKET :
@@ -98,12 +110,14 @@ public class ClientDB {
 		MessagePanel ret = null;
 		if((ret = messageList.get(id)) == null) {
 			Message m = (Message) retrieve(id);
+			System.out.println(m);
 			if(m != null) {
 				MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getTextMessage());
 				messageList.put(m.getId(), message);
 				ret = message;
 			}
 		}
+		System.out.println(ret);
 		return ret;
 	}
 	
@@ -123,7 +137,7 @@ public class ClientDB {
 	public static UserPanel findUserAll(long id) {
 		UserPanel ret = null;
 		if((ret = userList.get(id)) == null) {
-			User u = (User) retrieve(id);
+			User u = (User) retrieveAll(id);
 			if(u != null) {
 				List<GroupPanel> groups = new ArrayList<>();
 				for(long groupId : u.getGroupList()) {
@@ -158,7 +172,7 @@ public class ClientDB {
 	public static TicketPanel findTicket(long id) {
 		TicketPanel ret = null;
 		ret = ticketList.get(id);
-		if(ret != null) {
+		if(ret == null) {
 			Ticket t = (Ticket) retrieve(id);
 			if(t != null) {
 				TicketPanel ticket = new TicketPanel(t.getId(), t.getName(), findUser(t.getCreatorId()), findGroup(t.getGroupId()), t.getMessageList());
@@ -178,9 +192,30 @@ public class ClientDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL)
+		System.out.println(ret);
+		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
+			System.err.println("Server responded with fail.");
 			ret = null;
+		}
 		return ret;
 	}	
+	
+	private static Packet retrieveAll(long id) {
+		Packet ret = null;
+		try {
+			MainClient.comm.send(new Request((byte)(Commands.RETRIEVE | Commands.ALL), id));
+			ret = MainClient.comm.receive();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(ret);
+		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
+			System.err.println("Server responded with fail.");
+			ret = null;
+		}
+		return ret;
+	}	
+	
 
 }

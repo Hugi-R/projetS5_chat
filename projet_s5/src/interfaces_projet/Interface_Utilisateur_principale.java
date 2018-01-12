@@ -5,29 +5,27 @@
  */
 package interfaces_projet;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
-
-import javax.swing.JOptionPane;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import javax.swing.event.TreeModelListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import client.MainClient;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
 
 /**
  *
  * @author adrian
  */
-public class Interface_Utilisateur_principale extends javax.swing.JFrame {
+public class Interface_Utilisateur_principale extends javax.swing.JFrame implements TreeSelectionListener{
 	private static final long serialVersionUID = 1L;
 	static String texteSaisieMessage = "Saisissez votre texte ici.";
 	private UserPanel user;
@@ -43,15 +41,14 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing?",
+				if (JOptionPane.showConfirmDialog(null, "Are you sure to close the app?", "Really Closing?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					// action on closing
-					MainClient.comm.close();
-					System.exit(0);
+					MainClient.close();
 				}
 			}
 		});
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 	}
 
 	/**
@@ -84,25 +81,26 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		jScrollPane4.setAutoscrolls(true);
 		jScrollPane4.setPreferredSize(new java.awt.Dimension(100, 400));
 
-		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("test");
+		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Tickets");
+		System.out.println(user);
 		if (!user.getGroupList().isEmpty()) {
-			Iterable<GroupPanel> iterable2 = user.getGroupList();
-			for (GroupPanel groupe : iterable2) {
-				DefaultMutableTreeNode treeNode2 = new DefaultMutableTreeNode(groupe.getName());
-				if (!groupe.getTicketList().isEmpty()) {
+			for (TicketPanel ticket : user.getTicketList()) {
+				DefaultMutableTreeNode treeNode2 = new DefaultMutableTreeNode(ticket);
+				/*if (!groupe.getTicketList().isEmpty()) {
 					Iterable<TicketPanel> iterable3 = groupe.getTicketList();
 					System.out.println("iterable3=" + iterable3.toString());
 					for (TicketPanel ticket : iterable3) {
 						DefaultMutableTreeNode treeNode3 = new DefaultMutableTreeNode(ticket.getName());
 						treeNode2.add(treeNode3);
 					}
-				}
+				}*/
 				treeNode1.add(treeNode2);
+				
 			}
 		}
 
-		arborescence.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-
+		//arborescence.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+		arborescence = new JTree(treeNode1);
 		arborescence.setAlignmentX(0.0F);
 		arborescence.setAlignmentY(0.0F);
 		arborescence.setAutoscrolls(true);
@@ -110,6 +108,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		arborescence.setPreferredSize(new java.awt.Dimension(150, 300));
 		arborescence.setScrollsOnExpand(true);
 		arborescence.setToggleClickCount(1);
+		arborescence.addTreeSelectionListener(this);
+		
 		jScrollPane4.setViewportView(arborescence);
 
 		jPanel1.add(jScrollPane4, java.awt.BorderLayout.CENTER);
@@ -134,13 +134,12 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 		});
 		jScrollPane1.setViewportView(saisieMessage);
 
-		jScrollPane3 = 	new javax.swing.JScrollPane();
-		ticketView = new TicketPanel(0L, "", this.user, new GroupPanel(0L, "group"), new ArrayList<>());
-		jScrollPane3.add(ticketView);
-		jScrollPane3.setViewportView(ticketView);
+		//default ticket panel
+		ticketViewer = 	new javax.swing.JScrollPane();
+		ticketViewer.setViewportView(new TicketPanel(0, "", null, null, null));
 		
 		jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-		jPanel3.add(jScrollPane3, BorderLayout.NORTH);
+		jPanel3.add(ticketViewer, BorderLayout.NORTH);
 
 		jPanelPincipal.add(jPanel2);
 
@@ -148,6 +147,17 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+	
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		DefaultMutableTreeNode node =  (DefaultMutableTreeNode) arborescence.getLastSelectedPathComponent();
+		displayTicket((TicketPanel) node.getUserObject());
+	}
+	
+	private void displayTicket(TicketPanel ticket) {
+		ticketViewer.setViewportView(ticket);
+		ticket.loadMessage();
+	}
 
 	private void saisieMessageMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_saisieMessageMouseClicked
 
@@ -218,10 +228,11 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel3;
 	private javax.swing.JPanel jPanelPincipal;
 	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane3;
+	private javax.swing.JScrollPane ticketViewer;
 	private javax.swing.JScrollPane jScrollPane4;
 	private javax.swing.JScrollPane jScrollPaneMessageTicket;
 	private javax.swing.JTextArea saisieMessage;
 	private TicketPanel ticketView;
 	// End of variables declaration//GEN-END:variables
+
 }

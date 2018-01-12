@@ -23,11 +23,6 @@ public class UserPanel extends JPanel {
 		this.ticketList = ticketList;
 		this.groupList = groupList;
 	}
-
-
-        public List<GroupPanel> getGroupList(){
-            return this.groupList;
-        }
         
 	@Override
 	public String toString() {
@@ -48,6 +43,15 @@ public class UserPanel extends JPanel {
 	public String getNom() {
 		return nom;
 	}
+	
+
+	public List<TicketPanel> getTicketList() {
+		return ticketList;
+	}
+	
+   public List<GroupPanel> getGroupList(){
+        return this.groupList;
+    }
 
 	public String getCategory() {
 		return category;

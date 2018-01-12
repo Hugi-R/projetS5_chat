@@ -58,12 +58,13 @@ public class Select {
 	}
 	
 	protected Message RecupMessage (long idMessage ,java.sql.Statement state){
+		byte status = recupStatusMessage(idMessage, state);
 		sql= "SELECT UNIX_TIMESTAMP(dateMessage),auteur,message,idTicketMessage FROM message WHERE idMessage= '"+idMessage+"';";
 		Message m = null;
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), recupStatusMessage(idMessage, state), r.getString(3));
+				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), status, r.getString(3));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

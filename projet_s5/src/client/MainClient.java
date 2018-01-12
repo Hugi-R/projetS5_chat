@@ -47,6 +47,7 @@ public class MainClient {
 	
 	public static void launchMainUI() {
 		if(ui == null && comm != null) {
+			System.out.println("Starting main ui for "+user);
 			ui = new Interface_Utilisateur_principale(user);
 			ui.setVisible(true);
 		}
