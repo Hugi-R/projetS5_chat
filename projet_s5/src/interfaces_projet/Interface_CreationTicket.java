@@ -5,17 +5,16 @@
  */
 package interfaces_projet;
 
-import java.awt.Component;
 import java.io.IOException;
 
 import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
-import packet.ContentType;
 import packet.Message;
 import packet.Packet;
 import packet.Ticket;
 import utils.Id;
+import utils.StatusType;
 
 /**
  *
@@ -29,11 +28,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
      * Creates new form Interface_Connexion
      */
     public Interface_CreationTicket() {
-    	groups = new GroupPanel[MainClient.user.getGroupList().size()];
-    	int i = 0;
-    	for(long id : MainClient.user.getGroupList()) {
-    		groups[i++] = ClientDB.findGroup(id);
-    	}
+    	groups = MainClient.getConnectedUser().getGroupList().toArray(groups);
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -163,7 +158,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         String textIntitule = saisieIntitule.getText();
         Packet resp = null;
         if( !textIntitule.isEmpty() && !textMessage.isEmpty()) {
-        	Ticket ticket = new Ticket(Commands.SEND, Id.DEFAULT_ID_TICKET, MainClient.user.getId(), idGroup, textIntitule, null);
+        	Ticket ticket = new Ticket(Commands.SEND, Id.DEFAULT_ID_TICKET, MainClient.getConnectedUser().getId(), idGroup, textIntitule, null);
         	try {
 				MainClient.comm.send(ticket);
 				resp = MainClient.comm.receive();
@@ -178,7 +173,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         		Ticket t = (Ticket) resp;
         		ClientDB.add(t);
         		//TODO update display for ticket
-        		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.user.getId(), t.getId(), 0L, textMessage);
+        		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.getConnectedUser().getId(), t.getId(), 0L, StatusType.MESSAGE_PENDING, textMessage);
         		try {
 					MainClient.comm.send(messageToSend);
 					resp = MainClient.comm.receive();

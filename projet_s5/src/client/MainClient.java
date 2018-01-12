@@ -2,42 +2,97 @@ package client;
 
 import java.io.IOException;
 
-import interfaces_projet.Interface_CreationTicket;
+import javax.swing.JOptionPane;
+
+import interfaces_projet.Interface_Connexion;
 import interfaces_projet.Interface_Utilisateur_principale;
-import packet.Commands;
-import packet.Connect;
-import packet.Packet;
+import interfaces_projet.UserPanel;
 import packet.User;
-import utils.Id;
 
 public class MainClient {
-	public static CommunicatorClient comm;
-	public static User user;
-	public static Interface_Utilisateur_principale ui;
+	public static String serverAdress;
+	public static int serverPort;
+	public static CommunicatorClient comm; //public because a getter will not be very useful here
+	private static UserPanel user;
+	private static Interface_Utilisateur_principale ui;
+	private static Interface_Connexion connectUI;
 	
 	public static void main(String[] args) {
 		System.out.println("Lancement du client");
-		comm = new CommunicatorClient("localhost", 3636);
-		user = null;
-		try {			
-			//log in
-			Connect connect = new Connect((byte)(Commands.SEND | Commands.CONNECT), "hugo.roussel@univ-tlse3.fr", "carrotte");
-			comm.send(connect);
-			Packet connectResp = comm.receive();
-			if(connectResp.getCommand() == (Commands.FAIL | Commands.CONNECT)) {
-				System.err.println("Username or password invalid");
-			} else {
-				user = (User)connectResp;
-			}
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+		if(args.length == 3) {
+			serverAdress = args[1];
+			serverPort = Integer.parseInt(args[2]);
+		} else {
+			serverAdress = "localhost";
+			serverPort = 3636;
 		}
+		initConnectionServer();
+		launchConnectUI();
+	}
+	
+	public static void initConnectionServer() {
+		if(comm == null) {
+			comm = new CommunicatorClient(serverAdress, serverPort);
+			try {
+				comm.open();
+			} catch (IOException e) {
+				new JOptionPane();
+				JOptionPane.showMessageDialog(null, "Cannot connect to server \""+serverAdress+":"+serverPort+"\" for reason \""+e.getMessage()+"\"", "Connection Error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				comm.close();
+				comm = null;
+			}
+		}
+	}
+	
+	public static void launchMainUI() {
+		if(ui == null && comm != null) {
+			ui = new Interface_Utilisateur_principale(user);
+			ui.setVisible(true);
+		}
+	}
+	
+	public static void launchConnectUI() {
+		if(connectUI == null && comm != null) {
+			user = null;
+			connectUI = new Interface_Connexion();
+			connectUI.setVisible(true);
+		}
+	}
+	
+	public static void setConnectedUser(User u) {
+		flush(false);
+		ClientDB.add(u);
+		user = ClientDB.findUserAll(u.getId());
+		launchMainUI();
+	}
+	
+	public static UserPanel getConnectedUser() {
+		return user;
+	}
+	
+	public static void flush(boolean withComm) {
+		if(withComm) {
+			comm.close();
+			comm = null;
+		}
+		user = null;
+		if(ui != null) {
+			ui.dispose();
+			ui = null;
+		}
+		if(connectUI != null) {
+			connectUI.dispose();
+			connectUI = null;
+		}
+		ClientDB.flush();
+	}
+	
+	public static void close() {
+		flush(true);
+		System.out.println("Goodbye");
+		System.exit(0);
 		
-		//new Interface_Connexion().setVisible(true);
-		new Interface_CreationTicket().setVisible(true);;
-
-		System.out.println(Id.DEFAULT_ID_MESSAGE);
-		System.out.println("Fin client");
 	}
 
 }
