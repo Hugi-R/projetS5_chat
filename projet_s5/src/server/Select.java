@@ -198,7 +198,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
-				listUser.add(new User(Commands.SEND,r.getLong(1),r.getString(2),r.getString(3),null,null,null));
+				listUser.add(new User(Commands.SEND,r.getLong(1),r.getString(2),r.getString(3),r.getString(4),null,null));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -252,5 +252,17 @@ public class Select {
 			ret = StatusType.USER_PENDING;
 		}
 		return ret;
+	}
+	protected String recupMail(long idUser, java.sql.Statement state) {
+		sql = "SELECT courriel FROM utilisateur WHERE idUtilisateur= '"+idUser+"';";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if(r.next()) {
+				return r.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

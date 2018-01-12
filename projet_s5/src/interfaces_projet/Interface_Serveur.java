@@ -5,10 +5,12 @@
  */
 package interfaces_projet;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import client.MainClient;
 import packet.Group;
 import packet.User;
 import server.Database;
@@ -20,21 +22,34 @@ import server.Database;
 public class Interface_Serveur extends javax.swing.JFrame {
 	private List<UserPanel> listUser = new ArrayList<>();
 	private List<GroupPanel> listGroup=new ArrayList<>();
+	
+
     /**
      * Creates new form Interface_Serveur
      */
     public Interface_Serveur() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+     		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+     			if (JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing?",
+     					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+     				Database.closeConnection();
+     				System.exit(0);
+     			}
+     		}
+     	});
     }
     private void recupUserPanel(){
     	List<User> lUser = Database.retrieveAllUser();
+    	this.listUser.clear();
     	for(User u : lUser ) {
     		this.listUser.add(new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null));
     	}
     }
     private void recupGroupPanel(){
     	List<Group> lGroup = Database.retrieveAllGroup();
+    	this.listGroup.clear();
     	for(Group g : lGroup ) {
     		this.listGroup.add(new GroupPanel(g.getId(), g.getName()));
     	}
@@ -82,7 +97,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
         boutonAddGroup = new javax.swing.JButton();
         boutonDelGroup = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+       
         setTitle("gestion du serveur");
 
         tableau.setAutoscrolls(true);
@@ -229,58 +245,68 @@ public class Interface_Serveur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaisieIntituleActionPerformed
-    	new Interface_ModifUser(new UserPanel(-1, "nom", "prenom", "category", null, null)).setVisible(true);
+    	new Interface_ModifUser(new UserPanel(0, "nom", "prenom", "category", null, null),this).setVisible(true);
     }//GEN-LAST:event_SaisieIntituleActionPerformed
     
     //TODO: ActionPerformed des autres boutons
     
     private void moveUserInGroup(java.awt.event.ActionEvent evt) {
-    	int selectUser = listGroups.getSelectedIndex();
-    	int selectGroup = listeDesUtilisateurs.getSelectedIndex();
+    	int selectUser = listeDesUtilisateurs.getSelectedIndex();
+    	int selectGroup = listGroups.getSelectedIndex();
     	int i = 0;
     	if(selectUser != -1 && selectGroup != -1) {
     		i=Database.addGroupToUser(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
-    		if( i==0) {
-    			new Interface_NotificationErreur("Erreur cet utilisateur est deja dans ce groupe").setVisible(true);
+    		if( i!=1) {
+    			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur est deja dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
-    			new Interface_NotificationSucces().setVisible(true);
+    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien été deplacé dans "+listGroup.get(selectGroup).getName(),
+    				    "",JOptionPane.INFORMATION_MESSAGE);
     		}
     	}else {
-    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur et un groupe").setVisible(true);
-    	}
+    		JOptionPane.showMessageDialog(null,"Attention: Veuillez selectionner un utilisateur et un groupe","Erreur",JOptionPane.ERROR_MESSAGE);
+        	}
     }
     private void moveUserOutGroup(java.awt.event.ActionEvent evt) {
-    	int selectUser = listGroups.getSelectedIndex();
-    	int selectGroup = listeDesUtilisateurs.getSelectedIndex();
+    	int selectUser = listeDesUtilisateurs.getSelectedIndex();
+    	int selectGroup = listGroups.getSelectedIndex();
     	int i = 0;
     	if(selectUser != -1 && selectGroup != -1) {
     		i=Database.takeUserOutOfGroup(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
-    		if( i==0) {
-    			new Interface_NotificationErreur("Erreur cet utilisateur n'est pas dans ce groupe").setVisible(true);
+    		if( i!=1) {
+    			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur n'est pas dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
-    			new Interface_NotificationSucces().setVisible(true);
+    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien été enlevé du groupe "+listGroup.get(selectGroup).getName(),
+    				    "",JOptionPane.INFORMATION_MESSAGE);
     		}
     	}else {
-    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur et un groupe").setVisible(true);
+    		JOptionPane.showMessageDialog(null,"Attention: Veuillez selectionner un utilisateur et un groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     	}
     }
     private void deleteUserAction(java.awt.event.ActionEvent evt) {
     	int selectUser = listUsers.getSelectedIndex();
     	if(selectUser !=-1) {
     		if (1== Database.deleteUser(listUser.get(selectUser).getId())) {
-    			new Interface_NotificationSucces().setVisible(true);
+    			JOptionPane.showMessageDialog(null, "utilisateur supprimer.",
+    				    "",JOptionPane.INFORMATION_MESSAGE);
+    			refreshPage1();
     		}else {
-    			new Interface_NotificationErreur("Erreur Veuillez contacter les develeppeurs").setVisible(true);
+    			JOptionPane.showMessageDialog(null, "Veuillez contacter les developpeurs.",
+    				    "Erreur",JOptionPane.ERROR_MESSAGE);
     		}
     	}else {
-    		new Interface_NotificationErreur("Attention: Veuillez selectionner un utilisateur").setVisible(true);
+    		JOptionPane.showMessageDialog(null, "Veuillez selectionner un utilisateur.",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
     	}
     }
-    
+    public void refreshPage1() {
+    	recupUserPanel();
+    	listUsers.updateUI();
+    }
     private void modifUserAction(java.awt.event.ActionEvent evt) {
     	int selectUser = listUsers.getSelectedIndex();
     	if(selectUser !=-1) {
-    		new Interface_ModifUser(listUser.get(selectUser)).setVisible(true);
+    		System.out.println(listUser.get(selectUser));
+    		new Interface_ModifUser(listUser.get(selectUser),this).setVisible(true);
     	}
     }
 
