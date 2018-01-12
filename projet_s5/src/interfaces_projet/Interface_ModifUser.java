@@ -196,9 +196,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
 			    "",JOptionPane.INFORMATION_MESSAGE);
     }
     private void boutonAddUserMouseClicked(java.awt.event.MouseEvent evt) {  
-    	System.out.println("test");
-    	
-    	if(user.getId() == 0) {
+    	 if(user.getId() == 0) {
     		if(saisieNom.getText() != "" && saisiePrenom.getText() != "" && saisieMDP.getText() !="" && saisieMail.getText() !="" ) {
     			if( 1==Database.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
     				succes("Utilisateur ajouté .");
