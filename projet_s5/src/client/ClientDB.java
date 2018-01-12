@@ -36,6 +36,13 @@ public class ClientDB {
 		// no constructor
 	}
 	
+	public static void flush() {
+		groupList.clear();
+		ticketList.clear();
+		userList.clear();
+		messageList.clear();
+	}
+	
 	public static void add(Content packet) {
 		switch(Id.type(packet.getId())) {
 		case ContentType.MESSAGE :
