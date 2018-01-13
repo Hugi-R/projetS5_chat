@@ -8,6 +8,7 @@ package interfaces_projet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import client.Categorie;
@@ -20,21 +21,27 @@ import server.Database;
  * @author pierre
  */
 public class Interface_Serveur extends javax.swing.JFrame {
+	private static final long serialVersionUID = 1L;
 	private List<UserPanel> listUser = new ArrayList<>();
 	private List<GroupPanel> listGroup=new ArrayList<>();
 	private String url = "jdbc:mysql://eralyon.net:3306/projets5";
 	private String user = "projets5_server";
 	private String passwd = "projets5_psswd";
-
-    
+	public class ConfirmDialogInFrame extends JFrame{
+		private static final long serialVersionUID = 1L;
+		public ConfirmDialogInFrame() {
+	        setVisible(false);
+	        setAlwaysOnTop(true);
+	    }
+	}
     public Interface_Serveur() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
         	@Override
      		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-     			if (JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing?",
-     					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close this window?", "Really Closing?",
+        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
      				Database.closeConnection();
      				System.exit(0);
      			}
@@ -140,7 +147,8 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel8.add(boutonModifUser, java.awt.BorderLayout.PAGE_END);
        
         listUsers.setModel(new javax.swing.AbstractListModel<String>() {
-        	private List<UserPanel> listUserU = listUser;       	
+        	private static final long serialVersionUID = 1L;
+			private List<UserPanel> listUserU = listUser;       	
             public int getSize() { return listUserU.size(); }
             public String getElementAt(int i) { return listUserU.get(i).getPrenom()+" "+listUserU.get(i).getNom();}
         });
@@ -160,6 +168,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         groups.setLayout(new java.awt.GridLayout(1, 0));
 
         listeDesUtilisateurs.setModel(new javax.swing.AbstractListModel<String>() {
+        	private static final long serialVersionUID = 1L;
         	private List<UserPanel> listUserg =  listUser;
             public int getSize() { return listUserg.size(); }
             public String getElementAt(int i) { return listUserg.get(i).getPrenom()+" "+listUserg.get(i).getNom(); }
@@ -215,9 +224,10 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         listGroups.setModel(new javax.swing.AbstractListModel<String>() {
-            private List<GroupPanel> ListGrp = listGroup;
-            public int getSize() { return ListGrp.size(); }
-            public String getElementAt(int i) { return ListGrp.get(i).getName(); }
+        	private static final long serialVersionUID = 1L;
+            private List<GroupPanel> listGrp = listGroup;
+            public int getSize() { return listGrp.size(); }
+            public String getElementAt(int i) { return listGrp.get(i).getName(); }
         });
         jScrollPane3.setViewportView(listGroups);
 
@@ -251,7 +261,6 @@ public class Interface_Serveur extends javax.swing.JFrame {
 
         pack();
     }
-
     private void addUserActionPerformed() {
     	new Interface_ModifUser(new UserPanel(0, "nom", "prenom", Categorie.INVITE.toString(), null, null),this).setVisible(true);
     }

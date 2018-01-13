@@ -33,7 +33,7 @@ public class remplirDatabase {
 		Database.addTicket(317780912113747362L, 278609667354474505L, "cafe URGENT");
 		Database.addMessage(100698344208134676L, 166955891725051629L,317780912113747362L, "la machine a cafe ne marche plus ");
 		Database.addStatus(190796928726647178L, 100698344208134676L, StatusType.USER_READ);
-		Database.addMessage(75385375474664354L,190796928726647178L,317780912113747362L, "desoler mais la fac ne s occupe pas des machines veuillez contacter le 05  merci");
+		Database.addMessage(75385375474664354L,190796928726647178L,317780912113747362L, "desoler mais la fac ne s'occupe pas des machines veuillez contacter le 05  merci");
 		Database.addStatus(166955891725051629L, 75385375474664354L, StatusType.USER_SENT);
 		
 		Database.addTicket(337516536014150299L, 256835400352577846L, "vacances");

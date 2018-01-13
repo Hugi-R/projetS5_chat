@@ -22,9 +22,9 @@ import utils.Id;
  * @author pierre
  */
 public class Interface_ModifUser extends javax.swing.JFrame {
-
-	UserPanel user;
-	Interface_Serveur fenetreprincipale;
+	private static final long serialVersionUID = 1L;
+	private UserPanel user;
+	private Interface_Serveur fenetreprincipale;
 	
     /**
      * Creates new form Interface_modifUser
@@ -55,7 +55,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         labelMdp = new javax.swing.JLabel();
         saisieMail = new javax.swing.JTextField();
         saisiecat = new javax.swing.JComboBox<>();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
         
         setAlwaysOnTop(true);
         setResizable(false);
