@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaces_projet;
 
 import java.util.ArrayList;
@@ -21,9 +16,6 @@ public class Interface_Serveur extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private List<UserPanel> listUser = new ArrayList<>();
 	private List<GroupPanel> listGroup=new ArrayList<>();
-	private String url = "jdbc:mysql://eralyon.net:3306/projets5";
-	private String user = "projets5_server";
-	private String passwd = "projets5_psswd";
 	public class ConfirmDialogInFrame extends JFrame{
 		private static final long serialVersionUID = 1L;
 		public ConfirmDialogInFrame() {
@@ -32,18 +24,22 @@ public class Interface_Serveur extends javax.swing.JFrame {
 	    }
 	}
     public Interface_Serveur() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-        	@Override
-     		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close this window?", "Really Closing?",
-        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-     				Database.closeConnection();
-     				System.exit(0);
-     			}
-     		}
-     	});
+    	if(Database.isStarted()) {
+	        initComponents();
+	        this.setLocationRelativeTo(null);
+	        this.addWindowListener(new java.awt.event.WindowAdapter() {
+	        	@Override
+	     		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close this window?", "Really Closing?",
+	        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+	     				Database.closeConnection();
+	     				System.exit(0);
+	     			}
+	     		}
+	     	});
+    	} else {
+    		System.err.println("Cannot start server : database not started");
+    	}
     }
     private void recupUserPanel(){
     	List<User> lUser = Database.retrieveAllUser();
@@ -67,7 +63,6 @@ public class Interface_Serveur extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-		Database.start(url,user,passwd);
 		recupUserPanel();
 		recupGroupPanel();
         tableau = new javax.swing.JTabbedPane();
@@ -334,41 +329,6 @@ public class Interface_Serveur extends javax.swing.JFrame {
     	if(selectUser !=-1) {
     		new Interface_ModifUser(listUser.get(selectUser),this).setVisible(true);
     	}
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface_Serveur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface_Serveur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface_Serveur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface_Serveur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface_Serveur().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
