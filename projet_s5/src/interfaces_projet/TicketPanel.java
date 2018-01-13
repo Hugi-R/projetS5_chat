@@ -20,7 +20,7 @@ public class TicketPanel extends JPanel {
 	private int nbMessage;
 	private GridLayout layout;
 	
-	private static final int MIN_ROW_LAYOUT = 8;
+	private static final int MIN_ROW_LAYOUT = 4;
 	
 	public TicketPanel(long id, String intitule, UserPanel creator, GroupPanel group, List<Long> messages) {
 		super();
@@ -47,10 +47,11 @@ public class TicketPanel extends JPanel {
 	}
 	
 	public void loadMessage() {
+		int i = 0;
 		for(long messageId : messages) {
 			nbMessage++;
 			updateGridLayout();
-			add(ClientDB.findMessage(messageId));
+			add(ClientDB.findMessage(messageId), i++);
 		}
 	}
 
@@ -79,7 +80,7 @@ public class TicketPanel extends JPanel {
 
 	@Override
 	public String toString() {
-		return "TicketPanel [id=" + id + ", creator=" + creator.getName() + ", group=" + group + ", messages=" + messages + "]";
+		return intitule + " - " + group.getName();
 	}
 	
 	

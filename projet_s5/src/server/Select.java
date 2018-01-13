@@ -32,7 +32,7 @@ public class Select {
 	
 	protected List<Long> idMessageOfTicket (long idTicket,java.sql.Statement state) {
 		List<Long> l = new ArrayList<>();
-		sql = "SELECT DISTINCT idMessage FROM message WHERE idTicketMessage = '"+idTicket+"';";
+		sql = "SELECT DISTINCT idMessage FROM message WHERE idTicketMessage = '"+idTicket+"' ORDER BY dateMessage;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 

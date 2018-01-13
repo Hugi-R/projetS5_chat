@@ -30,7 +30,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
      * Creates new form Interface_Connexion
      */
     public Interface_CreationTicket() {
-    	groups = MainClient.getConnectedUser().getGroupList().toArray(groups);
+    	groups = MainClient.getConnectedUser().getGroupList().toArray(new GroupPanel[0]);
         initComponents();
         this.setLocationRelativeTo(null);
     }
