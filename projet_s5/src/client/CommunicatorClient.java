@@ -44,7 +44,9 @@ public class CommunicatorClient {
 	}
 	
 	public Packet receive() throws IOException, ClassNotFoundException{
-		return (Packet) in.readObject();
+		Object o = in.readObject();
+		System.out.println(o);
+		return (Packet) o;
 	}
 	
 	

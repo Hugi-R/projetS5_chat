@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import client.ClientDB;
+import client.MainClient;
 
 public class TicketPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +36,8 @@ public class TicketPanel extends JPanel {
 	
 	private void updateGridLayout() {
 		if(nbMessage > MIN_ROW_LAYOUT)
-			layout.setRows(nbMessage);
+			layout.setRows(nbMessage+1);
+		layout.setColumns(1);
 	}
 	
 	private void initComponent() {
@@ -81,6 +83,14 @@ public class TicketPanel extends JPanel {
 	@Override
 	public String toString() {
 		return intitule + " - " + group.getName();
+	}
+	
+	public void addMessage(MessagePanel message) {
+		nbMessage++;
+		updateGridLayout();
+		add(message, nbMessage - 1);
+		messages.add(message.getId());
+		MainClient.repaint();
 	}
 	
 	

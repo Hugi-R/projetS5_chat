@@ -34,12 +34,12 @@ public class Handler implements Runnable{
 		
 		while(!comm.isClosed() && i < 10) {
 			try {
-				i++;
 				System.out.println("Attente ...");
 				data = comm.receive();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 				data = null;
+				i++;
 			}
 			
 			if(data == null) {
@@ -73,7 +73,7 @@ public class Handler implements Runnable{
 				}
 			}
 		}
-		System.out.println("Fin handler");
+		System.out.println("Fin handler, i = "+i);
 		
 	}
 	

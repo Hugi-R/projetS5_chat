@@ -127,5 +127,9 @@ public class MainClient {
 		if(allGroups == null)
 			System.err.println("Retrieve of all groups failled, some part of the application will not work properly.");
 	}
+	
+	public static void repaint() {
+		ui.repaint();
+	}
 
 }

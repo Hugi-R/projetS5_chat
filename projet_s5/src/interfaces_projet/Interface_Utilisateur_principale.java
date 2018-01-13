@@ -17,9 +17,17 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import client.ClientDB;
 import client.MainClient;
+import packet.Commands;
+import packet.Message;
+import packet.Packet;
+import utils.Id;
+import utils.StatusType;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Interface_Utilisateur_principale extends javax.swing.JFrame implements TreeSelectionListener{
@@ -33,6 +41,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	        setAlwaysOnTop(true);
 	    }
 	}
+	private TicketPanel selectedTicket = null;
+	
 	/**
 	 * Creates new form JFrame
 	 */
@@ -122,9 +132,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
         saisieMessage.getActionMap().put("Enter pressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-            	//TODO: envoi message
-            	
-            	//fin TODO
+            	// envoi message
+            	sendMessage();
             	saisieMessage.setText(null);
             }
         });
@@ -167,7 +176,10 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		DefaultMutableTreeNode node =  (DefaultMutableTreeNode) arborescence.getLastSelectedPathComponent();
 		try {
 			TicketPanel t = (TicketPanel) node.getUserObject();
-			displayTicket(t);
+			if(t != selectedTicket) {
+				selectedTicket = t;
+				displayTicket(t);
+			}
 		} catch (ClassCastException ec) {
 			// expected to happen when user click on top node
 		} 
@@ -191,6 +203,22 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		}
 	}
 
+	private void sendMessage() {
+		try {
+			MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user.getId(), selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
+			Packet resp = MainClient.comm.receive();
+			if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
+    			JOptionPane.showMessageDialog(null, "Le serveur a refuser la creation du message .", "Erreur",JOptionPane.ERROR_MESSAGE);
+        	} else {
+        		Message m = (Message)resp;
+        		ClientDB.add(m);
+        		selectedTicket.add(ClientDB.findMessage(m.getId()));
+        	}
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private javax.swing.JTree arborescence;
 	private javax.swing.JPanel leftJPanel;
 	private javax.swing.JPanel rightJPanel;
