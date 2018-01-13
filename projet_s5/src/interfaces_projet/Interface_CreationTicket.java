@@ -18,10 +18,7 @@ import packet.Ticket;
 import utils.Id;
 import utils.StatusType;
 
-/**
- *
- * @author adrian
- */
+
 public class Interface_CreationTicket extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
     private GroupPanel[] groups;

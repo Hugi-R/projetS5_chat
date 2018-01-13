@@ -5,10 +5,7 @@
  */
 package interfaces_projet;
 
-/**
- *
- * @author adrian
- */
+
 public class Interface_Inscription extends javax.swing.JFrame {
 
     /**

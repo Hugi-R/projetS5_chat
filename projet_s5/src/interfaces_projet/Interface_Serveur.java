@@ -16,10 +16,7 @@ import packet.Group;
 import packet.User;
 import server.Database;
 
-/**
- *
- * @author pierre
- */
+
 public class Interface_Serveur extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private List<UserPanel> listUser = new ArrayList<>();

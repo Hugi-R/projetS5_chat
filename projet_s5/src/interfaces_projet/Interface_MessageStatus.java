@@ -5,10 +5,7 @@
  */
 package interfaces_projet;
 
-/**
- *
- * @author adrian
- */
+
 public class Interface_MessageStatus extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private MessagePanel message;

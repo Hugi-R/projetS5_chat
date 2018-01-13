@@ -17,10 +17,7 @@ import packet.ContentType;
 import server.Database;
 import utils.Id;
 
-/**
- *
- * @author pierre
- */
+
 public class Interface_ModifUser extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private UserPanel user;
