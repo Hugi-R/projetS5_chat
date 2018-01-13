@@ -7,8 +7,7 @@ package interfaces_projet;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,9 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 import client.MainClient;
+import javax.swing.JSplitPane;
 
 /**
  *
@@ -60,32 +59,17 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jPanelPincipal = new javax.swing.JPanel();
-		jPanel1 = new javax.swing.JPanel();
-		jScrollPane4 = new javax.swing.JScrollPane();
+		setPreferredSize(new Dimension(560, 560));
+		
 		arborescence = new javax.swing.JTree();
-		jPanel2 = new javax.swing.JPanel();
-		jPanel3 = new javax.swing.JPanel();
-		jScrollPaneMessageTicket = new javax.swing.JScrollPane();
 		
         setTitle("forum universite");
-        
-		jPanelPincipal.setLayout(new java.awt.GridLayout(1, 3));
 
-		jPanel1.setAlignmentX(0.0F);
-		jPanel1.setAlignmentY(0.0F);
-		jPanel1.setPreferredSize(arborescence.getPreferredSize());
-		jPanel1.setLayout(new java.awt.BorderLayout());
-
-		jScrollPane4.setAlignmentX(0.0F);
-		jScrollPane4.setAutoscrolls(true);
-		jScrollPane4.setPreferredSize(new java.awt.Dimension(100, 400));
-
-		DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Tickets");
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Tickets");
 		System.out.println(user);
-		if (!user.getGroupList().isEmpty()) {
+		if (!user.getTicketList().isEmpty()) {
 			for (TicketPanel ticket : user.getTicketList()) {
-				DefaultMutableTreeNode treeNode2 = new DefaultMutableTreeNode(ticket);
+				DefaultMutableTreeNode ticketNode = new DefaultMutableTreeNode(ticket);
 				/*if (!groupe.getTicketList().isEmpty()) {
 					Iterable<TicketPanel> iterable3 = groupe.getTicketList();
 					System.out.println("iterable3=" + iterable3.toString());
@@ -94,36 +78,48 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 						treeNode2.add(treeNode3);
 					}
 				}*/
-				treeNode1.add(treeNode2);
+				top.add(ticketNode);
 				
 			}
 		}
-
-		//arborescence.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-		arborescence = new JTree(treeNode1);
+								
+		splitPane = new JSplitPane();
+		getContentPane().add(splitPane, BorderLayout.NORTH);
+		leftJPanel = new javax.swing.JPanel();
+		ticketScrollPane = new javax.swing.JScrollPane();
+								
+		leftJPanel.setAlignmentX(0.0F);
+		leftJPanel.setAlignmentY(0.0F);
+		leftJPanel.setPreferredSize(arborescence.getPreferredSize());
+		leftJPanel.setLayout(new java.awt.BorderLayout());
+										
+		ticketScrollPane.setAlignmentX(0.0F);
+		ticketScrollPane.setAutoscrolls(true);
+		ticketScrollPane.setPreferredSize(new java.awt.Dimension(100, 400));
+												
+		arborescence = new JTree(top);
 		arborescence.setAlignmentX(0.0F);
 		arborescence.setAlignmentY(0.0F);
 		arborescence.setAutoscrolls(true);
-		arborescence.setMaximumSize(new java.awt.Dimension(4000, 1000));
-		arborescence.setPreferredSize(new java.awt.Dimension(150, 300));
+		//arborescence.setMaximumSize(new java.awt.Dimension(4000, 1000));
+		//arborescence.setPreferredSize(new java.awt.Dimension(150, 300));
 		arborescence.setScrollsOnExpand(true);
 		arborescence.setToggleClickCount(1);
 		arborescence.addTreeSelectionListener(this);
 		
-		jScrollPane4.setViewportView(arborescence);
-
-		jPanel1.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-
-		jPanelPincipal.add(jPanel1);
-
-		jPanel2.setLayout(new java.awt.BorderLayout());
-
-		jPanel3.setLayout(new java.awt.BorderLayout());
-
-		jPanel2.add(jPanel3, java.awt.BorderLayout.SOUTH);
-		jScrollPane1 = new javax.swing.JScrollPane();
+		ticketScrollPane.setViewportView(arborescence);
+														
+		leftJPanel.add(ticketScrollPane, java.awt.BorderLayout.CENTER);
+		rightJPanel = new javax.swing.JPanel();
+								
+		rightJPanel.setLayout(new java.awt.BorderLayout());
+										
+		ticketViewer = 	new javax.swing.JScrollPane();
+		ticketViewer.setPreferredSize(new Dimension(150, 460));
+		ticketViewer.setViewportView(new TicketPanel(0, "", null, null, null));
+		textPanel = new javax.swing.JScrollPane();
 		saisieMessage = new javax.swing.JTextArea();
-
+		
 		saisieMessage.setColumns(20);
 		saisieMessage.setRows(5);
 		saisieMessage.setText(texteSaisieMessage);
@@ -132,18 +128,13 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 				saisieMessageMouseClicked(evt);
 			}
 		});
-		jScrollPane1.setViewportView(saisieMessage);
-
-		//default ticket panel
-		ticketViewer = 	new javax.swing.JScrollPane();
-		ticketViewer.setViewportView(new TicketPanel(0, "", null, null, null));
+		textPanel.setViewportView(saisieMessage);
 		
-		jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-		jPanel3.add(ticketViewer, BorderLayout.NORTH);
+		rightJPanel.add(textPanel, java.awt.BorderLayout.CENTER);
+		rightJPanel.add(ticketViewer, BorderLayout.NORTH);
 
-		jPanelPincipal.add(jPanel2);
-
-		getContentPane().add(jPanelPincipal, java.awt.BorderLayout.CENTER);
+		splitPane.setRightComponent(rightJPanel);
+		splitPane.setLeftComponent(leftJPanel);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -151,12 +142,18 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node =  (DefaultMutableTreeNode) arborescence.getLastSelectedPathComponent();
-		displayTicket((TicketPanel) node.getUserObject());
+		try {
+			TicketPanel t = (TicketPanel) node.getUserObject();
+			displayTicket(t);
+		} catch (ClassCastException ec) {
+			// expected to happen when user click on top node
+		} 
 	}
 	
 	private void displayTicket(TicketPanel ticket) {
 		ticketViewer.setViewportView(ticket);
 		ticket.loadMessage();
+		pack();
 	}
 
 	private void saisieMessageMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_saisieMessageMouseClicked
@@ -223,16 +220,13 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JTree arborescence;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JPanel jPanel3;
-	private javax.swing.JPanel jPanelPincipal;
-	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JPanel leftJPanel;
+	private javax.swing.JPanel rightJPanel;
+	private javax.swing.JScrollPane textPanel;
 	private javax.swing.JScrollPane ticketViewer;
-	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JScrollPane jScrollPaneMessageTicket;
+	private javax.swing.JScrollPane ticketScrollPane;
 	private javax.swing.JTextArea saisieMessage;
-	private TicketPanel ticketView;
+	private JSplitPane splitPane;
 	// End of variables declaration//GEN-END:variables
 
 }

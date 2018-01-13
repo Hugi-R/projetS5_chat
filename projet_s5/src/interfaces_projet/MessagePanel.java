@@ -4,6 +4,18 @@
  * and open the template in the editor.
  */
 package interfaces_projet;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import utils.StatusType;
+
+import java.awt.Color;
+
+import javax.swing.GroupLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -14,6 +26,7 @@ public class MessagePanel extends javax.swing.JPanel {
 	private long id;
 	private String message;
 	private long time;
+	private byte status;
 	private UserPanel user;
 	
 	
@@ -26,7 +39,8 @@ public class MessagePanel extends javax.swing.JPanel {
      * Creates new form Message
      */
 	//TODO : ajouter Ticket
-    public MessagePanel(long id, long time, UserPanel user, String message) {
+    public MessagePanel(long id, long time, UserPanel user, byte status, String message) {
+		setPreferredSize(new Dimension(300, 100));
     	this.id = id;
     	this.time = time;
     	this.user = user;
@@ -60,10 +74,11 @@ public class MessagePanel extends javax.swing.JPanel {
     	return id;
     }
     
-    private void updateDisplayedData() {
+    public void updateDisplayedData() {
     	nomCreateur.setText(user.getName()); //TODO better use of user jpanel
         dateCreation.setText(new java.util.Date((long)time*1000).toString());
         TextMessage.setText(message);
+        updateColor();
     }
 
     /**
@@ -74,51 +89,74 @@ public class MessagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        topPanel = new javax.swing.JPanel();
+        topPanel.setPreferredSize(new Dimension(300, 40));
         nomCreateur = new javax.swing.JLabel();
+        nomCreateur.setFont(new Font("Tahoma", Font.BOLD, 12));
         dateCreation = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TextMessage = new javax.swing.JTextArea();
+        dateCreation.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        dateCreation.setForeground(Color.DARK_GRAY);
 
         setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(nomCreateur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
-                .addComponent(dateCreation)
-                .addGap(70, 70, 70))
+        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
+        topPanelLayout.setHorizontalGroup(
+        	topPanelLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(topPanelLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(topPanelLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(nomCreateur)
+        				.addComponent(dateCreation))
+        			.addContainerGap(141, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomCreateur)
-                    .addComponent(dateCreation))
-                .addContainerGap(20, Short.MAX_VALUE))
+        topPanelLayout.setVerticalGroup(
+        	topPanelLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(topPanelLayout.createSequentialGroup()
+        			.addGap(6)
+        			.addComponent(nomCreateur)
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addComponent(dateCreation))
         );
+        topPanel.setLayout(topPanelLayout);
 
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
-
-        TextMessage.setEditable(false);
-        TextMessage.setColumns(20);
-        TextMessage.setRows(5);
-        jScrollPane1.setViewportView(TextMessage);
-
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(topPanel, java.awt.BorderLayout.PAGE_START);
+        
+        textPanel = new JPanel();
+        add(textPanel, BorderLayout.CENTER);
+        textPanel.setLayout(new BorderLayout(0, 0));
+        TextMessage = new javax.swing.JTextArea();
+        TextMessage.setLineWrap(true);
+        textPanel.add(TextMessage);
+        
+                TextMessage.setEditable(false);
+                TextMessage.setColumns(20);
+                TextMessage.setRows(5);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void updateColor() {
+    	switch(status) {
+    	case StatusType.MESSAGE_PENDING :
+    		topPanel.setBackground(StatusType.COLOR_MESSAGE_PENDING);
+    		break;
+    	case StatusType.USER_PENDING :
+    		topPanel.setBackground(StatusType.COLOR_USER_PENDING);
+    		break;
+    	case StatusType.USER_SENT :
+    		topPanel.setBackground(StatusType.COLOR_USER_SENT);
+    		break;
+    	case StatusType.USER_READ :
+    		topPanel.setBackground(StatusType.COLOR_USER_READ);
+    		break;
+    	default :
+    		System.err.println("MessagePanel : unknow status");
+    	}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextMessage;
     private javax.swing.JLabel dateCreation;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel topPanel;
     private javax.swing.JLabel nomCreateur;
+    private JPanel textPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,7 +47,7 @@ public class ClientDB {
 		switch(Id.type(packet.getId())) {
 		case ContentType.MESSAGE :
 			Message m = (Message) packet;
-			MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getTextMessage());
+			MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getStatus(), m.getTextMessage());
 			messageList.put(m.getId(), message);
 			break;
 		case ContentType.USER :
@@ -112,7 +112,7 @@ public class ClientDB {
 			Message m = (Message) retrieve(id);
 			System.out.println(m);
 			if(m != null) {
-				MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getTextMessage());
+				MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getStatus(), m.getTextMessage());
 				messageList.put(m.getId(), message);
 				ret = message;
 			}

@@ -126,8 +126,8 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MessagePanel message =  new MessagePanel(1, 1219865321, new UserPanel(123, "ROUSSEL", "Hugo", "CAT", null, null), new String("Message de merde"));
-                new Interface_MessageStatus(message).setVisible(true);
+                //MessagePanel message =  new MessagePanel(1, 1219865321, new UserPanel(123, "ROUSSEL", "Hugo", "CAT", null, null), new String("Message de merde"));
+                //new Interface_MessageStatus(message).setVisible(true);
             }
         });
     }
