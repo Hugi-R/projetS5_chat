@@ -17,10 +17,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
-/**
- *
- * @author adrian
- */
+
 public class MessagePanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
 	private long id;

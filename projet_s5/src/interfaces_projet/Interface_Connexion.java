@@ -15,10 +15,7 @@ import packet.Connect;
 import packet.Packet;
 import packet.User;
 
-/**
- *
- * @author adrian
- */
+
 public class Interface_Connexion extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	static final String texteSaisieMDP = "mot de passe";
