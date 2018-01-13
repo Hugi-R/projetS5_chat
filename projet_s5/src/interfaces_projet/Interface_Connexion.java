@@ -7,6 +7,8 @@ package interfaces_projet;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import client.MainClient;
 import packet.Commands;
 import packet.Connect;
@@ -19,8 +21,8 @@ import packet.User;
  */
 public class Interface_Connexion extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
-	final String texteSaisieMDP = "mot de passe";
-    final String texteSaisieIdentifiant = "identifiant";
+	static final String texteSaisieMDP = "mot de passe";
+    static final String texteSaisieIdentifiant = "identifiant";
     /**
      * Creates new form Interface_Connexion
      */
@@ -60,7 +62,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
         boutonConnexion.setText("se connecter");
         boutonConnexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonConnexionActionPerformed(evt);
+                boutonConnexionActionPerformed();
             }
         });
 
@@ -171,9 +173,9 @@ public class Interface_Connexion extends javax.swing.JFrame {
         new Interface_Inscription().setVisible(true);
     }//GEN-LAST:event_boutonInscriptionMouseClicked
 
-    private void boutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConnexionActionPerformed
+    private void boutonConnexionActionPerformed() {//GEN-FIRST:event_boutonConnexionActionPerformed
         String username = saisieIdentifiant.getText();
-        String password = jPasswordField1.getText();
+		String password = jPasswordField1.getText();
         Packet resp = null;
         
         try {
@@ -185,7 +187,8 @@ public class Interface_Connexion extends javax.swing.JFrame {
     	
     	System.out.println(resp);
         if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-            new Interface_NotificationErreur("Connection refusee").setVisible(true);
+        	JOptionPane.showMessageDialog(this.boutonConnexion, "Connection refusé.",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
             MainClient.setConnectedUser((User) resp);
