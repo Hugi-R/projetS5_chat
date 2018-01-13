@@ -123,7 +123,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
             @Override
             public void actionPerformed(ActionEvent ae) {
             	//TODO: envoi message
-            	 
+            	
             	//fin TODO
             	saisieMessage.setText(null);
             }
