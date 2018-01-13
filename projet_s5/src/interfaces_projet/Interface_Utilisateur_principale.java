@@ -4,17 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import javax.swing.AbstractAction;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.KeyStroke;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import client.MainClient;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class Interface_Utilisateur_principale extends javax.swing.JFrame implements TreeSelectionListener{
@@ -112,7 +117,33 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		saisieMessage = new javax.swing.JTextArea();
 		saisieMessage.setPreferredSize(new Dimension(4, 60));
 		
+		//Enter pressed
+		saisieMessage.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "Enter pressed");
+        saisieMessage.getActionMap().put("Enter pressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            	//TODO: envoi message
+            	
+            	//fin TODO
+            	saisieMessage.setText(null);
+            }
+        });
+		
+		//Shift+Enter pressed
+        saisieMessage.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.SHIFT_DOWN_MASK, false), "Shift+Enter pressed");
+		saisieMessage.getActionMap().put("Shift+Enter pressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                saisieMessage.setText(saisieMessage.getText()+"\n");
+            }
+        });
+		
 		saisieMessage.setText(texteSaisieMessage);
+		saisieMessage.setToolTipText("<html>"
+				+ "shift+Entrée: retour à la ligne"
+		        + "<br>"
+				+ "Entrée: envoyer le message"
+				+ "</html>");
 		saisieMessage.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				saisieMessageMouseClicked(evt);
