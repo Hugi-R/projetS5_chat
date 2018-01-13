@@ -7,6 +7,8 @@ package interfaces_projet;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
@@ -70,7 +72,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         BoutonCreer.setText("Créer");
         BoutonCreer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonCreerActionPerformed(evt);
+                BoutonCreerActionPerformed();
             }
         });
 
@@ -152,7 +154,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
     	
     }//GEN-LAST:event_listGroupsActionPerformed
 
-    private void BoutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCreerActionPerformed
+    private void BoutonCreerActionPerformed() {//GEN-FIRST:event_BoutonCreerActionPerformed
     	long idGroup = ((GroupPanel)listGroups.getSelectedItem()).getId();
         String textMessage = saisieMessage.getText();
         String textIntitule = saisieIntitule.getText();
@@ -165,10 +167,13 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 				System.out.println("recu : "+resp);
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
-				new Interface_NotificationErreur("Erreur de reseau :\n"+e.getStackTrace()).setVisible(true);
+				JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur de reseau :\n"+e.getStackTrace(),
+    				    "Erreur",JOptionPane.ERROR_MESSAGE);
 			}
         	if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-        		new Interface_NotificationErreur("Erreur pour la creation du ticket").setVisible(true);
+    			JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur pour la creation du ticket.",
+    				    "Erreur",JOptionPane.ERROR_MESSAGE);
+        		
         	} else {
         		Ticket t = (Ticket) resp;
         		ClientDB.add(t);
@@ -180,17 +185,21 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 					System.out.println("recu : "+resp);
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
-					new Interface_NotificationErreur("Erreur de reseau :\n"+e.getStackTrace()).setVisible(true);
+					JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur de reseau :\n"+e.getStackTrace(),
+	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
 				}
         		if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-            		new Interface_NotificationErreur("Erreur pour la creation du message").setVisible(true);
+        			JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur pour la creation du message .",
+	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
+            		
             	} else {
             		ClientDB.add((Message)resp);
             	}
         	}
         	this.dispose();
         }else {
-        	new Interface_NotificationErreur("Veuillez tout completer").setVisible(true);
+        	JOptionPane.showMessageDialog(this.BoutonCreer, "Veuillez tout completer.",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BoutonCreerActionPerformed
 
