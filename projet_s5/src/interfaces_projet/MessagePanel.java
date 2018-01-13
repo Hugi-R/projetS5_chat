@@ -29,7 +29,7 @@ public class MessagePanel extends javax.swing.JPanel {
 	
     @Override
 	public String toString() {
-		return "MessagePanel [id=" + id + ", message=" + message + ", time=" + time + ", user=" + user + "]";
+		return "MessagePanel [id=" + id + ", message=" + message + ", time=" + time + ", status="+status+", user=" + user + "]";
 	}
 
 	/**
@@ -42,6 +42,7 @@ public class MessagePanel extends javax.swing.JPanel {
     	this.time = time;
     	this.user = user;
     	this.message = message;
+    	this.status = status;
         initComponents();
         
         updateDisplayedData();
