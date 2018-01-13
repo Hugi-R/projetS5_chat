@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
+import packet.Group;
 import packet.Message;
 import packet.Packet;
 import packet.Ticket;
@@ -28,7 +29,11 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
      */
     public Interface_CreationTicket() {
     	System.out.println(MainClient.getConnectedUser());
-    	groups = MainClient.getConnectedUser().getGroupList().toArray(new GroupPanel[0]);
+    	groups = new GroupPanel[MainClient.allGroups.size()];
+    	int i = 0;
+    	for(Group g : MainClient.allGroups) {
+    		groups[i++] = ClientDB.findGroup(g.getId());
+    	}
     	System.out.println(groups);
         initComponents();
         this.setLocationRelativeTo(null);

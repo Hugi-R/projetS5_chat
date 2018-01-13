@@ -7,6 +7,7 @@ public class Id{
 	private static Random rand = new Random();
 	public static final long DEFAULT_ID_MESSAGE = (long)ContentType.MESSAGE << 56;
 	public static final long DEFAULT_ID_TICKET = (long)ContentType.TICKET << 56;
+	public static final long DEFAULT_ID_GROUP = (long)ContentType.GROUP << 56;
 	
 	
 	private Id() {

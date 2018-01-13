@@ -1,18 +1,27 @@
 package client;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import interfaces_projet.Interface_Connexion;
 import interfaces_projet.Interface_Utilisateur_principale;
 import interfaces_projet.UserPanel;
+import packet.Commands;
+import packet.ContentType;
+import packet.Group;
+import packet.ListOfGroup;
+import packet.Packet;
+import packet.Request;
 import packet.User;
+import utils.Id;
 
 public class MainClient {
 	public static String serverAdress;
 	public static int serverPort;
 	public static CommunicatorClient comm; //public because a getter will not be very useful here
+	public static List<Group> allGroups;
 	private static UserPanel user;
 	private static Interface_Utilisateur_principale ui;
 	private static Interface_Connexion connectUI;
@@ -65,6 +74,7 @@ public class MainClient {
 		flush(false);
 		ClientDB.add(u);
 		user = ClientDB.findUserAll(u.getId());
+		MainClient.retrieveAllGroups();
 		launchMainUI();
 	}
 	
@@ -94,6 +104,28 @@ public class MainClient {
 		System.out.println("Goodbye");
 		System.exit(0);
 		
+	}
+	
+	public static void retrieveAllGroups() {
+		try {
+			comm.send(new Request((byte)(Commands.RETRIEVE | Commands.ALL), Id.DEFAULT_ID_GROUP));
+			Packet p = comm.receive();
+			if((p.getCommand() & Commands.FAIL) == Commands.FAIL) {
+				allGroups = null;
+			} else {
+				ListOfGroup l = (ListOfGroup) p;
+				if(Id.type(l.getId()) == ContentType.GROUP) {
+					allGroups = (List<Group>)l.getListId();
+				} else {
+					allGroups = null;
+				}
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			allGroups = null;
+			e.printStackTrace();
+		}
+		if(allGroups == null)
+			System.err.println("Retrieve of all groups failled, some part of the application will not work properly.");
 	}
 
 }

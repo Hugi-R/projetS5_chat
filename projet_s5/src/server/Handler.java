@@ -1,11 +1,14 @@
 package server;
 
 import java.io.IOException;
+import java.util.List;
 
 import packet.Commands;
 import packet.Connect;
 import packet.Content;
 import packet.ContentType;
+import packet.Group;
+import packet.ListOfGroup;
 import packet.Message;
 import packet.Packet;
 import packet.Request;
@@ -44,7 +47,7 @@ public class Handler implements Runnable{
 			} else {
 				if(connectedUser != 0) {
 					//System.out.println(data);
-					switch (data.getCommand()) {
+					switch (data.getCommand() & ~Commands.ALL) {
 					case Commands.RETRIEVE :
 						System.out.println("RETRIVE : "+data);
 						commandRetrieve(data);
@@ -124,7 +127,12 @@ public class Handler implements Runnable{
 			}
 			break;
 		case ContentType.GROUP :
-			response = database.retrieveGroup(r.getId());		
+			if(isAll) {
+				List<Group> l = database.retrieveAllGroup();
+				response = new ListOfGroup(Commands.SEND, Id.DEFAULT_ID_GROUP, l);
+			} else {
+				response = database.retrieveGroup(r.getId());
+			}
 			break;
 		case ContentType.TICKET :
 			response = database.retriveTicket(r.getId());
