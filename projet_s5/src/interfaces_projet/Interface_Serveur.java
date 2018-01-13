@@ -23,8 +23,10 @@ public class Interface_Serveur extends javax.swing.JFrame {
 	        setAlwaysOnTop(true);
 	    }
 	}
-    public Interface_Serveur() {
-    	if(Database.isStarted()) {
+	private Database data ;
+    public Interface_Serveur(Database datab) {
+    	this.data =datab;
+    	if(data.isStarted()) {
 	        initComponents();
 	        this.setLocationRelativeTo(null);
 	        this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -32,7 +34,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
 	     		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 	        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close this window?", "Really Closing?",
 	        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-	     				Database.closeConnection();
+	     				data.closeConnection();
 	     				System.exit(0);
 	     			}
 	     		}
@@ -42,14 +44,14 @@ public class Interface_Serveur extends javax.swing.JFrame {
     	}
     }
     private void recupUserPanel(){
-    	List<User> lUser = Database.retrieveAllUser();
+    	List<User> lUser = data.retrieveAllUser();
     	this.listUser.clear();
     	for(User u : lUser ) {
     		this.listUser.add(new UserPanel(u.getId(), u.getNom(), u.getPrenom(), u.getCategory(), null, null));
     	}
     }
     private void recupGroupPanel(){
-    	List<Group> lGroup = Database.retrieveAllGroup();
+    	List<Group> lGroup = data.retrieveAllGroup();
     	this.listGroup.clear();
     	for(Group g : lGroup ) {
     		this.listGroup.add(new GroupPanel(g.getId(), g.getName()));
@@ -256,7 +258,9 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private void addUserActionPerformed() {
     	new Interface_ModifUser(new UserPanel(0, "nom", "prenom", Categorie.INVITE.toString(), null, null),this).setVisible(true);
     }
-    
+    public Database getDatabase() {
+    	return data;
+    }
     public void refreshPage2() {
     	recupGroupPanel();
     	listGroups.updateUI();
@@ -266,7 +270,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     }
     private void deleteGroup() {
     	int selectGroup = listGroups.getSelectedIndex();
-    	if(selectGroup != -1 && 0 !=Database.deleteGroup(listGroup.get(selectGroup).getId())){
+    	if(selectGroup != -1 && 0 !=data.deleteGroup(listGroup.get(selectGroup).getId())){
     		JOptionPane.showMessageDialog(null,listGroup.get(selectGroup).getName()+" a bien été supprimé ",
     				    "",JOptionPane.INFORMATION_MESSAGE);
     		refreshPage2();
@@ -277,7 +281,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     	int selectGroup = listGroups.getSelectedIndex();
     	int i = 0;
     	if(selectUser != -1 && selectGroup != -1) {
-    		i=Database.addGroupToUser(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
+    		i=data.addGroupToUser(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
     		if( i!=1) {
     			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur est deja dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
@@ -293,7 +297,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     	int selectGroup = listGroups.getSelectedIndex();
     	int i = 0;
     	if(selectUser != -1 && selectGroup != -1) {
-    		i=Database.takeUserOutOfGroup(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
+    		i=data.takeUserOutOfGroup(listGroup.get(selectGroup).getId(),listUser.get(selectUser).getId());
     		if( i!=1) {
     			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur n'est pas dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
@@ -307,7 +311,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private void deleteUserAction() {
     	int selectUser = listUsers.getSelectedIndex();
     	if(selectUser !=-1) {
-    		if (1== Database.deleteUser(listUser.get(selectUser).getId())) {
+    		if (1== data.deleteUser(listUser.get(selectUser).getId())) {
     			JOptionPane.showMessageDialog(null, "utilisateur supprimer.",
     				    "",JOptionPane.INFORMATION_MESSAGE);
     			refreshPage1();

@@ -22,6 +22,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private UserPanel user;
 	private Interface_Serveur fenetreprincipale;
+	private Database data;
 	
     /**
      * Creates new form Interface_modifUser
@@ -57,7 +58,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setResizable(false);
         
-        
+        data = fenetreprincipale.getDatabase();
         
         labelMail.setText("adressse mail");
         saisieMail.setText(null);
@@ -77,7 +78,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
         }else {
         	boutonAddUser.setText("modifier utilisateur");
         	setTitle("modification utilisateur");
-        	saisieMail.setText(Database.recupMail(user.getId()));
+        	saisieMail.setText(data.recupMail(user.getId()));
         }
         	
         boutonAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,7 +189,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     private void boutonAddUserMouseClicked() {  
     	 if(user.getId() == 0) {
     		if(saisieNom.getText() != "" && saisiePrenom.getText() != "" && saisieMDP.getText() !="" && saisieMail.getText() !="" ) {
-    			if( 1==Database.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
+    			if( 1==data.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
     				succes("Utilisateur ajouté .");
     				fenetreprincipale.refreshPage1();
     				this.dispose();
@@ -200,9 +201,9 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     	}else {
     		
     		if (saisieMDP.getText() !="") {
-    			Database.changePasswd(user.getId(), saisieMDP.getText());
+    			data.changePasswd(user.getId(), saisieMDP.getText());
     		}
-    		if( 1==Database.changeUser(user.getId(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
+    		if( 1==data.changeUser(user.getId(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
     			succes("Utilisateur modifier .");
 				fenetreprincipale.refreshPage1();
     			this.dispose();

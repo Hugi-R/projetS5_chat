@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import client.Categorie;
 
-
 public class Update {
 	private String sql;
 	private int executeUpdate(java.sql.Statement state ) {

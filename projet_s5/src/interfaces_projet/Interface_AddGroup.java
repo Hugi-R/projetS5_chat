@@ -8,7 +8,6 @@ package interfaces_projet;
 import javax.swing.JOptionPane;
 
 import packet.ContentType;
-import server.Database;
 import utils.Id;
 
 public class Interface_AddGroup extends javax.swing.JFrame {
@@ -101,7 +100,7 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     
     private void boutonAddGroupActionPerformed() {                                               
        if(saisieNom.getText() != "") {
-    	  if(1== Database.addgroup(Id.generate(ContentType.GROUP), saisieNom.getText())){
+    	  if(1== fenetreprincipale.getDatabase().addgroup(Id.generate(ContentType.GROUP), saisieNom.getText())){
     		  JOptionPane.showMessageDialog(this.boutonAddGroup, "Groupe cree","",JOptionPane.INFORMATION_MESSAGE);
     		  fenetreprincipale.refreshPage2();
 			  this.dispose();

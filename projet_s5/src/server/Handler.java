@@ -15,11 +15,12 @@ import utils.Id;
 public class Handler implements Runnable{
 	private CommunicatorServer comm;
 	private long connectedUser;
-	
+	private Database database ;
 
-	public Handler(CommunicatorServer comm) {
+	public Handler(CommunicatorServer comm , Database database) {
 		this.comm = comm;
 		connectedUser = 0;
+		this.database = database;
 	}
 
 	@Override
@@ -84,13 +85,13 @@ public class Handler implements Runnable{
 
 	private void connect(Packet data) {
 		Connect c = (Connect) data;
-		long u = Database.connect(c.getPassword(), c.getUsername());
+		long u = database.connect(c.getPassword(), c.getUsername());
 		Packet resp = null;
 		if(u == -1) {
 			byte command = Commands.FAIL | Commands.CONNECT;
 			resp = new Packet(command);
 		} else {
-			resp = Database.retrieveUserWithList(u);
+			resp = database.retrieveUserWithList(u);
 			connectedUser = u;
 		}
 		try {
@@ -113,20 +114,20 @@ public class Handler implements Runnable{
 		//retrieve data for response
 		switch (type) {
 		case ContentType.MESSAGE :
-			response = Database.retrieveMessage(r.getId());
+			response = database.retrieveMessage(r.getId());
 			break;
 		case ContentType.USER :
 			if(isAll) {
-				response = Database.retrieveUserWithList(r.getId());
+				response = database.retrieveUserWithList(r.getId());
 			} else {
-				response = Database.retrieveUserShort(r.getId());
+				response = database.retrieveUserShort(r.getId());
 			}
 			break;
 		case ContentType.GROUP :
-			response = Database.retrieveGroup(r.getId());		
+			response = database.retrieveGroup(r.getId());		
 			break;
 		case ContentType.TICKET :
-			response = Database.retriveTicket(r.getId());
+			response = database.retriveTicket(r.getId());
 			break;
 		default :
 			System.err.println("Unknow content type");
@@ -165,7 +166,7 @@ public class Handler implements Runnable{
 			Message message = (Message) data;
 			do {
 				id = Id.generate(contentType);
-				returnCode = Database.addMessage(id, message.getUser(), message.getTicket(), message.getTextMessage());
+				returnCode = database.addMessage(id, message.getUser(), message.getTicket(), message.getTextMessage());
 				i++;
 				if(i > 5) {
 					fail();
@@ -173,7 +174,7 @@ public class Handler implements Runnable{
 				}
 			}while((returnCode == -1) || (returnCode == 0));
 			try {
-				comm.send(Database.retrieveMessage(id));
+				comm.send(database.retrieveMessage(id));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -182,7 +183,7 @@ public class Handler implements Runnable{
 			Ticket ticket = (Ticket) data;
 			do {
 				id = Id.generate(contentType);
-				returnCode = Database.addTicket(id , ticket.getGroupId(), ticket.getName());
+				returnCode = database.addTicket(id , ticket.getGroupId(), ticket.getName());
 				i++;
 				if(i > 5) {
 					fail();
