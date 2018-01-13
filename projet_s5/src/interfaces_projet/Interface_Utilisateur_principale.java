@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
@@ -20,7 +21,13 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	private static final long serialVersionUID = 1L;
 	static String texteSaisieMessage = "Saisissez votre texte ici.";
 	private UserPanel user;
-
+	public class ConfirmDialogInFrame extends JFrame{
+		private static final long serialVersionUID = 1L;
+		public ConfirmDialogInFrame() {
+	        setVisible(false);
+	        setAlwaysOnTop(true);
+	    }
+	}
 	/**
 	 * Creates new form JFrame
 	 */
@@ -33,7 +40,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(null, "Are you sure to close the app?", "Really Closing?",
+				if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close the app?", "Really Closing?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					// action on closing
 					MainClient.close();
