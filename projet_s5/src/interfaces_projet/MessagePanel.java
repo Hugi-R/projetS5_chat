@@ -132,11 +132,13 @@ public class MessagePanel extends javax.swing.JPanel {
         TextMessage.setColumns(20);
         TextMessage.setRows(5);
         
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
+        java.awt.event.MouseAdapter evtClick = new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onClick();
             }
-        });
+        };
+        TextMessage.addMouseListener(evtClick);
+        this.addMouseListener(evtClick);
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateColor() {
