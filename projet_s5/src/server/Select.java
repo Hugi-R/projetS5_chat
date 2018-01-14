@@ -284,15 +284,27 @@ public class Select {
 	protected List<Long> retrieveUserRecipientOfMessage (long idMessage, java.sql.Statement state){
 		sql="SELECT idGroupeDestinataire FROM ticket,message WHERE	idTicketMessage=idTicket AND idMessage = '"+idMessage+"' ;";
 		ResultSet r;
+		List<Long> listeUser = null;
 		try {
 			r = state.executeQuery(sql);
 			if (r.next()) {
 				long idGrp = r.getLong(1);
-				return  idutilInGroup(idGrp, state);
+				listeUser = idutilInGroup(idGrp, state);
+			
+				r.close();
+				sql="SELECT auteur FROM message WHERE idMessage = '"+idMessage+"' ;";
+				r = state.executeQuery(sql);
+				if(r.next()) {
+					listeUser.add(r.getLong(1));
+				}else {
+					return null;
+				}
+			}else {
+				return null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return listeUser;
 	}
 }

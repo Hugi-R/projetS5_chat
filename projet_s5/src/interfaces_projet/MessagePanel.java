@@ -51,7 +51,9 @@ public class MessagePanel extends javax.swing.JPanel {
     public String getMessage() {
 		return message;
 	}
-
+    public byte getStatus() {
+    	return status;
+    }
 	public long getTime() {
 		return time;
 	}
