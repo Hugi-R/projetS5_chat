@@ -174,26 +174,18 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         		
         	} else {
         		Ticket t = (Ticket) resp;
-        		//ClientDB.add(t);
+        		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
+        		MainClient.ui.update();
         		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.getConnectedUser(), t.getId(), 0L, StatusType.MESSAGE_PENDING, textMessage);
         		try {
 					MainClient.comm.send(messageToSend);
-					resp = MainClient.comm.receive();
-					System.out.println("recu : "+resp);
 				} catch (IOException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur de reseau :\n"+e.getStackTrace(),
 	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
 				}
-        		if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-        			JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur pour la creation du message .",
-	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
-            		
-            	} else {
-            		//ClientDB.add((Message)resp);
-            		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
-            		MainClient.ui.update();
-            	}
+        		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
+        		MainClient.ui.update();
         	}
         	this.dispose();
         }else {

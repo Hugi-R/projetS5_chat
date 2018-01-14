@@ -215,7 +215,15 @@ public class Handler implements Runnable{
 					return;
 				}
 			}while((returnCode == -1) || (returnCode == 0));
-			daemon.updateClient(id);
+			try {
+				Ticket t = new Ticket(Commands.SEND, id, ticket.getCreatorId(), ticket.getGroupId(), ticket.getName(), null);
+				comm.send(t);
+				System.out.println(t);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//daemon.updateClient(id);
+			break;
 		default :
 			System.err.println("commandSend : contentType invalid");	
 		}

@@ -179,6 +179,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	}
 	
 	public void updateTicketTree(TicketPanel tp) {
+		System.out.println("-- 1.2 --");
 		//DefaultMutableTreeNode top = (DefaultMutableTreeNode) arborescence.getModel().getRoot();
 		//top.add(new DefaultMutableTreeNode(tp));
 		constructTicketTree();

@@ -74,6 +74,7 @@ public class CommunicatorClient {
 		while(!socket.isClosed() && (failure < 10)) {
 			try {
 				p = (Packet) in.readObject();
+				System.out.println("RECEIVED PACKET : "+p);
 				if((p.getCommand() & Commands.UPDATE) == Commands.UPDATE) {
 					update(p);
 				} else {
