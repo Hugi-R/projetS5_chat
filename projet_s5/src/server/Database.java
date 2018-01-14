@@ -143,9 +143,9 @@ public class Database {
 		else
 			return new ArrayList<>();
 	}
-	public Message retrieveMessage (long idMessage){
+	public Message retrieveMessage (long idMessage,long idUser){
 		if (isStarted())
-			return select.RecupMessage(idMessage, state);
+			return select.RecupMessage(idMessage,idUser, state);
 		else
 			return null;
 	}
