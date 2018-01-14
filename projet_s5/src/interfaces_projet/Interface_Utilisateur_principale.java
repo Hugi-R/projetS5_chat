@@ -26,6 +26,8 @@ import utils.Id;
 import utils.StatusType;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -100,6 +102,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		ticketViewer = 	new javax.swing.JScrollPane();
 		ticketViewer.setPreferredSize(new Dimension(150, 460));
 		ticketViewer.setViewportView(new TicketPanel(0, "", null, null, null));
+		
 		textPanel = new javax.swing.JScrollPane();
 		saisieMessage = new javax.swing.JTextArea();
 		saisieMessage.setPreferredSize(new Dimension(4, 60));

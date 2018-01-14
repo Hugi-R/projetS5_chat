@@ -126,9 +126,15 @@ public class MessagePanel extends javax.swing.JPanel {
         TextMessage.setLineWrap(true);
         textPanel.add(TextMessage);
         
-                TextMessage.setEditable(false);
-                TextMessage.setColumns(20);
-                TextMessage.setRows(5);
+        TextMessage.setEditable(false);
+        TextMessage.setColumns(20);
+        TextMessage.setRows(5);
+        
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onClick();
+            }
+        });
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateColor() {
@@ -150,6 +156,10 @@ public class MessagePanel extends javax.swing.JPanel {
     	}
     }
 
+    public void onClick() {
+    	new Interface_MessageStatus(this).setVisible(true);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextMessage;
     private javax.swing.JLabel dateCreation;
