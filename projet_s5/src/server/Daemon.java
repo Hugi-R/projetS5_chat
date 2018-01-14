@@ -39,6 +39,8 @@ public class Daemon {
 	
 	public void updateClient(long id) {
 		List<Long> users = localDB.retrieveUserRecipientOfMessage(id); 
+		System.out.println("h = "+handlerList);
+		System.out.println("u = "+users);
 		for(Handler h : handlerList) {
 			if(users.contains(h.getConnectedUser())) {
 				h.update(id);

@@ -16,6 +16,10 @@ public class Packet implements Serializable {
 		return command;
 	}
 	
+	public void setCommand(byte command) {
+		this.command = command;
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + " = { command : "+command+", ";
