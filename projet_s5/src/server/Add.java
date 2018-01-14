@@ -1,12 +1,16 @@
 package server;
 
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import client.Categorie;
+import utils.StatusType;
 
 public class Add {
 	private String sql;
+	private Select select = new Select();
 	
 	private int executeUpdate(java.sql.Statement state ) {
 		int i = 0;
@@ -58,14 +62,36 @@ public class Add {
 	}
 	
 	protected int addMessage (long id , long auteur,long idTicket ,String text,java.sql.Statement state) {
+		int i = 0;
 		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
 		if( foundValues(state)) {
 			System.err.println("[KO] le message "+id+" existe deja.");
 			return -1;
 		}
 		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text.replace("'", "''")+"');";
-		return executeUpdate(state);
+		i = executeUpdate(state);
+		if (i != 0) {
+			sql="SELECT idGroupeDestinataire FROM ticket WHERE	idTicket='"+idTicket+"' ;";
+			ResultSet r;
+			try {
+				r = state.executeQuery(sql);
+				if (r.next()) {
+					long idGrp = r.getLong(1);
+					List<Long> listUser = select.idutilInGroup(idGrp, state);
+					for(Long l : listUser) {
+						i=addStatus(l, id,StatusType.USER_PENDING , state);
+					}
+				}else {
+					return -1;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return i;
 	}
+	
 	
 	protected int addStatus (long idlecteur,long idMessage, byte etat,java.sql.Statement state) {
 		sql = "SELECT * FROM status WHERE idLecteur= '"+idlecteur+"' AND idMessageStatus ='"+idMessage+"' ;";

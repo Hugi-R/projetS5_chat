@@ -39,7 +39,7 @@ public class Message extends Content {
 	
 	@Override
 	public String toString() {
-		return super.toString()+"User : "+user+", Ticket : "+ticket+", Time : "+time+", Text : "+textMessage+" }";
+		return super.toString()+"User : "+user+", Ticket : "+ticket+", Time : "+time+", status ="+status+" Text : "+textMessage+" }";
 	}
 	
 	

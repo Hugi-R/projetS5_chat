@@ -64,7 +64,6 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				System.err.println(status+" + "+idMessage);
 				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), status, r.getString(3));
 			}
 		} catch (SQLException e) {
