@@ -209,6 +209,7 @@ public class Database {
 		else
 			return null ;
 	}
+	
 /*fonction de changement de valeur dans la base de donnee**********/
 	public int changePasswd(long idUser,String newPassword) {
 		if (isStarted())
@@ -216,9 +217,9 @@ public class Database {
 		else
 			return -1;
 	}
-	public int changeEtatStatus(long idMessage , long idUser,byte etat) {
+	public int changeEtatStatus(long idMessage , long idUser) {
 		if (isStarted())
-			return update.changeStatus(idMessage, idUser, etat, state);
+			return update.changeStatusToRead(idMessage, idUser, state);
 		else
 			return -1;
 	}

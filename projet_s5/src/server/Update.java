@@ -3,6 +3,7 @@ package server;
 import java.sql.SQLException;
 
 import client.Categorie;
+import utils.StatusType;
 
 public class Update {
 	private String sql;
@@ -22,9 +23,9 @@ public class Update {
 		return i;
 	}
 	
-	protected int changeStatus( long idMess , long idUtil,byte etat,java.sql.Statement state) {
+	protected int changeStatusToRead( long idMess , long idUtil,java.sql.Statement state) {
 		int i=0;
-		sql="UPDATE status SET etat = '"+etat+"' WHERE idMessageStatus = '"+idMess+"' AND idLecteur = '"+idUtil+"';";
+		sql="UPDATE status SET etat = '"+StatusType.USER_READ+"' WHERE idMessageStatus = '"+idMess+"' AND idLecteur = '"+idUtil+"';";
 		i = executeUpdate(state);
 		return i;
 	}
