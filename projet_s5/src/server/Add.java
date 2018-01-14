@@ -1,7 +1,6 @@
 package server;
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -71,23 +70,12 @@ public class Add {
 		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text.replace("'", "''")+"');";
 		i = executeUpdate(state);
 		if (i != 0) {
-			sql="SELECT idGroupeDestinataire FROM ticket WHERE	idTicket='"+idTicket+"' ;";
-			ResultSet r;
-			try {
-				r = state.executeQuery(sql);
-				if (r.next()) {
-					long idGrp = r.getLong(1);
-					List<Long> listUser = select.idutilInGroup(idGrp, state);
-					for(Long l : listUser) {
-						i=addStatus(l, id,StatusType.USER_PENDING , state);
-					}
-				}else {
-					return -1;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			List<Long> listUser = select.retrieveUserRecipientOfMessage(id, state);
+			for(Long l : listUser) {
+					i=addStatus(l, id,StatusType.USER_PENDING , state);
 			}
+		}else {
+			return -1;
 		}
 		return i;
 	}

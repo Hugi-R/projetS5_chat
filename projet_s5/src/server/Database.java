@@ -203,6 +203,12 @@ public class Database {
 		else
 			return null ;
 	}
+	public List<Long> retrieveUserRecipientOfMessage (long idMessage){
+		if (isStarted())
+			return select.retrieveUserRecipientOfMessage(idMessage, state);
+		else
+			return null ;
+	}
 /*fonction de changement de valeur dans la base de donnee**********/
 	public int changePasswd(long idUser,String newPassword) {
 		if (isStarted())

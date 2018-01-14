@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 import packet.Commands;
 import packet.Group;
 import packet.Message;
@@ -14,7 +15,7 @@ import packet.User;
 import utils.StatusType;
 
 public class Select {
-	private static String sql;
+	private String sql;
 	protected long connect (String motDePasse, String mail,java.sql.Statement state) {
 		long i = -1;
 		sql = "SELECT idUtilisateur FROM utilisateur WHERE motDePasse = SHA1('"+motDePasse+"') AND courriel= '"+mail+"';";
@@ -56,20 +57,32 @@ public class Select {
 		}
 		return l;
 	}
-	
+	private void changeStatus(long idMessage ,long idUser,java.sql.Statement state) {
+		sql="SELECT * FROM status WHERE idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"' AND etat = '"+StatusType.USER_READ+"' ;";
+		try {
+			ResultSet r = state.executeQuery(sql);
+			if (r.next() ) {
+				sql="UPDATE status SET etat = '"+StatusType.USER_SENT+"' WHERE	idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"';";
+				state.executeUpdate(sql);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	protected Message RecupMessage (long idMessage ,long idUser,java.sql.Statement state){
+		
+		changeStatus(idMessage, idUser, state);
 		byte status = recupStatusMessage(idMessage, state);
 		sql= "SELECT UNIX_TIMESTAMP(dateMessage),auteur,message,idTicketMessage FROM message WHERE idMessage= '"+idMessage+"';";
 		Message m = null;
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				sql="UPDATE status SET etat = '"+StatusType.USER_SENT+"' WHERE	idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"';";
-				state.executeUpdate(sql);
+				
 				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), status, r.getString(3));
+				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return m;
 		}
@@ -262,6 +275,20 @@ public class Select {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
 				return r.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	protected List<Long> retrieveUserRecipientOfMessage (long idMessage, java.sql.Statement state){
+		sql="SELECT idGroupeDestinataire FROM ticket,message WHERE	idTicketMessage=idTicket AND idMessage = '"+idMessage+"' ;";
+		ResultSet r;
+		try {
+			r = state.executeQuery(sql);
+			if (r.next()) {
+				long idGrp = r.getLong(1);
+				return  idutilInGroup(idGrp, state);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
