@@ -19,11 +19,13 @@ public class Handler implements Runnable{
 	private CommunicatorServer comm;
 	private long connectedUser;
 	private Database database ;
+	private Daemon daemon;
 
-	public Handler(CommunicatorServer comm , Database database) {
+	public Handler(CommunicatorServer comm , Database database, Daemon daemon) {
 		this.comm = comm;
 		connectedUser = 0;
 		this.database = database;
+		this.daemon = daemon;
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class Handler implements Runnable{
 		//retrieve data for response
 		switch (type) {
 		case ContentType.MESSAGE :
-			response = database.retrieveMessage(r.getId());
+			response = database.retrieveMessage(r.getId(), connectedUser);
 			break;
 		case ContentType.USER :
 			if(isAll) {
@@ -182,7 +184,7 @@ public class Handler implements Runnable{
 				}
 			}while((returnCode == -1) || (returnCode == 0));
 			try {
-				comm.send(database.retrieveMessage(id));
+				comm.send(database.retrieveMessage(id, connectedUser));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -106,6 +106,30 @@ public class ClientDB {
 		
 	}
 	
+	public static void update(Content c) {
+		switch(Id.type(c.getId())) {
+		case ContentType.MESSAGE :
+			messageList.remove(c.getId());
+			add(c);
+			break;
+		case ContentType.USER :
+			userList.remove(c.getId());
+			add(c);
+			break;
+		case ContentType.TICKET :
+			ticketList.remove(c.getId());
+			add(c);
+			break;
+		case ContentType.GROUP :
+			groupList.remove(c.getId());
+			add(c);
+			break;
+		default :
+			System.err.println("ClientDB update : unknow ContentType");
+				
+		}
+	}
+	
 	public static MessagePanel findMessage(long id) {
 		MessagePanel ret = null;
 		if((ret = messageList.get(id)) == null) {

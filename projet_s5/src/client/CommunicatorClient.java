@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 import packet.Commands;
+import packet.Content;
 import packet.Packet;
 
 public class CommunicatorClient {
@@ -54,7 +55,7 @@ public class CommunicatorClient {
 		if(listening) {
 			while(fifo.isEmpty()) {
 				try {
-					TimeUnit.MILLISECONDS.sleep(100L);
+					TimeUnit.MILLISECONDS.sleep(50L);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 					Thread.currentThread().interrupt();
@@ -74,7 +75,7 @@ public class CommunicatorClient {
 			try {
 				p = (Packet) in.readObject();
 				if((p.getCommand() & Commands.UPDATE) == Commands.UPDATE) {
-					update();
+					update(p);
 				} else {
 					fifo.add(p);
 				}
@@ -90,8 +91,12 @@ public class CommunicatorClient {
 		}
 	}
 	
-	private void update() {
-		//TODO
+	private void update(Packet p) {
+		try {
+			ClientDB.update((Content)p);
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
