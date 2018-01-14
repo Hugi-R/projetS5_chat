@@ -5,6 +5,10 @@
  */
 package interfaces_projet;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class Interface_MessageStatus extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
@@ -36,7 +40,32 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
-        //TODO remplir arbre avec: message.getGroup().getListUser().addTree
+
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("message");
+		DefaultMutableTreeNode send = new DefaultMutableTreeNode("envoyé");
+		DefaultMutableTreeNode read = new DefaultMutableTreeNode("lu");
+		DefaultMutableTreeNode pending = new DefaultMutableTreeNode("en attente");
+		
+		List<Long> listSend = null;//TODO: recup listeUserSendStatus
+		List<Long> listRead = null;//TODO: recup listeUserReadStatus
+		List<Long> listPending = null;//TODO: recup listeUserPendingStatus
+		
+		for (Long user : listSend) {
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			send.add(leaf);
+		}
+		for (Long user : listRead) {
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			send.add(leaf);
+		}
+		for (Long user : listPending) {
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			send.add(leaf);
+		}
+			
+		top.add(read);
+		top.add(send);
+		top.add(pending);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("status du message");
