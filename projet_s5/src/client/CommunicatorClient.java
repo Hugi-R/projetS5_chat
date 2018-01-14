@@ -94,6 +94,7 @@ public class CommunicatorClient {
 	private void update(Packet p) {
 		try {
 			ClientDB.update((Content)p);
+			MainClient.ui.update();
 		} catch (ClassCastException e) {
 			e.printStackTrace();
 		}

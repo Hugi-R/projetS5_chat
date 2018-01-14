@@ -27,6 +27,10 @@ public class Handler implements Runnable{
 		this.database = database;
 		this.daemon = daemon;
 	}
+	
+	public long getConnectedUser() {
+		return connectedUser;
+	}
 
 	@Override
 	public void run() {
@@ -45,6 +49,7 @@ public class Handler implements Runnable{
 			}
 			
 			if(data == null) {
+				daemon.removeHandler(this);
 				comm.close();
 			} else {
 				if(connectedUser != 0) {
@@ -112,20 +117,25 @@ public class Handler implements Runnable{
 	 */
 	private void commandRetrieve(Packet p) {
 		Request r = (Request) p;
-		byte type = Id.type(r.getId());
 		boolean isAll = ((p.getCommand() & Commands.ALL)==Commands.ALL);
+		
+		sendData(r.getId(), isAll);
+	}
+	
+	private void sendData(long id, boolean isAll) {
+		byte type = Id.type(id);
 		Packet response = null;
 		
 		//retrieve data for response
 		switch (type) {
 		case ContentType.MESSAGE :
-			response = database.retrieveMessage(r.getId(), connectedUser);
+			response = database.retrieveMessage(id, connectedUser);
 			break;
 		case ContentType.USER :
 			if(isAll) {
-				response = database.retrieveUserWithList(r.getId());
+				response = database.retrieveUserWithList(id);
 			} else {
-				response = database.retrieveUserShort(r.getId());
+				response = database.retrieveUserShort(id);
 			}
 			break;
 		case ContentType.GROUP :
@@ -133,11 +143,11 @@ public class Handler implements Runnable{
 				List<Group> l = database.retrieveAllGroup();
 				response = new ListOfGroup(Commands.SEND, Id.DEFAULT_ID_GROUP, l);
 			} else {
-				response = database.retrieveGroup(r.getId());
+				response = database.retrieveGroup(id);
 			}
 			break;
 		case ContentType.TICKET :
-			response = database.retriveTicket(r.getId());
+			response = database.retriveTicket(id);
 			break;
 		default :
 			System.err.println("Unknow content type");
@@ -152,12 +162,11 @@ public class Handler implements Runnable{
 			}
 		} else {
 			try {
-				comm.send(new Content(Commands.FAIL, r.getId()));
+				comm.send(new Content(Commands.FAIL, id));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	/**
@@ -183,12 +192,16 @@ public class Handler implements Runnable{
 					return;
 				}
 			}while((returnCode == -1) || (returnCode == 0));
+			daemon.updateClient(id);
+			
+			//TODO : Now useless, but keeped for back compatibility
 			try {
 				comm.send(database.retrieveMessage(id, connectedUser));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			break;
+			
 		case ContentType.TICKET :
 			Ticket ticket = (Ticket) data;
 			do {
@@ -200,6 +213,9 @@ public class Handler implements Runnable{
 					return;
 				}
 			}while((returnCode == -1) || (returnCode == 0));
+			daemon.updateClient(id);
+			
+			//TODO : Now useless, but keeped for back compatibility
 			try {
 				comm.send(new Ticket(Commands.SEND, id, ticket.getCreatorId(), ticket.getGroupId(), ticket.getName(), null));
 			} catch (IOException e) {
@@ -219,6 +235,10 @@ public class Handler implements Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void update(long id) {
+		sendData(id, false);
 	}
 
 }
