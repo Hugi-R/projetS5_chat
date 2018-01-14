@@ -75,6 +75,7 @@ public class Add {
 			for(Long l : listUser) {
 					i+=addStatus(l, idMessage,StatusType.USER_PENDING , state);
 			}
+			i+=addStatus(auteur, idMessage, StatusType.USER_READ, state);
 		}else {
 			return -1;
 		}
