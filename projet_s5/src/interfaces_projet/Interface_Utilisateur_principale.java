@@ -3,9 +3,12 @@ package interfaces_projet;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
-import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -21,16 +24,8 @@ import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
 import packet.Message;
-import packet.Packet;
 import utils.Id;
 import utils.StatusType;
-
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
 
 public class Interface_Utilisateur_principale extends javax.swing.JFrame implements TreeSelectionListener{
 	private static final long serialVersionUID = 1L;

@@ -8,6 +8,8 @@ package interfaces_projet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import client.ClientDB;
@@ -18,10 +20,6 @@ import packet.Request;
 import packet.Status;
 import utils.Id;
 import utils.StatusType;
-
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Interface_MessageStatus extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;

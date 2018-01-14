@@ -7,14 +7,12 @@ import javax.swing.JOptionPane;
 
 import interfaces_projet.Interface_Connexion;
 import interfaces_projet.Interface_Utilisateur_principale;
-import interfaces_projet.UserPanel;
 import packet.Commands;
 import packet.ContentType;
 import packet.Group;
 import packet.ListOfGroup;
 import packet.Packet;
 import packet.Request;
-import packet.User;
 import utils.Id;
 
 public class MainClient {
