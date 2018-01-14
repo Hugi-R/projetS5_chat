@@ -26,8 +26,7 @@ public class UserPanel extends JPanel {
         
 	@Override
 	public String toString() {
-		return "UserPanel [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", category=" + category
-				+ ", ticketList=" + ticketList + ", groupList=" + groupList + "]";
+		return nom + " " + prenom ;
 	}
 	public long getId() {
 		return id;

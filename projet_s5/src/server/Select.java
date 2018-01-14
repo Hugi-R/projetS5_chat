@@ -254,6 +254,7 @@ public class Select {
 			e.printStackTrace();
 			return null;
 		}
+		System.err.println(status);
 		return status;
 	}
 	
@@ -300,7 +301,6 @@ public class Select {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("lokk : "+listUser);
 		return listUser;
 	}
 }
