@@ -32,7 +32,7 @@ public class MainClient {
 			serverAdress = args[1];
 			serverPort = Integer.parseInt(args[2]);
 		} else {
-			serverAdress = "localhost";
+			serverAdress = "eralyon.net";
 			serverPort = 3636;
 		}
 		initConnectionServer();
@@ -71,10 +71,9 @@ public class MainClient {
 		}
 	}
 	
-	public static void setConnectedUser(User u) {
+	public static void setConnectedUser(long u) {
 		flush(false);
-		ClientDB.add(u);
-		user = u.getId();
+		user = u;
 		ClientDB.findUserAll(user);
 		MainClient.retrieveAllGroups();
 		launchMainUI();
@@ -84,12 +83,13 @@ public class MainClient {
 		return user;
 	}
 	
-	public static void flush(boolean withComm) {
+	public static void flush(boolean withComm, boolean withUser) {
 		if(withComm) {
 			comm.close();
 			comm = null;
 		}
-		user = 0;
+		if(withUser)
+			user = 0;
 		if(ui != null) {
 			ui.dispose();
 			ui = null;
@@ -99,6 +99,10 @@ public class MainClient {
 			connectUI = null;
 		}
 		ClientDB.flush();
+	}
+	
+	public static void flush(boolean withComm) {
+		flush(withComm, false);
 	}
 	
 	public static void close() {

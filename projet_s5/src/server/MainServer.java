@@ -11,12 +11,11 @@ public class MainServer {
 	public static void main(String[] args) {
 		System.out.println("Lancement du serveur");
 		
-		boolean gui = false;
+		boolean gui = true;
 		
 		if(args.length == 2)
-			gui = "gui".equals(args[1]);
+			gui = !"nogui".equals(args[1]);
 		
-		gui = true;
 		try {
 			if(gui){
 				new Interface_Serveur(new Database(url, user, passwd)).setVisible(true);

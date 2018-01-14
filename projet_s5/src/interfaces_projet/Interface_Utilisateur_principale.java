@@ -88,6 +88,14 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		constructTicketTree(); //must be called after ticketScrollPane init
 		leftJPanel.add(ticketScrollPane);
 		
+		btnFlush = new JButton("Flush");
+		btnFlush.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainClient.setConnectedUser(MainClient.getConnectedUser());
+			}
+		});
+		ticketScrollPane.setColumnHeaderView(btnFlush);
+		
 		newTicketButton = new JButton("Nouveau Ticket");
 		newTicketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -235,4 +243,5 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	private javax.swing.JTextArea saisieMessage;
 	private JSplitPane splitPane;
 	private JButton newTicketButton;
+	private JButton btnFlush;
 }

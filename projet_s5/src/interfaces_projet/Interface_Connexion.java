@@ -176,7 +176,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
 				    "Erreur",JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
-            MainClient.setConnectedUser((User) resp);
+            MainClient.setConnectedUser(((User) resp).getId());
             this.dispose();
         }
     }
