@@ -19,7 +19,7 @@ public class MainServer {
 		gui = true;
 		try {
 			if(gui){
-				new Interface_Serveur(new Database(url, user, passwd)).setVisible(true);;
+				new Interface_Serveur(new Database(url, user, passwd)).setVisible(true);
 			}
 			Daemon d = new Daemon(3636);
 			d.listen();

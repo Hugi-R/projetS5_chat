@@ -36,13 +36,14 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
+        //TODO remplir arbre avec: message.getGroup().getListUser().addTree
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("status du message");
         setAlwaysOnTop(true);
         setResizable(false);
 
-        auteur.setText(this.message.getUser().toString());
+        auteur.setText(this.message.getUser().getName());
 
         date.setText(Long.toString(this.message.getTime()));
 
