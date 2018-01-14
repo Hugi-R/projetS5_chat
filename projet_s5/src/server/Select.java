@@ -37,12 +37,13 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()){ 
-				l.add(r.getLong(1));
+				if(!l.contains(r.getObject(1)))
+					l.add(r.getLong(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return l;
+		return l ;
 	}
 	protected List<Long> idutilInGroup (long idGrp,java.sql.Statement state) {
 		List<Long> l = new ArrayList<>();
@@ -90,17 +91,18 @@ public class Select {
 	}
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
-		List<Long> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,posseder where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'))ORDER BY dateMessage DESC;";
+		List<Long> listTicket = new ArrayList<>();
+		sql= "SELECT DISTINCT  idTicket,auteur FROM ticket,message,posseder where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'))ORDER BY dateMessage DESC;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
-				ListTicket.add(r.getLong(1));
+				if(!listTicket.contains(r.getLong(1)))
+					listTicket.add(r.getLong(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ListTicket;
+		return listTicket;
 	}
 	private List<Long> recupListGroupOfUser (long idUser,java.sql.Statement state){
 		List<Long> Listgroup = new ArrayList<>();
