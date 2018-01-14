@@ -9,6 +9,8 @@ import packet.Commands;
 import packet.Connect;
 import packet.Packet;
 import packet.User;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
 
 
 public class Interface_Connexion extends javax.swing.JFrame {
@@ -32,9 +34,6 @@ public class Interface_Connexion extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         labelId = new javax.swing.JLabel();
         labelMdp = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        boutonInscription = new javax.swing.JButton();
-        boutonOublie = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("connexion");
@@ -92,70 +91,25 @@ public class Interface_Connexion extends javax.swing.JFrame {
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+        	jPanel3Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel3Layout.createSequentialGroup()
+        			.addGap(24)
+        			.addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	jPanel3Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jPanel3.setLayout(jPanel3Layout);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        boutonInscription.setText("inscription");
-        boutonInscription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonInscriptionActionPerformed(evt);
-            }
-        });
-
-        boutonOublie.setText("mot de passe oublié ?");
-        boutonOublie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonOublieActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(boutonInscription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(boutonOublie)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boutonOublie)
-                    .addComponent(boutonInscription))
-                .addGap(15, 15, 15))
-        );
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
-
         pack();
-    }
-
-    private void boutonOublieActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void boutonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        new Interface_Inscription().setVisible(true);
     }
 
     private void boutonConnexionActionPerformed() {
@@ -182,11 +136,8 @@ public class Interface_Connexion extends javax.swing.JFrame {
     }
 
     private javax.swing.JButton boutonConnexion;
-    private javax.swing.JButton boutonInscription;
-    private javax.swing.JButton boutonOublie;
     private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelMdp;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField1;
