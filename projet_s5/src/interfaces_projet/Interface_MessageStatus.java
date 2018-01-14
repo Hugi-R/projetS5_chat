@@ -5,14 +5,21 @@
  */
 package interfaces_projet;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import client.ClientDB;
+import client.MainClient;
+import packet.Commands;
+import packet.Request;
+import packet.Status;
+
 public class Interface_MessageStatus extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
 	private MessagePanel message;
+	private Status statusPacket;
     
     /**
      * Creates new form Interface_MessageStatus
@@ -20,6 +27,12 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
      */
     public Interface_MessageStatus(MessagePanel message) {
         this.message=message;
+        try {
+			MainClient.comm.send(new Request((byte)(Commands.RETRIEVE | Commands.ALL), message.getId()));
+			statusPacket = (Status) MainClient.comm.receive();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -42,24 +55,24 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("message");
-		DefaultMutableTreeNode send = new DefaultMutableTreeNode("envoyé");
+		DefaultMutableTreeNode send = new DefaultMutableTreeNode("envoye");
 		DefaultMutableTreeNode read = new DefaultMutableTreeNode("lu");
 		DefaultMutableTreeNode pending = new DefaultMutableTreeNode("en attente");
 		
-		List<Long> listSend = null;//TODO: recup listeUserSendStatus
-		List<Long> listRead = null;//TODO: recup listeUserReadStatus
-		List<Long> listPending = null;//TODO: recup listeUserPendingStatus
+		List<Long> listSend = statusPacket.getReceived();
+		List<Long> listRead = statusPacket.getRead();
+		List<Long> listPending = statusPacket.getPending();
 		
 		for (Long user : listSend) {
-			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(ClientDB.findUser(user));
 			send.add(leaf);
 		}
 		for (Long user : listRead) {
-			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(ClientDB.findUser(user));
 			send.add(leaf);
 		}
 		for (Long user : listPending) {
-			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(/* TODO: getUserNameByLong */);
+			DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(ClientDB.findUser(user));
 			send.add(leaf);
 		}
 			

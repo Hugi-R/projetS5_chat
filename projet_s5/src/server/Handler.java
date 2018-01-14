@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import packet.Commands;
@@ -12,8 +13,10 @@ import packet.ListOfGroup;
 import packet.Message;
 import packet.Packet;
 import packet.Request;
+import packet.Status;
 import packet.Ticket;
 import utils.Id;
+import utils.StatusType;
 
 public class Handler implements Runnable{
 	private CommunicatorServer comm;
@@ -129,7 +132,12 @@ public class Handler implements Runnable{
 		//retrieve data for response
 		switch (type) {
 		case ContentType.MESSAGE :
-			response = database.retrieveMessage(id, connectedUser);
+			if(isAll) {
+				HashMap<Byte, List<Long>> map = database.recupStatus(id);
+				response = new Status(command, id, map.get(StatusType.USER_PENDING), map.get(StatusType.USER_SENT), map.get(StatusType.USER_READ));
+			} else {
+				response = database.retrieveMessage(id, connectedUser);
+			}
 			break;
 		case ContentType.USER :
 			if(isAll) {
