@@ -64,7 +64,7 @@ public class Select {
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
-				sql="UPDATE status SET etat = '"+StatusType.USER_SENT+"';";
+				sql="UPDATE status SET etat = '"+StatusType.USER_SENT+"' WHERE	idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"';";
 				state.executeUpdate(sql);
 				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), status, r.getString(3));
 			}
