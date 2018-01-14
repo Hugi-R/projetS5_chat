@@ -32,7 +32,7 @@ public class MainClient {
 			serverAdress = args[1];
 			serverPort = Integer.parseInt(args[2]);
 		} else {
-			serverAdress = "eralyon.net";
+			serverAdress = "localhost";
 			serverPort = 3636;
 		}
 		initConnectionServer();

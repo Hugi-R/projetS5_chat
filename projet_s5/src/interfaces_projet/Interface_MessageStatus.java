@@ -13,8 +13,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import client.ClientDB;
 import client.MainClient;
 import packet.Commands;
+import packet.Message;
 import packet.Request;
 import packet.Status;
+import utils.Id;
+import utils.StatusType;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -29,6 +33,15 @@ public class Interface_MessageStatus extends javax.swing.JFrame {
      * @param message: message selectionné
      */
     public Interface_MessageStatus(MessagePanel message) {
+    	//Update status
+    	if(message.getStatus() != StatusType.USER_READ) {
+			try {
+				MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_STATUS, message.getId(), 0, 0, StatusType.USER_READ, null));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+    	}
+    	
         this.message=message;
         try {
 			MainClient.comm.send(new Request((byte)(Commands.RETRIEVE | Commands.ALL), message.getId()));

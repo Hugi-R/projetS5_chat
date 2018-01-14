@@ -224,6 +224,10 @@ public class Handler implements Runnable{
 			}
 			//daemon.updateClient(id);
 			break;
+		case ContentType.STATUS :
+			Message m = (Message) data;
+			database.changeEtatStatus(m.getUser(), connectedUser);
+			break;
 		default :
 			System.err.println("commandSend : contentType invalid");	
 		}
