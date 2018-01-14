@@ -26,13 +26,13 @@ public class Add {
 			return false;
 		}
 	}
-	protected int addGroup (long val , String nom,java.sql.Statement state) {
-		sql = "SELECT * FROM groupe WHERE idGroupe= '"+val+"';";
+	protected int addGroup (long idGroup , String nom,java.sql.Statement state) {
+		sql = "SELECT * FROM groupe WHERE idGroupe= '"+idGroup+"';";
 		if( foundValues(state)) {
-			System.err.println("[KO] le groupe: "+val+" existe deja.");
+			System.err.println("[KO] le groupe: "+idGroup+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+val+"','"+nom.replace("'", "''")+"');";
+		sql = "INSERT INTO groupe (idGroupe, nomGroupe) VALUES ( '"+idGroup+"','"+nom.replace("'", "''")+"');";
 		return executeUpdate(state);
 	}
 	
@@ -42,7 +42,7 @@ public class Add {
 			System.err.println("[KO] l'utilisateur: "+id+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur.replace("'", "''")+"', '"+prenom.replace("'", "''")+"','"+courriel+"','"+categorie+"');";	
+		sql = "INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES ( '"+id+"',SHA1('"+motDePasse+"'),'"+nomUtilisateur.replace("'", "''")+"', '"+prenom.replace("'", "''")+"','"+courriel.replace("'", "''")+"','"+categorie+"');";	
 		return executeUpdate(state);
 	}
 	
@@ -63,7 +63,7 @@ public class Add {
 			System.err.println("[KO] le message "+id+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text+"');";
+		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text.replace("'", "''")+"');";
 		return executeUpdate(state);
 	}
 	
