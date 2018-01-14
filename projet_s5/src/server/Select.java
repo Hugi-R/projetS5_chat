@@ -92,7 +92,7 @@ public class Select {
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Long> listTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket,auteur FROM ticket,message,posseder where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'))ORDER BY dateMessage DESC;";
+		sql= "SELECT DISTINCT  idTicket,idUtilisateurPosseder,auteur FROM ticket,message,posseder where idTicketMessage = idTicket and idGroupeDestinataire = idGroupePosseder and ( auteur='"+idUser+"'OR  idUtilisateurPosseder='"+idUser+"')ORDER BY dateMessage DESC;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
@@ -206,7 +206,7 @@ public class Select {
 			return null;
 		}
 		if ( (idAuteur = retrieveAuthorOfTicket(idTicket, state)) ==-1) {
-			return null;
+			idAuteur = 0;
 		}
 		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
 	}
