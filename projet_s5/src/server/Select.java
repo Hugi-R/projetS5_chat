@@ -58,7 +58,7 @@ public class Select {
 		return l;
 	}
 	private void changeStatus(long idMessage ,long idUser,java.sql.Statement state) {
-		sql="SELECT * FROM status WHERE idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"' AND etat = '"+StatusType.USER_READ+"' ;";
+		sql="SELECT * FROM status WHERE idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"' AND etat = '"+StatusType.USER_PENDING+"' ;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if (r.next() ) {
@@ -91,7 +91,7 @@ public class Select {
 	
 	private List<Long> recupListTicketOfUser (long idUser,java.sql.Statement state){
 		List<Long> ListTicket = new ArrayList<>();
-		sql= "SELECT DISTINCT  idTicket FROM ticket,message,posseder where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'));";
+		sql= "SELECT DISTINCT  idTicket FROM ticket,message,posseder where idTicketMessage = idTicket AND (( auteur='"+idUser+"') OR (idGroupeDestinataire = idGroupePosseder and idUtilisateurPosseder='"+idUser+"'))ORDER BY dateMessage DESC;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {

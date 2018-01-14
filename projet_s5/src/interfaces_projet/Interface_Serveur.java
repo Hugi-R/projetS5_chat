@@ -327,6 +327,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     public void refreshPage1() {
     	recupUserPanel();
     	listUsers.updateUI();
+    	listeDesUtilisateurs.updateUI();
     }
     private void modifUserAction() {
     	int selectUser = listUsers.getSelectedIndex();
