@@ -73,7 +73,6 @@ public class MessagePanel extends javax.swing.JPanel {
 	public long getId() {
     	return id;
     }
-    
     public void updateDisplayedData() {
     	nomCreateur.setText(user.getName()); //TODO better use of user jpanel
         dateCreation.setText(new java.util.Date((long)time*1000).toString());

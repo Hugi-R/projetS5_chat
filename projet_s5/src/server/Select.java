@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import packet.Commands;
 import packet.Group;
 import packet.Message;

@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import packet.Content;
 import packet.ContentType;
 import utils.Id;
 

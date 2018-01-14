@@ -95,7 +95,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         boutonAddGroup = new javax.swing.JButton();
         boutonDelGroup = new javax.swing.JButton();
-
+        this.setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
        
         setTitle("gestion du serveur");

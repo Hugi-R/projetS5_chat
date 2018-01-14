@@ -113,7 +113,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		//Enter pressed
 		saisieMessage.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "Enter pressed");
         saisieMessage.getActionMap().put("Enter pressed", new AbstractAction() {
-            @Override
+           private static final long serialVersionUID = 1L;
+
+			@Override
             public void actionPerformed(ActionEvent ae) {
             	// envoi message
             	sendMessage();
@@ -124,7 +126,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		//Shift+Enter pressed
         saisieMessage.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.SHIFT_DOWN_MASK, false), "Shift+Enter pressed");
 		saisieMessage.getActionMap().put("Shift+Enter pressed", new AbstractAction() {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             public void actionPerformed(ActionEvent ae) {
                 saisieMessage.setText(saisieMessage.getText()+"\n");
             }
