@@ -134,9 +134,9 @@ public class ClientDB {
 		return ret;
 	}
 	
-	public static UserPanel findUserAll(long id) {
+	public static UserPanel findUserAll(long id, boolean forceRetrieve) {
 		UserPanel ret = null;
-		if((ret = userList.get(id)) == null) {
+		if(forceRetrieve || (ret = userList.get(id)) == null) {
 			User u = (User) retrieveAll(id);
 			if(u != null) {
 				List<GroupPanel> groups = new ArrayList<>();
@@ -153,6 +153,10 @@ public class ClientDB {
 			}
 		}
 		return ret;
+	}
+	
+	public static UserPanel findUserAll(long id) {
+		return findUserAll(id, false);
 	}
 	
 	public static GroupPanel findGroup(long id) {
@@ -188,13 +192,14 @@ public class ClientDB {
 		try {
 			MainClient.comm.send(new Request(Commands.RETRIEVE, id));
 			ret = MainClient.comm.receive();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(ret);
 		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
-			System.err.println("Server responded with fail.");
+			System.err.println("ClientDB.retrieve : Server responded with fail for "+id);
+			new Exception().printStackTrace();
 			ret = null;
 		}
 		return ret;
@@ -205,13 +210,14 @@ public class ClientDB {
 		try {
 			MainClient.comm.send(new Request((byte)(Commands.RETRIEVE | Commands.ALL), id));
 			ret = MainClient.comm.receive();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(ret);
 		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
-			System.err.println("Server responded with fail.");
+			System.err.println("ClientDB.retrieveAll : Server responded with fail for"+id);
+			new Exception().printStackTrace();
 			ret = null;
 		}
 		return ret;

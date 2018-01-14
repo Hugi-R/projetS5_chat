@@ -22,8 +22,8 @@ public class MainClient {
 	public static int serverPort;
 	public static CommunicatorClient comm; //public because a getter will not be very useful here
 	public static List<Group> allGroups;
-	private static UserPanel user;
-	private static Interface_Utilisateur_principale ui;
+	private static long user;
+	public static Interface_Utilisateur_principale ui;
 	private static Interface_Connexion connectUI;
 	
 	public static void main(String[] args) {
@@ -37,6 +37,7 @@ public class MainClient {
 		}
 		initConnectionServer();
 		launchConnectUI();
+		comm.listen();
 	}
 	
 	public static void initConnectionServer() {
@@ -64,7 +65,7 @@ public class MainClient {
 	
 	public static void launchConnectUI() {
 		if(connectUI == null && comm != null) {
-			user = null;
+			user = 0;
 			connectUI = new Interface_Connexion();
 			connectUI.setVisible(true);
 		}
@@ -73,12 +74,13 @@ public class MainClient {
 	public static void setConnectedUser(User u) {
 		flush(false);
 		ClientDB.add(u);
-		user = ClientDB.findUserAll(u.getId());
+		user = u.getId();
+		ClientDB.findUserAll(user);
 		MainClient.retrieveAllGroups();
 		launchMainUI();
 	}
 	
-	public static UserPanel getConnectedUser() {
+	public static long getConnectedUser() {
 		return user;
 	}
 	
@@ -87,7 +89,7 @@ public class MainClient {
 			comm.close();
 			comm = null;
 		}
-		user = null;
+		user = 0;
 		if(ui != null) {
 			ui.dispose();
 			ui = null;
@@ -120,7 +122,7 @@ public class MainClient {
 					allGroups = null;
 				}
 			}
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			allGroups = null;
 			e.printStackTrace();
 		}

@@ -158,12 +158,12 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         String textIntitule = saisieIntitule.getText();
         Packet resp = null;
         if( !textIntitule.isEmpty() && !textMessage.isEmpty()) {
-        	Ticket ticket = new Ticket(Commands.SEND, Id.DEFAULT_ID_TICKET, MainClient.getConnectedUser().getId(), idGroup, textIntitule, null);
+        	Ticket ticket = new Ticket(Commands.SEND, Id.DEFAULT_ID_TICKET, MainClient.getConnectedUser(), idGroup, textIntitule, null);
         	try {
 				MainClient.comm.send(ticket);
 				resp = MainClient.comm.receive();
 				System.out.println("recu : "+resp);
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur de reseau :\n"+e.getStackTrace(),
     				    "Erreur",JOptionPane.ERROR_MESSAGE);
@@ -174,14 +174,13 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         		
         	} else {
         		Ticket t = (Ticket) resp;
-        		ClientDB.add(t);
-        		//TODO update display for ticket
-        		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.getConnectedUser().getId(), t.getId(), 0L, StatusType.MESSAGE_PENDING, textMessage);
+        		//ClientDB.add(t);
+        		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.getConnectedUser(), t.getId(), 0L, StatusType.MESSAGE_PENDING, textMessage);
         		try {
 					MainClient.comm.send(messageToSend);
 					resp = MainClient.comm.receive();
 					System.out.println("recu : "+resp);
-				} catch (IOException | ClassNotFoundException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(this.BoutonCreer, "Erreur de reseau :\n"+e.getStackTrace(),
 	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
@@ -191,7 +190,9 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
             		
             	} else {
-            		ClientDB.add((Message)resp);
+            		//ClientDB.add((Message)resp);
+            		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
+            		MainClient.ui.update();
             	}
         	}
         	this.dispose();

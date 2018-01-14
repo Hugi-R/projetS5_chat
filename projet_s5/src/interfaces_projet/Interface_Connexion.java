@@ -166,7 +166,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
         try {
 			MainClient.comm.send(new Connect(username, password));
 			resp = MainClient.comm.receive();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
     	

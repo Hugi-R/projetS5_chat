@@ -33,7 +33,7 @@ import java.awt.event.ActionEvent;
 public class Interface_Utilisateur_principale extends javax.swing.JFrame implements TreeSelectionListener{
 	private static final long serialVersionUID = 1L;
 	static String texteSaisieMessage = "Saisissez votre texte ici.";
-	private UserPanel user;
+	private long user;
 	public class ConfirmDialogInFrame extends JFrame{
 		private static final long serialVersionUID = 1L;
 		public ConfirmDialogInFrame() {
@@ -46,7 +46,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	/**
 	 * Creates new form JFrame
 	 */
-	public Interface_Utilisateur_principale(UserPanel user) {
+	public Interface_Utilisateur_principale(long user) {
 		setMinimumSize(new Dimension(200, 200));
 		this.user = user;
 		initComponents();
@@ -69,29 +69,6 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 
 		setPreferredSize(new Dimension(560, 600));		
         setTitle("forum universite");
-
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Tickets");
-		System.out.println(user);
-		if (!user.getTicketList().isEmpty()) {
-			for (TicketPanel ticket : user.getTicketList()) {
-				DefaultMutableTreeNode ticketNode = new DefaultMutableTreeNode(ticket);
-				/*if (!groupe.getTicketList().isEmpty()) {
-					Iterable<TicketPanel> iterable3 = groupe.getTicketList();
-					System.out.println("iterable3=" + iterable3.toString());
-					for (TicketPanel ticket : iterable3) {
-						DefaultMutableTreeNode treeNode3 = new DefaultMutableTreeNode(ticket.getName());
-						treeNode2.add(treeNode3);
-					}
-				}*/
-				top.add(ticketNode);
-				
-			}
-		}
-		arborescence = new JTree(top);
-		arborescence.setAutoscrolls(true);
-		arborescence.setScrollsOnExpand(true);
-		arborescence.setToggleClickCount(1);
-		arborescence.addTreeSelectionListener(this);
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 								
@@ -106,7 +83,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		ticketScrollPane = new javax.swing.JScrollPane();
 		ticketScrollPane.setAutoscrolls(true);
 		
-		ticketScrollPane.setViewportView(arborescence);
+		constructTicketTree(); //must be called after ticketScrollPane init
 		leftJPanel.add(ticketScrollPane);
 		
 		newTicketButton = new JButton("Nouveau Ticket");
@@ -171,6 +148,39 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		splitPane.setDividerLocation(0.25);
 	}
 	
+	public void update() {
+		arborescence.updateUI();
+		ticketViewer.updateUI();
+	}
+	
+	/*
+	 * ticketScrollPane must be initialized
+	 */
+	private void constructTicketTree() {
+		UserPanel user = ClientDB.findUserAll(this.user, true);
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Tickets");
+		//System.out.println(user);
+		if (!user.getTicketList().isEmpty()) {
+			for (TicketPanel ticket : user.getTicketList()) {
+				DefaultMutableTreeNode ticketNode = new DefaultMutableTreeNode(ticket);
+				top.add(ticketNode);
+			}
+		}
+		arborescence = new JTree(top);
+		arborescence.setAutoscrolls(true);
+		arborescence.setScrollsOnExpand(true);
+		arborescence.setToggleClickCount(1);
+		arborescence.addTreeSelectionListener(this);
+		ticketScrollPane.setViewportView(arborescence);
+		//update();
+	}
+	
+	public void updateTicketTree(TicketPanel tp) {
+		//DefaultMutableTreeNode top = (DefaultMutableTreeNode) arborescence.getModel().getRoot();
+		//top.add(new DefaultMutableTreeNode(tp));
+		constructTicketTree();
+	}
+	
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node =  (DefaultMutableTreeNode) arborescence.getLastSelectedPathComponent();
@@ -205,7 +215,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 
 	private void sendMessage() {
 		try {
-			MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user.getId(), selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
+			MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
 			Packet resp = MainClient.comm.receive();
 			if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
     			JOptionPane.showMessageDialog(null, "Le serveur a refuser la creation du message .", "Erreur",JOptionPane.ERROR_MESSAGE);
@@ -213,8 +223,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
         		Message m = (Message)resp;
         		ClientDB.add(m);
         		selectedTicket.add(ClientDB.findMessage(m.getId()));
+        		ticketViewer.updateUI();
         	}
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
