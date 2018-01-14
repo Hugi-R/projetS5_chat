@@ -50,6 +50,7 @@ public class TicketPanel extends JPanel {
 	
 	public void loadMessage() {
 		int i = 0;
+		nbMessage = 0;
 		for(long messageId : messages) {
 			nbMessage++;
 			updateGridLayout();

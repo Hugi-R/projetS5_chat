@@ -219,15 +219,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	private void sendMessage() {
 		try {
 			MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
-			Packet resp = MainClient.comm.receive();
-			if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-    			JOptionPane.showMessageDialog(null, "Le serveur a refuser la creation du message .", "Erreur",JOptionPane.ERROR_MESSAGE);
-        	} else {
-        		Message m = (Message)resp;
-        		ClientDB.add(m);
-        		selectedTicket.add(ClientDB.findMessage(m.getId()));
-        		ticketViewer.updateUI();
-        	}
+			//TODO put pending message to be updated
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

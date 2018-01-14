@@ -119,10 +119,10 @@ public class Handler implements Runnable{
 		Request r = (Request) p;
 		boolean isAll = ((p.getCommand() & Commands.ALL)==Commands.ALL);
 		
-		sendData(r.getId(), isAll);
+		sendData(Commands.SEND, r.getId(), isAll);
 	}
 	
-	private void sendData(long id, boolean isAll) {
+	private void sendData(byte command,long id, boolean isAll) {
 		byte type = Id.type(id);
 		Packet response = null;
 		
@@ -156,6 +156,7 @@ public class Handler implements Runnable{
 		//send response
 		if(response != null) {
 			try {
+				response.setCommand(command);
 				comm.send(response);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -193,13 +194,6 @@ public class Handler implements Runnable{
 				}
 			}while((returnCode == -1) || (returnCode == 0));
 			daemon.updateClient(id);
-			
-			//TODO : Now useless, but keeped for back compatibility
-			try {
-				comm.send(database.retrieveMessage(id, connectedUser));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			break;
 			
 		case ContentType.TICKET :
@@ -214,14 +208,6 @@ public class Handler implements Runnable{
 				}
 			}while((returnCode == -1) || (returnCode == 0));
 			daemon.updateClient(id);
-			
-			//TODO : Now useless, but keeped for back compatibility
-			try {
-				comm.send(new Ticket(Commands.SEND, id, ticket.getCreatorId(), ticket.getGroupId(), ticket.getName(), null));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
 		default :
 			System.err.println("commandSend : contentType invalid");	
 		}
@@ -238,7 +224,7 @@ public class Handler implements Runnable{
 	}
 	
 	public void update(long id) {
-		sendData(id, false);
+		sendData(Commands.UPDATE, id, false);
 	}
 
 }

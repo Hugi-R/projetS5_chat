@@ -111,6 +111,9 @@ public class ClientDB {
 		case ContentType.MESSAGE :
 			messageList.remove(c.getId());
 			add(c);
+			Message m = (Message) c;
+			TicketPanel tp = findTicket(m.getTicket());
+			tp.addMessage(findMessage(m.getId()));
 			break;
 		case ContentType.USER :
 			userList.remove(c.getId());
