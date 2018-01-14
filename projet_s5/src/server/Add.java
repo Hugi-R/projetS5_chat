@@ -60,19 +60,20 @@ public class Add {
 			
 	}
 	
-	protected int addMessage (long id , long auteur,long idTicket ,String text,java.sql.Statement state) {
+	protected int addMessage (long idMessage , long auteur,long idTicket ,String text,java.sql.Statement state) {
 		int i = 0;
-		sql = "SELECT * FROM message WHERE idMessage = '"+id+"';";
+		sql = "SELECT * FROM message WHERE idMessage = '"+idMessage+"';";
 		if( foundValues(state)) {
-			System.err.println("[KO] le message "+id+" existe deja.");
+			System.err.println("[KO] le message "+idMessage+" existe deja.");
 			return -1;
 		}
-		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+id+"',NOW(),'"+auteur+"','"+idTicket+"','"+text.replace("'", "''")+"');";
+		sql = "INSERT INTO message (idMessage,dateMessage , auteur ,idTicketMessage, message) VALUES ( '"+idMessage+"',NOW(),'"+auteur+"','"+idTicket+"','"+text.replace("'", "''")+"');";
 		i = executeUpdate(state);
 		if (i != 0) {
-			List<Long> listUser = select.retrieveUserRecipientOfMessage(id, state);
+			List<Long> listUser = select.retrieveUserRecipientOfMessage(idMessage, state);
+			listUser.remove(auteur);
 			for(Long l : listUser) {
-					i=addStatus(l, id,StatusType.USER_PENDING , state);
+					i+=addStatus(l, idMessage,StatusType.USER_PENDING , state);
 			}
 		}else {
 			return -1;

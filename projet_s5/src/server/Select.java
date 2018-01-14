@@ -161,7 +161,7 @@ public class Select {
 		return null;
 	}
 	private long retrieveAuthorOfTicket (long idTicket,java.sql.Statement state){
-		sql="SELECT DISTINCT auteur FROM ticket,message WHERE idTicket ='"+idTicket+"' AND idTicketMessage = idTicket ORDER BY dateMessage;";
+		sql="SELECT DISTINCT auteur,dateMessage FROM ticket,message WHERE idTicket ='"+idTicket+"' AND idTicketMessage = idTicket ORDER BY dateMessage;";
 		try {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()){ 
@@ -282,29 +282,23 @@ public class Select {
 		return null;
 	}
 	protected List<Long> retrieveUserRecipientOfMessage (long idMessage, java.sql.Statement state){
-		sql="SELECT idGroupeDestinataire FROM ticket,message WHERE	idTicketMessage=idTicket AND idMessage = '"+idMessage+"' ;";
+		sql="SELECT idGroupeDestinataire,idTicket FROM ticket,message WHERE	idTicketMessage=idTicket AND idMessage = '"+idMessage+"' ;";
 		ResultSet r;
-		List<Long> listeUser = null;
+		List<Long> listUser = null;
 		try {
 			r = state.executeQuery(sql);
 			if (r.next()) {
 				long idGrp = r.getLong(1);
-				listeUser = idutilInGroup(idGrp, state);
-			
-				r.close();
-				sql="SELECT auteur FROM message WHERE idMessage = '"+idMessage+"' ;";
-				r = state.executeQuery(sql);
-				if(r.next()) {
-					listeUser.add(r.getLong(1));
-				}else {
-					return null;
-				}
+				long ticket = r.getLong(2);
+				listUser = idutilInGroup(idGrp, state);
+				listUser.add(retrieveAuthorOfTicket(ticket, state));
 			}else {
 				return null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return listeUser;
+		System.out.println("lokk : "+listUser);
+		return listUser;
 	}
 }
