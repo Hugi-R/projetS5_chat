@@ -8,16 +8,16 @@ installation de la base de donnée :
 		-lancez votre serveur 
 		-tapez "CREATE database" (vous pouvez changer database pour un autre nom pour votre base )
 		-tapez "USE database" (vous etes maintenant dans la base de donnée )
-		-ouvrer le document "bd.sql" dans la dossier du projets5
+		-ouvrer le document "createBD.sql" dans la dossier du projets5
 		-coller son contenu dans votre serveur pour obtenir toutes les tables
 	 Depuis un navigateur :
 		- assurez vous d'avoir installée adminer
 		- lancez votre bd 
 		- sur votre navigateur tapez 'localhost' ou 127.0.0.1 
 		- rentrez vos identifiant 
-		- puis cliquez sur importer selectionner "bd.sql" et faites executer
+		- puis cliquez sur importer selectionner "createBD.sql" et faites executer
 		- vos tables son maintenant créer vous pouvez fermer le navigateur 
-	
+	(pour recreer la base de donnée utilisez reCreateBD.sql )
 Lancer le serveur :
     Compilez le code avec comme main MainServer ou téléchargez server.jar
     Le serveur prend comme arguments (dans l'ordre) : 
