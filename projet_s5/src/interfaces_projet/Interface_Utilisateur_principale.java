@@ -221,7 +221,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	}
 
 	private void sendMessage() {
-		if(this.arborescence.isCursorSet()) {
+		if(selectedTicket != null) {
 			try {
 				MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
 				//TODO put pending message to be updated
@@ -229,7 +229,8 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 				e.printStackTrace();
 			}
 		} else {
-			//TODO: afficher notif
+			JOptionPane.showMessageDialog(new ConfirmDialogInFrame(), "Pas de ticket selectionne",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
