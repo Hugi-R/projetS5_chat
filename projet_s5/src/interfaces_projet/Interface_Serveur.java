@@ -32,7 +32,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
 	        this.addWindowListener(new java.awt.event.WindowAdapter() {
 	        	@Override
 	     		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-	        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close this window?", "Really Closing?",
+	        		if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Etes-vous sur de vouloir fermer cette fenetre?", "fermeture",
 	        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 	     				data.closeConnection();
 	     				System.exit(0);
@@ -271,7 +271,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     private void deleteGroup() {
     	int selectGroup = listGroups.getSelectedIndex();
     	if(selectGroup != -1 && 0 !=data.deleteGroup(listGroup.get(selectGroup).getId())){
-    		JOptionPane.showMessageDialog(null,listGroup.get(selectGroup).getName()+" a bien été supprimé ",
+    		JOptionPane.showMessageDialog(null,listGroup.get(selectGroup).getName()+" a bien ete supprime ",
     				    "",JOptionPane.INFORMATION_MESSAGE);
     		refreshPage2();
     	}
@@ -285,7 +285,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     		if( i!=1) {
     			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur est deja dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
-    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien été deplacé dans "+listGroup.get(selectGroup).getName(),
+    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien ete deplace dans "+listGroup.get(selectGroup).getName(),
     				    "",JOptionPane.INFORMATION_MESSAGE);
     		}
     	}else {
@@ -301,7 +301,7 @@ public class Interface_Serveur extends javax.swing.JFrame {
     		if( i!=1) {
     			JOptionPane.showMessageDialog(null,"Erreur cet utilisateur n'est pas dans ce groupe","Erreur",JOptionPane.ERROR_MESSAGE);
     		}else {
-    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien été enlevé du groupe "+listGroup.get(selectGroup).getName(),
+    			JOptionPane.showMessageDialog(null, listUser.get(selectUser).getPrenom()+" "+listUser.get(selectUser).getNom()+" a bien ete enleve du groupe "+listGroup.get(selectGroup).getName(),
     				    "",JOptionPane.INFORMATION_MESSAGE);
     		}
     	}else {

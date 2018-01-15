@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import client.ClientDB;
-import client.MainClient;
 
 public class TicketPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -87,11 +86,9 @@ public class TicketPanel extends JPanel {
 	}
 	
 	public void addMessage(MessagePanel message) {
-		nbMessage++;
-		updateGridLayout();
-		add(message, nbMessage - 1);
 		messages.add(message.getId());
-		MainClient.repaint();
+		loadMessage();
+		//TODO find better
 	}
 	
 	

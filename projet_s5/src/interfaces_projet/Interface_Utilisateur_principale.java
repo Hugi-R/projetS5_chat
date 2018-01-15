@@ -52,7 +52,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Are you sure to close the app?", "Really Closing?",
+				if (JOptionPane.showConfirmDialog(new ConfirmDialogInFrame(), "Etes-vous sur de vouloir fermer cette fenetre?", "fermeture",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					// action on closing
 					MainClient.close();
@@ -135,7 +135,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		
 		saisieMessage.setText(texteSaisieMessage);
 		saisieMessage.setToolTipText("<html>"
-				+ "shift+Entree: retour a  la ligne"
+				+ "shift+Entree: retour a la ligne"
 		        + "<br>"
 				+ "Entree: envoyer le message"
 				+ "</html>");
@@ -221,11 +221,16 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	}
 
 	private void sendMessage() {
-		try {
-			MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
-			//TODO put pending message to be updated
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(selectedTicket != null) {
+			try {
+				MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
+				//TODO put pending message to be updated
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(new ConfirmDialogInFrame(), "Pas de ticket selectionne",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
