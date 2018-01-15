@@ -221,14 +221,13 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	}
 
 	private void sendMessage() {
-		if (selectedTicket.getId() != -1) {
 			try {
 				MainClient.comm.send(new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, user, selectedTicket.getId(), 0L, StatusType.MESSAGE_PENDING, saisieMessage.getText()));
 				//TODO put pending message to be updated
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		
 	}
 	
 	private javax.swing.JTree arborescence;
