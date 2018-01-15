@@ -26,9 +26,9 @@ public class MainClient {
 	
 	public static void main(String[] args) {
 		System.out.println("Lancement du client");
-		if(args.length == 3) {
-			serverAdress = args[1];
-			serverPort = Integer.parseInt(args[2]);
+		if(args.length == 2) {
+			serverAdress = args[0];
+			serverPort = Integer.parseInt(args[1]);
 		} else {
 			serverAdress = "localhost";
 			serverPort = 3636;
