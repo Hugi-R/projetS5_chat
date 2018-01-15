@@ -77,8 +77,5 @@ CREATE TABLE `status` (
   CONSTRAINT `status_ibfk_1` FOREIGN KEY (`idMessageStatus`) REFERENCES `message` (`idMessage`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
-
-
+INSERT INTO utilisateur (idUtilisateur, motDePasse, nomUtilisateur, prenom ,courriel,categorie) VALUES (189358927445373257,null,'NoName','NoName',null,'INVITE') ;
 
