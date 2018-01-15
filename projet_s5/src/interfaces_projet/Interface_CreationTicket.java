@@ -174,8 +174,8 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
         		
         	} else {
         		Ticket t = (Ticket) resp;
-        		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
-        		MainClient.ui.update();
+        		//MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
+        		//MainClient.ui.update();
         		Message messageToSend = new Message(Commands.SEND, Id.DEFAULT_ID_MESSAGE, MainClient.getConnectedUser(), t.getId(), 0L, StatusType.MESSAGE_PENDING, textMessage);
         		try {
 					MainClient.comm.send(messageToSend);
@@ -185,7 +185,7 @@ public class Interface_CreationTicket extends javax.swing.JFrame {
 	    				    "Erreur",JOptionPane.ERROR_MESSAGE);
 				}
         		MainClient.ui.updateTicketTree(ClientDB.findTicket(t.getId()));
-        		MainClient.ui.update();
+        		//MainClient.ui.update();
         	}
         	this.dispose();
         }else {

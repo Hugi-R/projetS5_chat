@@ -20,6 +20,7 @@ public class CommunicatorServer {
 	}
 	
 	public void send(Packet data) throws IOException {
+		System.out.println("SENDING : "+data);
 		out.writeObject(data);
 	}
 	

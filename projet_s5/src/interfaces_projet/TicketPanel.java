@@ -87,11 +87,9 @@ public class TicketPanel extends JPanel {
 	}
 	
 	public void addMessage(MessagePanel message) {
-		nbMessage++;
-		updateGridLayout();
-		add(message, nbMessage - 1);
 		messages.add(message.getId());
-		MainClient.repaint();
+		loadMessage();
+		//TODO find better
 	}
 	
 	

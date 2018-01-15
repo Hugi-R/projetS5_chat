@@ -209,7 +209,7 @@ public class Select {
 			return null;
 		}
 		if ( (idAuteur = retrieveAuthorOfTicket(idTicket, state)) ==-1) {
-			idAuteur = 189358927445373257L;
+			idAuteur = 0L;
 		}
 		return new Ticket(Commands.SEND,idTicket,idAuteur,idGroup,name,idMessageOfTicket(idTicket, state));
 	}

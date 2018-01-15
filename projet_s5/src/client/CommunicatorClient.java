@@ -9,7 +9,6 @@ import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 import packet.Commands;
-import packet.Content;
 import packet.Packet;
 
 public class CommunicatorClient {
@@ -52,18 +51,22 @@ public class CommunicatorClient {
 	}
 	
 	public Packet receive() throws IOException {
-		if(listening) {
-			while(fifo.isEmpty()) {
-				try {
-					TimeUnit.MILLISECONDS.sleep(10L);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-					Thread.currentThread().interrupt();
+		synchronized (fifo) {
+			if(listening) {
+				System.out.println("WAITING FOR ANSWER ...");
+				//new Exception().printStackTrace();
+				while(fifo.isEmpty()) {
+					try {
+						TimeUnit.MILLISECONDS.sleep(10L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+						Thread.currentThread().interrupt();
+					}
 				}
+				return fifo.poll();
+			} else {
+				throw new IOException("Client not listening");
 			}
-			return fifo.poll();
-		} else {
-			throw new IOException("Client not listening");
 		}
 	}
 	
@@ -93,13 +96,8 @@ public class CommunicatorClient {
 	}
 	
 	private void update(Packet p) {
-		System.out.println("UPDATE : "+p);
-		try {
-			ClientDB.update((Content)p);
-			MainClient.ui.update();
-		} catch (ClassCastException e) {
-			e.printStackTrace();
-		}
+		//System.out.println(p);
+		new Thread(new Update(p)).start();
 	}
 	
 	
