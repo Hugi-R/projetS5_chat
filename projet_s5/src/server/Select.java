@@ -79,7 +79,11 @@ public class Select {
 			ResultSet r = state.executeQuery(sql);
 			if(r.next()) {
 				
-				m = new Message(Commands.SEND,idMessage,r.getLong(2),r.getLong(4),r.getLong(1), status, r.getString(3));
+				long user = r.getLong(2);
+				long ticket = r.getLong(4);
+				long time = r.getLong(1);
+				String text = r.getString(3);
+				m = new Message(Commands.SEND,idMessage,user,ticket,time, status, text);
 				
 			}
 		} catch (SQLException e) {
