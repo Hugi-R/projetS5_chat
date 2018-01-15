@@ -63,7 +63,7 @@ public class MessagePanel extends javax.swing.JPanel {
 	}
 
 	public javax.swing.JTextArea getTextMessage() {
-		return TextMessage;
+		return textMessage;
 	}
 
 	public javax.swing.JLabel getNomCreateur() {
@@ -76,7 +76,7 @@ public class MessagePanel extends javax.swing.JPanel {
     public void updateDisplayedData() {
     	nomCreateur.setText(user.getName()); //TODO better use of user jpanel
         dateCreation.setText(new java.util.Date((long)time*1000).toString());
-        TextMessage.setText(message);
+        textMessage.setText(message);
         updateColor();
     }
 
@@ -123,20 +123,20 @@ public class MessagePanel extends javax.swing.JPanel {
         textPanel = new JPanel();
         add(textPanel, BorderLayout.CENTER);
         textPanel.setLayout(new BorderLayout(0, 0));
-        TextMessage = new javax.swing.JTextArea();
-        TextMessage.setLineWrap(true);
-        textPanel.add(TextMessage);
+        textMessage = new javax.swing.JTextArea();
+        textMessage.setLineWrap(true);
+        textPanel.add(textMessage);
         
-        TextMessage.setEditable(false);
-        TextMessage.setColumns(20);
-        TextMessage.setRows(5);
+        textMessage.setEditable(false);
+        textMessage.setColumns(20);
+        textMessage.setRows(5);
         
         java.awt.event.MouseAdapter evtClick = new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onClick();
             }
         };
-        TextMessage.addMouseListener(evtClick);
+        textMessage.addMouseListener(evtClick);
         this.addMouseListener(evtClick);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,7 +164,7 @@ public class MessagePanel extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextMessage;
+    private javax.swing.JTextArea textMessage;
     private javax.swing.JLabel dateCreation;
     private javax.swing.JPanel topPanel;
     private javax.swing.JLabel nomCreateur;

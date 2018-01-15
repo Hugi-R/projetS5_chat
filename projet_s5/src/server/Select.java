@@ -253,7 +253,7 @@ public class Select {
 			e.printStackTrace();
 			return null;
 		}
-		System.err.println(status);
+		//System.err.println(status);
 		return status;
 	}
 	

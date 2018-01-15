@@ -124,7 +124,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
     	
-    	System.out.println(resp);
+    	//System.out.println(resp);
         if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
         	JOptionPane.showMessageDialog(this.boutonConnexion, "Connection refusé.",
 				    "Erreur",JOptionPane.ERROR_MESSAGE);

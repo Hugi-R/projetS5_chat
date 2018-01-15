@@ -55,7 +55,7 @@ public class CommunicatorClient {
 		if(listening) {
 			while(fifo.isEmpty()) {
 				try {
-					TimeUnit.MILLISECONDS.sleep(50L);
+					TimeUnit.MILLISECONDS.sleep(10L);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 					Thread.currentThread().interrupt();

@@ -137,14 +137,14 @@ public class ClientDB {
 		MessagePanel ret = null;
 		if((ret = messageList.get(id)) == null) {
 			Message m = (Message) retrieve(id);
-			System.out.println(m);
+			//System.out.println(m);
 			if(m != null) {
 				MessagePanel message = new MessagePanel(m.getId(), m.getTime(), findUser(m.getUser()), m.getStatus(), m.getTextMessage());
 				messageList.put(m.getId(), message);
 				ret = message;
 			}
 		}
-		System.out.println(ret);
+		//System.out.println(ret);
 		return ret;
 	}
 	
@@ -223,7 +223,7 @@ public class ClientDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(ret);
+		//System.out.println(ret);
 		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
 			System.err.println("ClientDB.retrieve : Server responded with fail for "+id);
 			new Exception().printStackTrace();
@@ -241,7 +241,7 @@ public class ClientDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(ret);
+		//System.out.println(ret);
 		if((ret.getCommand() & Commands.FAIL ) == Commands.FAIL) {
 			System.err.println("ClientDB.retrieveAll : Server responded with fail for"+id);
 			new Exception().printStackTrace();

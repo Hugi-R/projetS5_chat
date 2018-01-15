@@ -135,9 +135,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		
 		saisieMessage.setText(texteSaisieMessage);
 		saisieMessage.setToolTipText("<html>"
-				+ "shift+Entrée: retour à la ligne"
+				+ "shift+Entree: retour a� la ligne"
 		        + "<br>"
-				+ "Entrée: envoyer le message"
+				+ "Entree: envoyer le message"
 				+ "</html>");
 		saisieMessage.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,7 +168,6 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 	private void constructTicketTree() {
 		UserPanel user = ClientDB.findUserAll(this.user, true);
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Tickets");
-		//System.out.println(user);
 		if (!user.getTicketList().isEmpty()) {
 			for (TicketPanel ticket : user.getTicketList()) {
 				DefaultMutableTreeNode ticketNode = new DefaultMutableTreeNode(ticket);
@@ -181,11 +180,9 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		arborescence.setToggleClickCount(1);
 		arborescence.addTreeSelectionListener(this);
 		ticketScrollPane.setViewportView(arborescence);
-		//update();
 	}
 	
 	public void updateTicketTree(TicketPanel tp) {
-		System.out.println("-- 1.2 --");
 		//DefaultMutableTreeNode top = (DefaultMutableTreeNode) arborescence.getModel().getRoot();
 		//top.add(new DefaultMutableTreeNode(tp));
 		constructTicketTree();
@@ -215,7 +212,7 @@ public class Interface_Utilisateur_principale extends javax.swing.JFrame impleme
 		pack();
 	}
 
-	private void saisieMessageMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_saisieMessageMouseClicked
+	private void saisieMessageMouseClicked(java.awt.event.MouseEvent evt) {
 
 		Component component = evt.getComponent();
 		if (saisieMessage.equals(component) && texteSaisieMessage.equals(saisieMessage.getText())) {
