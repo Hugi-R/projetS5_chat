@@ -24,6 +24,7 @@ public class Select {
 				System.out.println("[OK] requete connect");
 				i=r.getLong(1);
 			}
+			r.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,6 +40,7 @@ public class Select {
 				if(!l.contains(r.getObject(1)))
 					l.add(r.getLong(1));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,6 +54,7 @@ public class Select {
 			while(r.next()){ 
 				l.add(r.getLong(2));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,6 +68,7 @@ public class Select {
 				sql="UPDATE status SET etat = '"+StatusType.USER_SENT+"' WHERE	idLecteur ='"+idUser+"' AND idMessageStatus = '"+idMessage+"';";
 				state.executeUpdate(sql);
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,6 +90,7 @@ public class Select {
 				m = new Message(Commands.SEND,idMessage,user,ticket,time, status, text);
 				
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return m;
@@ -102,6 +107,7 @@ public class Select {
 				if(!listTicket.contains(r.getLong(1)))
 					listTicket.add(r.getLong(1));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -115,6 +121,7 @@ public class Select {
 			while(r.next()) {
 				Listgroup.add(r.getLong(1));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -134,6 +141,7 @@ public class Select {
 				List<Long> tickets = recupListTicketOfUser(idUser, state);
 				u = new User(Commands.SEND,idUser,nom,prenom,agent,groups,tickets);
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -147,6 +155,7 @@ public class Select {
 			if(r.next()) {
 				return new User(Commands.SEND,idUser,r.getString(1),r.getString(2),r.getString(3),null,null);
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return u;
@@ -160,6 +169,7 @@ public class Select {
 			if(r.next()){ 
 				return r.getString(1);
 			}
+			r.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -172,6 +182,7 @@ public class Select {
 			if(r.next()){ 
 				return r.getLong(1);
 			}
+			r.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,6 +196,7 @@ public class Select {
 			if(r.next()) {
 				g = new Group(Commands.SEND,idGroup,r.getString(1));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -204,6 +216,7 @@ public class Select {
 			}else {
 				return null;
 			}
+			r.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -221,6 +234,7 @@ public class Select {
 			while(r.next()) {
 				listUser.add(new User(Commands.SEND,r.getLong(1),r.getString(2),r.getString(3),r.getString(4),null,null));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -235,6 +249,7 @@ public class Select {
 			while(r.next()) {
 				listGrp.add(new Group(Commands.SEND,r.getLong(1),r.getString(2)));
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -251,8 +266,8 @@ public class Select {
 			ResultSet r = state.executeQuery(sql);
 			while(r.next()) {
 				status.get(r.getByte(2)).add(r.getLong(1));
-				
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -282,6 +297,7 @@ public class Select {
 			if(r.next()) {
 				return r.getString(1);
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -301,6 +317,7 @@ public class Select {
 			}else {
 				return null;
 			}
+			r.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
