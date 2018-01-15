@@ -190,7 +190,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     	 if(user.getId() == 0) {
     		if(!saisieNom.getText().isEmpty() && !saisiePrenom.getText().isEmpty() && !saisieMDP.getText().isEmpty() && !saisieMail.getText().isEmpty() ) {
     			if( 1==data.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
-    				succes("Utilisateur ajouté .");
+    				succes("Utilisateur ajoute .");
     				fenetreprincipale.refreshPage1();
     				this.dispose();
     			}
