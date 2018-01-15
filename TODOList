@@ -1,0 +1,98 @@
+
+
+PROJET ENTIER
+
+vérifier les redimensions
+titre de la fenetre
+taille min/max
+
+
+
+
+
+Interface_Connexion
+
+lien entre fenetres (plus tard)
+	
+
+/////////////////////////////////////////////////////////////////////////
+Interface_CreationTicket
+
+boutonCreer
+	ajouter envoi a la BD avant de fermer la fenetre
+	COMMENCÉ
+
+listGroups
+	model
+		set messagesTicket's model property using : Value from existing component
+
+
+/////////////////////////////////////////////////////////////////////////
+Interface_ErreurCo
+	all   (si le temps)
+
+/////////////////////////////////////////////////////////////////////////
+Interface_Inscription
+
+boutonCreer
+	envoi a la BD
+
+/////////////////////////////////////////////////////////////////////////
+Interface_MessageStatus
+
+chercher infos userListStatusMessage
+
+a continuer
+
+
+/////////////////////////////////////////////////////////////////////////
+Interface_NotificationCreationTicket
+
+DONE
+
+/////////////////////////////////////////////////////////////////////////
+Interface_Serveur
+
+tableau
+	groups
+		listeDesGroupes
+			model
+				Value from existing component
+					listeDesUtilisateurs.groupesAuxquelsIlAppartient
+
+
+/////////////////////////////////////////////////////////////////////////
+Interface_Utilisateur_Pricipale
+
+arborescence[JTree]
+	model
+		set arborescence's model property using : Value from existing component
+			v utilisateur
+					v groupe1
+						v fil1
+							message1
+							message2
+							message3
+							message4
+							message5
+						> fil2
+						> fil3
+					> groupe2
+
+
+
+
+messagesTicket[JList]
+	model
+		set messagesTicket's model property using : Value from existing component
+			
+
+
+
+
+
+
+
+
+
+
