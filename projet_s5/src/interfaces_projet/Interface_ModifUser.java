@@ -188,7 +188,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     }
     private void boutonAddUserMouseClicked() {  
     	 if(user.getId() == 0) {
-    		if(saisieNom.getText() != "" && saisiePrenom.getText() != "" && saisieMDP.getText() !="" && saisieMail.getText() !="" ) {
+    		if(!saisieNom.getText().isEmpty() && !saisiePrenom.getText().isEmpty() && !saisieMDP.getText().isEmpty() && !saisieMail.getText().isEmpty() ) {
     			if( 1==data.addUser(Id.generate(ContentType.USER), saisieMDP.getText(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {
     				succes("Utilisateur ajouté .");
     				fenetreprincipale.refreshPage1();
@@ -200,7 +200,7 @@ public class Interface_ModifUser extends javax.swing.JFrame {
     		}
     	}else {
     		
-    		if (saisieMDP.getText() !="") {
+    		if (!saisieMDP.getText().isEmpty()) {
     			data.changePasswd(user.getId(), saisieMDP.getText());
     		}
     		if( 1==data.changeUser(user.getId(), saisieNom.getText(), saisiePrenom.getText(), saisieMail.getText(), (Categorie)saisiecat.getSelectedItem())) {

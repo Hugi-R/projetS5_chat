@@ -99,12 +99,15 @@ public class Interface_AddGroup extends javax.swing.JFrame {
     }                                          
     
     private void boutonAddGroupActionPerformed() {                                               
-       if(saisieNom.getText() != "") {
+       if(!saisieNom.getText().isEmpty()) {
     	  if(1== fenetreprincipale.getDatabase().addgroup(Id.generate(ContentType.GROUP), saisieNom.getText())){
     		  JOptionPane.showMessageDialog(this.boutonAddGroup, "Groupe cree","",JOptionPane.INFORMATION_MESSAGE);
     		  fenetreprincipale.refreshPage2();
 			  this.dispose();
     	  }
+       }else {
+    	   JOptionPane.showMessageDialog(this.boutonAddGroup, "Veuillez remplir le champ nom.",
+				    "Erreur",JOptionPane.ERROR_MESSAGE);
        }
         this.dispose();
     } 
