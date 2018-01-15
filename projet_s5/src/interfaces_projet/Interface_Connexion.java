@@ -126,7 +126,7 @@ public class Interface_Connexion extends javax.swing.JFrame {
     	
     	//System.out.println(resp);
         if((resp == null) || (resp.getCommand() & Commands.FAIL) == Commands.FAIL) {
-        	JOptionPane.showMessageDialog(this.boutonConnexion, "Connection refusé.",
+        	JOptionPane.showMessageDialog(this.boutonConnexion, "Connection refuse.",
 				    "Erreur",JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
