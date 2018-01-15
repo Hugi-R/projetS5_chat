@@ -93,7 +93,7 @@ public class CommunicatorClient {
 	}
 	
 	private void update(Packet p) {
-		System.out.println("OOO--- UPDATE : "+p);
+		System.out.println("UPDATE : "+p);
 		try {
 			ClientDB.update((Content)p);
 			MainClient.ui.update();
